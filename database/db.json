@@ -1,0 +1,167 @@
+{
+  "users": [
+    {
+      "email": "son@gmail.com",
+      "password": "$2a$10$WlOTehkojg1Qv74tmMqCZO16YdyFD.L.LllBgYCsYbK5PbyFacK8S",
+      "fullName": "nguyen thai son",
+      "role": "user",
+      "createdAt": 1665420819271,
+      "updatedAt": 1665420819272,
+      "id": 1
+    },
+    {
+      "email": "son2@gmail.com",
+      "password": "$2a$10$W3j03B8Gd0De7iiheEtyL.LeubGFB/4mjxcJv1MFUbM45rfTDfHxC",
+      "fullName": "son2",
+      "role": "user",
+      "createdAt": 1665460885392,
+      "updatedAt": 1665460885392,
+      "id": 2
+    },
+    {
+      "email": "son3@gmail.com",
+      "password": "$2a$10$iDsD38Ie6hoqQyVZlAR9welZJFYFG9yE.oRvunxz93aHAPExouJ.K",
+      "fullName": "son3",
+      "role": "user",
+      "createdAt": 1665483729320,
+      "updatedAt": 1665483729320,
+      "id": 3
+    },
+    {
+      "email": "son4@gmail.com",
+      "password": "$2a$10$kQPZXZECZLl.QXBBa88xUu4xPo5.WdFhvPOiBaNHawWFXtxf2jeEa",
+      "fullName": "son4",
+      "role": "user",
+      "createdAt": 1665483765921,
+      "updatedAt": 1665483765921,
+      "id": 4
+    },
+    {
+      "email": "son5@gmail.com",
+      "password": "$2a$10$HfDHYqXeKdCWTlWNhnKbIOMxpugz.oLmAwUD1H7RHFc5NW4pRhSYm",
+      "fullName": "son5",
+      "role": "user",
+      "createdAt": 1665504502024,
+      "updatedAt": 1665504502024,
+      "id": 5
+    },
+    {
+      "email": "son-admin@gmail.com",
+      "password": "$2a$10$lMDpVluJVeAEM1kUNgHE5.SrUOAasxiYheN59cNtVttiDFKC8cM4O",
+      "fullName": "son-admin",
+      "role": "admin",
+      "createdAt": 1665565063703,
+      "updatedAt": 1665565063703,
+      "id": 6
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Nike air jordan",
+      "price": 1200000,
+      "categoryId": 1,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "Nike-air-jordan",
+      "color": "Black"
+    },
+    {
+      "id": 2,
+      "name": "Vans X",
+      "price": 1200000,
+      "categoryId": 2,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "Nike-air-jordan 2",
+      "color": "Black"
+    },
+    {
+      "id": 3,
+      "name": "New Balance",
+      "price": 1000,
+      "categoryId": 3,
+      "content": "<h3 class='ql-align-justify'>Dẫn đầu xu hướng thiết kế mới&nbsp;</h3><p class='ql-align-justify'>Có lẽ điện thoại gập đã không còn là cái tên quá xa lạ bởi nhiều ông lớn trong ngành sản xuất thiết bị di động đã cho ra mắt khá nhiều sản phẩm có thiết kế tương tự, gần đây nhất thì có sự góp mặt của chiếc flagship đến từ nhà Samsung mang tên Galaxy Z Flip4.&nbsp;</p><p class='ql-align-justify'> <br></p><p class='ql-align-justify'> <a href='https://cdn.tgdd.vn/Products/Images/42/258047/samsung-galaxy-z-flip4-230922-100334.jpg' target='_blank' style='color: rgb(21, 94, 193); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'> <img src='https://cdn.tgdd.vn/Products/Images/42/258047/samsung-galaxy-z-flip4-230922-100334.jpg' alt='Thiết kế cao cấp - Samsung Galaxy Z Flip4'> </a></p><p class='ql-align-justify'> <br></p><p class='ql-align-justify'> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Ngay từ những giây phút đầu tiên sử dụng chiếc Galaxy Z Flip4 mình đã cảm nhận được sự khác biệt của nó so với thế hệ trước, máy bây giờ đã vuông vắn hơn nhờ tạo hình vát phẳng ở hai mặt và các cạnh.</span></p><ul> <li> <br> </li></ul>",
+      "slug": "New Balance",
+      "color": "Black"
+    },
+    {
+      "id": 4,
+      "name": "Adidas",
+      "price": 7000000,
+      "categoryId": 4,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "Adidas",
+      "color": "Black"
+    },
+    {
+      "id": 5,
+      "name": "Reebook 19",
+      "price": 1000000,
+      "categoryId": 5,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "Reebook 19",
+      "color": "Black"
+    },
+    {
+      "id": 6,
+      "name": "Asics 5",
+      "price": 50000,
+      "categoryId": 6,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "Asics 5",
+      "color": "White"
+    },
+    {
+      "id": 7,
+      "name": "MLB 2",
+      "price": 20034000,
+      "categoryId": 7,
+      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
+      "slug": "MLB 2",
+      "color": "White"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Nike"
+    },
+    {
+      "id": 2,
+      "name": "Vans"
+    },
+    {
+      "id": 3,
+      "name": "New Balance"
+    },
+    {
+      "id": 4,
+      "name": "Adidas"
+    },
+    {
+      "id": 5,
+      "name": "Reebook"
+    },
+    {
+      "id": 6,
+      "name": "Asics"
+    },
+    {
+      "id": 7,
+      "name": "MLB"
+    }
+  ],
+  "options": [
+    {
+      "id": 1,
+      "productId": 1,
+      "color": "Black",
+      "bonusPrice": 0
+    },
+    {
+      "id": 2,
+      "productId": 1,
+      "color": "White",
+      "bonusPrice": 200000
+    }
+  ]
+}
