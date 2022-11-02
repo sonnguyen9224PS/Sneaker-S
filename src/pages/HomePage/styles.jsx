@@ -110,7 +110,7 @@ export const ArrivalWrapper = styled.div`
     text-transform: uppercase;
     text-align: center;
   }
-  .moreArrivalBtn {
+  .moreBtn {
     display: flex;
     justify-content: flex-end;
     align-items: center;

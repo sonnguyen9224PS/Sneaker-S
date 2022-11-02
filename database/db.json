@@ -120,7 +120,7 @@
       "slug": "Asics 5",
       "size": [38, 39, 40, 41, 42, 43],
       "new": false,
-      "sale": 20
+      "sale": 30
     },
     {
       "id": 7,
@@ -131,7 +131,7 @@
       "slug": "MLB 2",
       "size": [38, 39, 40, 41, 42, 43],
       "new": false,
-      "sale": 10
+      "sale": 30
     },
     {
       "id": 8,
@@ -160,17 +160,6 @@
       "name": "Nike 2 new",
       "price": 20034000,
       "categoryId": 1,
-      "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
-      "slug": "MLB 2",
-      "size": [38, 39, 40, 41, 42, 43],
-      "new": true,
-      "sale": 0
-    },
-    {
-      "id": 11,
-      "name": "Off-White",
-      "price": 20034000,
-      "otherId": 14,
       "content": "<ul> <li> <span style='color: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);'>Mua&nbsp;Giày Vans X Skate Old Skool 'Frog&nbsp;LTD' VN0A5HF33LT chính hãng 100% có sẵn tại Jordan Viet Nam. Giao hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn đời. MUA NGAY !</span> </li></ul>",
       "slug": "MLB 2",
       "size": [38, 39, 40, 41, 42, 43],

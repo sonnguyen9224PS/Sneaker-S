@@ -1,8 +1,8 @@
 import React, { useMemo, useEffect } from "react";
-import { Carousel, Col, Row, Card } from "antd";
+import { Carousel, Col, Row, Card, Button } from "antd";
 
 import { RightOutlined } from "@ant-design/icons";
-import { Link, generatePath } from "react-router-dom";
+import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
@@ -16,6 +16,7 @@ import {
 import * as S from "./styles";
 
 function HomePage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { saleProductList } = useSelector((state) => state.product);
@@ -111,7 +112,14 @@ function HomePage() {
                 <Link to={ROUTES.USER.PRODUCT_LIST} href="">
                   Shop now
                 </Link>
-                <a href="">New collection</a>
+                <a
+                  href=""
+                  onClick={() =>
+                    navigate(ROUTES.USER.PRODUCT_LIST, { state: { new: true } })
+                  }
+                >
+                  New collection
+                </a>
               </div>
             </div>
             <div className="contentCarousel">
@@ -210,20 +218,32 @@ function HomePage() {
             <h2 className="saleTitle">Sale </h2>
             <Row gutter={[16, 16]}>{renderProductListSale}</Row>
           </S.SaleOffWrapper>
-          <Link className="moreArrivalBtn" href="">
+          <Button
+            className="moreBtn"
+            onClick={() =>
+              navigate(ROUTES.USER.PRODUCT_LIST, {
+                state: { sale: 30 },
+              })
+            }
+          >
             More Sale Shoes
             <RightOutlined />
             <RightOutlined />
-          </Link>
+          </Button>
           <S.ArrivalWrapper>
             <h2 className="newTitle">new arrival shoes </h2>
             <Row gutter={[16, 16]}>{renderProductListNew}</Row>
           </S.ArrivalWrapper>
-          <Link className="moreArrivalBtn" href="">
+          <Button
+            className="moreBtn"
+            onClick={() =>
+              navigate(ROUTES.USER.PRODUCT_LIST, { state: { new: true } })
+            }
+          >
             More Arrival Shoes
             <RightOutlined />
             <RightOutlined />
-          </Link>
+          </Button>
         </Container>
       </S.MainWrapper>
     </>

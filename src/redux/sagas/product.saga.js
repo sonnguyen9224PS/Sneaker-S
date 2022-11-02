@@ -33,6 +33,7 @@ function* getProductListSaga(action) {
           price_lte: params.operator[1],
         }),
         ...(params.new && { new: true }),
+        ...(params.sale && { sale: params.sale }),
       },
     });
 

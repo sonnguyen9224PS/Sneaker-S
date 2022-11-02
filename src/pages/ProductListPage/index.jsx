@@ -4,6 +4,7 @@ import {
   Row,
   Col,
   Checkbox,
+  Radio,
   Button,
   Input,
   Card,
@@ -40,11 +41,14 @@ const ProductListPage = () => {
     order: "",
     operator: [],
     new: false,
+    sale: "",
   });
+
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { categoryList } = useSelector((state) => state.category);
 
+  //categoryId
   useEffect(() => {
     if (state?.categoryId?.length) {
       dispatch(
@@ -60,6 +64,7 @@ const ProductListPage = () => {
         ...filterParams,
         categoryId: state?.categoryId,
       });
+      window.scrollTo(0, 0);
     } else {
       dispatch(
         getProductListAction({
@@ -71,6 +76,46 @@ const ProductListPage = () => {
       );
       dispatch(getCategoryListAction());
     }
+  }, [state]);
+  //new
+  useEffect(() => {
+    if (state?.new) {
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+            new: state.new,
+          },
+        })
+      );
+      setFilterParams({
+        ...filterParams,
+        new: state.new,
+      });
+    }
+    dispatch(getCategoryListAction());
+    window.scrollTo(0, 0);
+  }, [state]);
+
+  //sale
+  useEffect(() => {
+    if (state?.sale) {
+      setFilterParams({
+        ...filterParams,
+        sale: state.sale,
+      });
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+            sale: state.sale,
+          },
+        })
+      );
+    }
+    window.scrollTo(0, 0);
   }, [state]);
 
   const handleFilter = (keyword, value) => {
@@ -135,6 +180,22 @@ const ProductListPage = () => {
           limit: PRODUCT_LIST_LIMIT,
           ...filterParams,
           keyword: "",
+        },
+      })
+    );
+  };
+  const handleClearSaleFilter = () => {
+    setFilterParams({
+      ...filterParams,
+      sale: "",
+    });
+    dispatch(
+      getProductListAction({
+        params: {
+          page: 1,
+          limit: PRODUCT_LIST_LIMIT,
+          ...filterParams,
+          sale: "",
         },
       })
     );
@@ -227,6 +288,13 @@ const ProductListPage = () => {
       </Tag>
     );
   }, [filterParams.keyword]);
+  const renderFilterSale = useMemo(() => {
+    return (
+      <Tag closable onClose={() => handleClearSaleFilter()}>
+        Off {filterParams.sale}%
+      </Tag>
+    );
+  }, [filterParams.sale]);
 
   const renderOptionSort = () => {
     return (
@@ -278,8 +346,8 @@ const ProductListPage = () => {
               <i class="fa-brands fa-shopify"></i>New Arrivals
             </h4>
             <Checkbox
-              onChange={(value) => handleFilter("new", true)}
-              // value={filterParams.categoryId}
+              onChange={(e) => handleFilter("new", e.target.checked)}
+              checked={filterParams.new}
             >
               Sản phẩm mới
             </Checkbox>
@@ -294,6 +362,27 @@ const ProductListPage = () => {
             >
               <Row>{renderCategoryOption}</Row>
             </Checkbox.Group>
+          </Card>
+          <Card>
+            <h4>
+              <i class="fa-solid fa-ticket"></i>Sale all
+            </h4>
+            <Radio.Group
+              onChange={(e) => handleFilter("sale", e.target.value)}
+              value={filterParams.sale}
+            >
+              <Row>
+                <Col span={24}>
+                  <Radio value={30}>30%</Radio>
+                </Col>
+                <Col span={24}>
+                  <Radio value={50}>50%</Radio>
+                </Col>
+                <Col span={24}>
+                  <Radio value={70}>70%</Radio>
+                </Col>
+              </Row>
+            </Radio.Group>
           </Card>
 
           <Card size="small" title="Khoảng giá">
@@ -340,6 +429,7 @@ const ProductListPage = () => {
           <Space style={{ marginBottom: 16 }}>
             {renderFilterCategory}
             {filterParams.keyword && renderFilterKeyword}
+            {filterParams.sale && renderFilterSale}
           </Space>
           {/* product list */}
           <Spin spinning={productList.loading} tip="Loading...">

@@ -136,9 +136,33 @@ function Header() {
                           component={CaretDownOutlined}
                         />
                         <ul className="subMenuSneaker">
-                          <li>sale off 30%</li>
-                          <li>sale off 50%</li>
-                          <li>sale off 70%</li>
+                          <li
+                            onClick={() =>
+                              navigate(ROUTES.USER.PRODUCT_LIST, {
+                                state: { sale: 30 },
+                              })
+                            }
+                          >
+                            sale off 30%
+                          </li>
+                          <li
+                            onClick={() =>
+                              navigate(ROUTES.USER.PRODUCT_LIST, {
+                                state: { sale: 50 },
+                              })
+                            }
+                          >
+                            sale off 50%
+                          </li>
+                          <li
+                            onClick={() =>
+                              navigate(ROUTES.USER.PRODUCT_LIST, {
+                                state: { sale: 70 },
+                              })
+                            }
+                          >
+                            sale off 70%
+                          </li>
                         </ul>
                       </li>
                       <li>membership</li>
