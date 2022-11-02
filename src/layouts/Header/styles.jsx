@@ -1,6 +1,6 @@
 import styled from "styled-components";
 export const HeaderContainerWrapper = styled.header`
-  height: 80px;
+  height: 90px;
   background-color: #232222;
   font-family: "Fredoka", sans-serif;
   width: 100%;
@@ -80,35 +80,31 @@ export const HeaderRightDown = styled.div`
     margin-bottom: 0;
     & > li {
       display: inline-block;
-      &:first-child > a {
-        font-weight: bold;
-        font-size: 16px;
-      }
-      &:hover {
-        & > a {
-          background-color: #e6e6e6;
-          border-radius: 20px;
-          color: black;
-          & > span {
-            color: #3a8f97;
-          }
+      padding-right: 17.5px;
+      padding-left: 17.5px;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      line-height: 40px;
+      letter-spacing: 2.2px;
+      color: #fff;
+      &:first-child {
+        font-size: 15px;
+        & > span {
+          color: #3a8f97;
+          font-weight: 700;
         }
       }
-      & > a {
-        display: block;
-        position: relative;
-        line-height: 40px;
-        font-weight: 700;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 2.2px;
-        padding-right: 17.5px;
-        padding-left: 17.5px;
-        color: white;
+      &:hover {
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: #fff;
+        color: #232222;
       }
     }
     .dropDown {
       position: relative;
+      line-height: 40px;
       .subMenuSneaker {
         list-style-type: none;
       }
@@ -140,17 +136,15 @@ export const HeaderRightDown = styled.div`
         border-radius: 20px;
         box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.2);
         & li {
+          font-size: 14px;
+          line-height: 21px;
+          padding: 6px 27px 6px 22px;
+          display: block;
+          font-weight: bolder;
           &:hover {
-            a {
-              color: #fff;
-            }
-          }
-          & a {
-            font-size: 14px;
-            line-height: 21px;
-            padding: 6px 27px 6px 22px;
-            display: block;
-            font-weight: bolder;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.3s;
           }
         }
       }

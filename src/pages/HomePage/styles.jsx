@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MainWrapper = styled.div`
   font-family: "Open Sans", sans-serif;
-  min-height: calc(100vh - 565px);
+  min-height: calc(100vh - 570px);
   background-color: var(--pastel-purple);
 `;
 export const CarouselWrapper = styled.div`
@@ -32,11 +32,15 @@ export const CarouselWrapper = styled.div`
     position: relative;
     width: 100%;
     height: 450px;
-
     & > img {
       width: 810px;
       height: 100%;
       margin: auto;
+    }
+    &:nth-child(4) {
+      & > img {
+        width: 100%;
+      }
     }
   }
   .shoppingBtn {
@@ -86,181 +90,25 @@ export const OtherBrandWrapper = styled.div`
 `;
 
 export const SaleOffWrapper = styled.div`
-  h2.headerSale {
+  .saleTittle {
+    padding: 10px 0;
+    margin-bottom: 30px;
     font-size: 26px;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 10px 0;
-    margin-bottom: 30px;
     text-align: center;
     color: red;
   }
-  .saleProducts {
-    display: flex;
-    justify-content: space-around;
-    padding: 0 16px;
-    .saleItem {
-      width: 25%;
-      padding: 0 15px;
-      .saleItemTop {
-        position: relative;
-        background-color: #efefef;
-
-        &::before {
-          position: absolute;
-          content: "SALE";
-          width: 78px;
-          height: 28px;
-          top: 0;
-          right: 0;
-          color: #ffffff;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: red;
-        }
-        figure {
-          height: 280px;
-          & img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .actions {
-          position: absolute;
-          width: 300px;
-          height: 35px;
-          bottom: 0;
-          left: 0;
-          overflow: hidden;
-          opacity: 0;
-          visibility: hidden;
-          z-index: 99;
-          & button,
-          .preview {
-            cursor: pointer;
-            height: 100%;
-            padding: 0px 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #fff;
-            background-color: #333333;
-          }
-        }
-        &:hover {
-          & img {
-            scale: 0.8;
-            transition: all 0.3s ease 0s;
-          }
-          .actions {
-            visibility: visible;
-            opacity: 1;
-            transition: all 0.3s ease 0s;
-          }
-        }
-      }
-    }
-  }
-  .descriptionItem {
-    .productName {
-      padding-left: 5px;
-      margin-bottom: 0;
-      text-transform: uppercase;
-      color: #6a6a6a;
-    }
-  }
-  .moreSaleBtn {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 60px;
-    color: #6a6a6a;
-    font-weight: bold;
-    .anticon {
-      margin-left: 3px;
-    }
-    &:hover {
-      margin-right: 57px;
-      transition: all 0.3s;
-    }
-  }
 `;
-//
+
 export const ArrivalWrapper = styled.div`
-  h2.headerArrival {
+  .newTittle {
+    padding: 10px 0;
+    margin-bottom: 30px;
     font-size: 26px;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 10px 0;
-    margin-bottom: 30px;
     text-align: center;
-  }
-  .arrivalProducts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0 16px;
-    .arrivalItem {
-      width: 25%;
-      padding: 0 15px;
-      &:not(:nth-last-child(-n + 4)) {
-        margin-bottom: 54px;
-      }
-      .arrivalItemTop {
-        position: relative;
-        background-color: #efefef;
-
-        figure {
-          height: 280px;
-          & img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .actions {
-          position: absolute;
-          width: 300px;
-          height: 35px;
-          bottom: 0;
-          left: 0;
-          overflow: hidden;
-          opacity: 0;
-          visibility: hidden;
-          z-index: 99;
-          & button,
-          .preview {
-            cursor: pointer;
-            height: 100%;
-            padding: 0px 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #fff;
-            background-color: #333333;
-          }
-        }
-        &:hover {
-          & img {
-            scale: 0.8;
-            transition: all 0.3s ease 0s;
-          }
-          .actions {
-            visibility: visible;
-            opacity: 1;
-            transition: all 0.3s ease 0s;
-          }
-        }
-      }
-    }
-  }
-  .descriptionItem {
-    .productName {
-      padding-left: 5px;
-      margin-bottom: 0;
-      text-transform: uppercase;
-      color: #6a6a6a;
-    }
   }
   .moreArrivalBtn {
     display: flex;
@@ -275,6 +123,22 @@ export const ArrivalWrapper = styled.div`
     &:hover {
       margin-right: 57px;
       transition: all 0.3s;
+    }
+  }
+  .cardItem {
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "NEW";
+      width: 78px;
+      height: 28px;
+      top: 0;
+      right: 0;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
     }
   }
 `;

@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon, {
   HomeOutlined,
   UserOutlined,
-  ShoppingCartOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,16 +12,24 @@ import * as S from "./styles";
 import { logoutAction } from "../../redux/actions";
 
 function Header() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
   const { categoryList } = useSelector((state) => state.category);
   const { cartList } = useSelector((state) => state.cart);
 
   const renderCategoryShoes = useMemo(() => {
-    return categoryList.data.map((item, index) => {
+    return categoryList.data.map((item) => {
       return (
-        <li to="#" key={index}>
-          <a href=""> {item.name}</a>
+        <li
+          key={item.id}
+          onClick={() =>
+            navigate(ROUTES.USER.PRODUCT_LIST, {
+              state: { categoryId: [item.id] },
+            })
+          }
+        >
+          {item.name}
         </li>
       );
     });
@@ -93,12 +100,11 @@ function Header() {
                           Login
                         </Link>
                       )}
-                      <Link to={ROUTES.USER.CHECKOUT}>
+                      <Link to={ROUTES.USER.CART}>
                         <Badge color="#000" count={cartList.length}>
-                          <Icon
-                            component={ShoppingCartOutlined}
-                            className="cart"
-                          />
+                          <span className="cart">
+                            <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                          </span>
                         </Badge>
                       </Link>
                     </div>
@@ -107,41 +113,36 @@ function Header() {
                 <Col span={24}>
                   <S.HeaderRightDown>
                     <ul className="mainMenu">
-                      <li>
-                        <Link to={ROUTES.USER.HOME}>
-                          <HomeOutlined style={{ marginRight: 4 }} />
-                          trang chủ
-                        </Link>
+                      <li onClick={() => navigate(ROUTES.USER.HOME)}>
+                        <HomeOutlined style={{ marginRight: 4 }} />
+                        trang chủ
                       </li>
                       <li className="dropDown">
-                        <a href="">
-                          sneakers
-                          <Icon
-                            className="rotateIcon"
-                            style={{ marginLeft: "0.1875rem" }}
-                            component={CaretDownOutlined}
-                          />
-                        </a>
+                        sneakers
+                        <Icon
+                          className="rotateIcon"
+                          style={{ marginLeft: "0.1875rem" }}
+                          component={CaretDownOutlined}
+                        />
                         <ul className="subMenuSneaker">
                           {renderCategoryShoes}
                         </ul>
                       </li>
-                      <li className="dropDown">
-                        <a href="">
-                          Thương hiệu khác
-                          <Icon
-                            className="rotateIcon"
-                            style={{ marginLeft: "0.1875rem" }}
-                            component={CaretDownOutlined}
-                          />
-                        </a>
+                      <li className="dropDown" style={{ color: "#bb0a08" }}>
+                        Sale all
+                        <Icon
+                          className="rotateIcon"
+                          style={{ marginLeft: "0.1875rem" }}
+                          component={CaretDownOutlined}
+                        />
+                        <ul className="subMenuSneaker">
+                          <li>sale off 30%</li>
+                          <li>sale off 50%</li>
+                          <li>sale off 70%</li>
+                        </ul>
                       </li>
-                      <li>
-                        <a href=""> membership</a>
-                      </li>
-                      <li>
-                        <a href=""> blog</a>
-                      </li>
+                      <li>membership</li>
+                      <li>blog</li>
                     </ul>
                   </S.HeaderRightDown>
                 </Col>

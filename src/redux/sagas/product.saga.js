@@ -12,7 +12,6 @@ function* getProductListSaga(action) {
         _limit: params.limit,
         ...(params.categoryId && { categoryId: params.categoryId }),
         ...(params.keyword && { q: params.keyword }),
-        ...(params.color && { color: params.color }),
         ...(params.order === "priceUp" && {
           _sort: "price",
           _order: "asc",
@@ -33,6 +32,7 @@ function* getProductListSaga(action) {
           price_gte: params.operator[0],
           price_lte: params.operator[1],
         }),
+        ...(params.new && { new: true }),
       },
     });
 
@@ -57,6 +57,40 @@ function* getProductListSaga(action) {
     });
   }
 }
+//sale list
+function* getSaleListSaga(action) {
+  try {
+    const { params } = action.payload;
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _page: params.page,
+        _limit: params.limit,
+        ...(params.sale && { sale_gte: 1 }),
+      },
+    });
+
+    yield put({
+      type: SUCCESS(PRODUCT_ACTION.GET_SALE_LIST),
+      payload: {
+        data: result.data,
+        meta: {
+          total: parseInt(result.headers["x-total-count"]),
+          page: params.page,
+          limit: params.limit,
+        },
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: FAIL(PRODUCT_ACTION.GET_SALE_LIST),
+      payload: {
+        error: "get sale productList error",
+      },
+    });
+  }
+}
+
 // detail
 function* getProductDetailSaga(action) {
   try {
@@ -64,7 +98,7 @@ function* getProductDetailSaga(action) {
     const result = yield axios.get(`http://localhost:4000/products/${id}`, {
       params: {
         _expand: "category",
-        _embed: "options",
+        _embed: ["options", "images"],
       },
     });
     yield put({
@@ -93,4 +127,5 @@ export default function* productSaga() {
     REQUEST(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
     getProductDetailSaga
   );
+  yield takeEvery(REQUEST(PRODUCT_ACTION.GET_SALE_LIST), getSaleListSaga);
 }

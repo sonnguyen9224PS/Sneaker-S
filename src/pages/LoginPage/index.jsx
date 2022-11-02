@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { loginAction } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import * as S from "./styles";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,75 +42,94 @@ const LoginPage = () => {
   }, [loginData.error]);
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        width: "30rem",
-      }}
-    >
-      <h2>ĐĂNG NHẬP TÀI KHOẢN</h2>
-      <div>
-        <Card title="KHÁCH HÀNG ĐĂNG NHẬP">
-          <Form
-            form={loginForm}
-            name="loginForm"
-            layout="vertical"
-            onFinish={(values) => handleLogin(values)}
-          >
-            <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-                {
-                  type: "email",
-                },
-              ]}
+    <S.MainWrapper>
+      <div
+        style={{
+          margin: "auto",
+          width: "30rem",
+        }}
+      >
+        <h2
+          style={{
+            color: "#fff",
+            textShadow: `3px 0px 7px rgba(81,67,21,0.8), -3px 0px 7px rgba(81,67,21,0.8), 0px 4px 7px rgba(81,67,21,0.8)`,
+          }}
+        >
+          ĐĂNG NHẬP TÀI KHOẢN
+        </h2>
+        <div>
+          <Card title="KHÁCH HÀNG ĐĂNG NHẬP">
+            <Form
+              form={loginForm}
+              name="loginForm"
+              layout="vertical"
+              onFinish={(values) => handleLogin(values)}
             >
-              <Input allowClear />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              label="Mật khẩu"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input.Password allowClear />
-            </Form.Item>
-            <Form.Item>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                {loginData.loading ? (
-                  <Spin tip="Loading...">
+              <Form.Item
+                name="email"
+                label="Email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your email!",
+                  },
+                  {
+                    type: "email",
+                  },
+                ]}
+              >
+                <Input allowClear />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                label="Mật khẩu"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+              >
+                <Input.Password allowClear />
+              </Form.Item>
+              <Form.Item>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  {loginData.loading ? (
+                    <Spin tip="Loading...">
+                      <Button type="primary" htmlType="submit">
+                        Đăng nhập
+                      </Button>
+                    </Spin>
+                  ) : (
                     <Button type="primary" htmlType="submit">
                       Đăng nhập
                     </Button>
-                  </Spin>
-                ) : (
-                  <Button type="primary" htmlType="submit">
-                    Đăng nhập
-                  </Button>
-                )}
-                <Link to="">Mất mật khẩu</Link>
-              </div>
-            </Form.Item>
-          </Form>
-        </Card>
+                  )}
+                  <Link to="">Mất mật khẩu</Link>
+                </div>
+              </Form.Item>
+            </Form>
+          </Card>
+        </div>
+        <p
+          style={{
+            marginTop: "1rem",
+            color: "#fff",
+            textShadow: `3px 0px 7px rgba(81,67,21,0.8), -3px 0px 7px rgba(81,67,21,0.8), 0px 4px 7px rgba(81,67,21,0.8)`,
+          }}
+        >
+          Nếu chưa có tài khoản, click vào{" "}
+          <Link to={ROUTES.REGISTER}>
+            <span style={{ fontSize: 18, fontWeight: "bold", color: "#fff" }}>
+              ĐĂNG KÝ
+            </span>
+          </Link>{" "}
+          để đăng ký
+        </p>
       </div>
-      <p style={{ marginTop: "1rem" }}>
-        Nếu chưa có tài khoản, click vào{" "}
-        <Link to={ROUTES.REGISTER}>
-          <span style={{ fontSize: 18, fontWeight: "bold" }}>ĐĂNG KÝ</span>
-        </Link>{" "}
-        để đăng ký
-      </p>
-    </div>
+    </S.MainWrapper>
   );
 };
 

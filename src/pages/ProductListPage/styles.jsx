@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 16px;
-  min-height: calc(100vh - 205px);
+  min-height: calc(100vh - 570px);
   .ant-breadcrumb {
     & > ol {
       & > li {

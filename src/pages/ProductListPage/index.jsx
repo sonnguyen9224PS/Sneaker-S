@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, generatePath } from "react-router-dom";
+import { Link, generatePath, useNavigate, useLocation } from "react-router-dom";
 import {
   Row,
   Col,
@@ -31,30 +31,47 @@ import {
 import { ROUTES } from "../../constants/routes";
 
 const ProductListPage = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const formatter = (value) => value.toLocaleString("vi-VN");
   const [filterParams, setFilterParams] = useState({
     categoryId: [],
     keyword: "",
     order: "",
     operator: [],
-    color: [],
+    new: false,
   });
-
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(
-      getProductListAction({
-        params: {
-          page: 1,
-          limit: PRODUCT_LIST_LIMIT,
-        },
-      })
-    );
-    dispatch(getCategoryListAction());
-  }, []);
+    if (state?.categoryId?.length) {
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+            categoryId: state.categoryId,
+          },
+        })
+      );
+      setFilterParams({
+        ...filterParams,
+        categoryId: state?.categoryId,
+      });
+    } else {
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+          },
+        })
+      );
+      dispatch(getCategoryListAction());
+    }
+  }, [state]);
 
   const handleFilter = (keyword, value) => {
     setFilterParams({
@@ -87,10 +104,12 @@ const ProductListPage = () => {
   };
 
   const handleClearCategoryFilter = (id) => {
-    const newCategoryId = filterParams.categoryId.filter((item) => item !== id);
+    const clearCategoryId = filterParams.categoryId.filter(
+      (item) => item !== id
+    );
     setFilterParams({
       ...filterParams,
-      categoryId: newCategoryId,
+      categoryId: clearCategoryId,
     });
     dispatch(
       getProductListAction({
@@ -98,7 +117,7 @@ const ProductListPage = () => {
           page: 1,
           limit: PRODUCT_LIST_LIMIT,
           ...filterParams,
-          categoryId: newCategoryId,
+          categoryId: clearCategoryId,
         },
       })
     );
@@ -116,23 +135,6 @@ const ProductListPage = () => {
           limit: PRODUCT_LIST_LIMIT,
           ...filterParams,
           keyword: "",
-        },
-      })
-    );
-  };
-  const handleClearColorFilter = (color) => {
-    const newColor = filterParams.color.filter((item) => item !== color);
-    setFilterParams({
-      ...filterParams,
-      color: newColor,
-    });
-    dispatch(
-      getProductListAction({
-        params: {
-          page: 1,
-          limit: PRODUCT_LIST_LIMIT,
-          ...filterParams,
-          color: newColor,
         },
       })
     );
@@ -201,10 +203,11 @@ const ProductListPage = () => {
   }, [categoryList]);
 
   const renderFilterCategory = useMemo(() => {
-    return filterParams.categoryId.map((itemFilter) => {
+    return filterParams.categoryId?.map((itemFilter) => {
       const categoryData = categoryList.data.find(
         (itemCategory) => itemCategory.id === itemFilter
       );
+      if (!categoryData) return null;
       return (
         <Tag
           closable
@@ -225,20 +228,6 @@ const ProductListPage = () => {
     );
   }, [filterParams.keyword]);
 
-  const renderFilterColor = useMemo(() => {
-    return filterParams.color.map((itemFilter) => {
-      return (
-        <Tag
-          closable
-          onClose={() => handleClearColorFilter(itemFilter)}
-          key={itemFilter}
-        >
-          {itemFilter}
-        </Tag>
-      );
-    });
-  }, [filterParams.color]);
-
   const renderOptionSort = () => {
     return (
       <>
@@ -257,41 +246,22 @@ const ProductListPage = () => {
       </>
     );
   };
-  const renderOptionColor = () => {
-    return (
-      <>
-        <Col span={24}>
-          <Checkbox value="Black">
-            <span style={{ color: "black" }}>
-              <i class="fa-solid fa-droplet"></i>
-            </span>
-            Black
-          </Checkbox>
-        </Col>
-        <Col span={24}>
-          <Checkbox value="White">
-            <span style={{ backgroundColor: "black", color: "white" }}>
-              <i class="fa-solid fa-droplet"></i>
-            </span>
-            White
-          </Checkbox>
-        </Col>
-      </>
-    );
-  };
 
   return (
     <S.Wrapper>
       <Row>
         <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
           <Breadcrumb.Item>
-            <Link to={ROUTES.USER.HOME}>Home</Link>
+            <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to={ROUTES.USER.PRODUCT_LIST}>Product List</Link>
+            <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
+      <Button type="primary" onClick={() => navigate(-1)}>
+        Go back
+      </Button>
       <Row>
         <h4 style={{ fontWeight: "bold" }}>
           <span style={{ marginRight: 4 }}>
@@ -305,6 +275,17 @@ const ProductListPage = () => {
         <Col span={6}>
           <Card size="small">
             <h4>
+              <i class="fa-brands fa-shopify"></i>New Arrivals
+            </h4>
+            <Checkbox
+              onChange={(value) => handleFilter("new", true)}
+              // value={filterParams.categoryId}
+            >
+              Sản phẩm mới
+            </Checkbox>
+          </Card>
+          <Card size="small">
+            <h4>
               <i class="fa-solid fa-filter"></i>Brand
             </h4>
             <Checkbox.Group
@@ -314,17 +295,7 @@ const ProductListPage = () => {
               <Row>{renderCategoryOption}</Row>
             </Checkbox.Group>
           </Card>
-          <Card size="small">
-            <h4>
-              <i class="fa-solid fa-palette"></i>Colors
-            </h4>
-            <Checkbox.Group
-              value={filterParams.color}
-              onChange={(value) => handleFilter("color", value)}
-            >
-              <Row>{renderOptionColor()}</Row>
-            </Checkbox.Group>
-          </Card>
+
           <Card size="small" title="Khoảng giá">
             <Slider
               range
@@ -369,7 +340,6 @@ const ProductListPage = () => {
           <Space style={{ marginBottom: 16 }}>
             {renderFilterCategory}
             {filterParams.keyword && renderFilterKeyword}
-            {filterParams.color && renderFilterColor}
           </Space>
           {/* product list */}
           <Spin spinning={productList.loading} tip="Loading...">

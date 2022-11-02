@@ -36,7 +36,7 @@ const categoryReducer = createReducer(initialState, {
     const { error } = action.payload;
     return {
       ...state,
-      categoryListError: {
+      categoryList: {
         ...state.categoryList,
         loading: false,
         error: error,

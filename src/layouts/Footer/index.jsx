@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Input, Button, Form } from "antd";
-import { MailOutlined } from "@ant-design/icons";
 import * as S from "./styles";
+import { Container } from "../../layouts/Header/styles";
 
 function Footer() {
   return (
@@ -55,9 +56,13 @@ function Footer() {
               </p>
               <Row>
                 <div className="followSocial">
-                  <a href="" style={{ color: "#10239e" }}>
+                  <Link
+                    target="_blank"
+                    to="https://www.facebook.com/"
+                    style={{ color: "#10239e" }}
+                  >
                     <i class="fa-brands fa-facebook"></i>
-                  </a>
+                  </Link>
                   <a href="" style={{ color: "#2f54eb" }}>
                     <i class="fa-brands fa-square-twitter"></i>
                   </a>

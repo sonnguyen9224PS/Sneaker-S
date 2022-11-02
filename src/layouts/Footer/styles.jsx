@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ContactFooter = styled.div`
-  height: 200px;
   width: 100%;
   .contactShop {
     .contactShopLeft {
@@ -38,7 +37,7 @@ export const ContainerFooter = styled.div`
       &:hover {
         transform: rotate(360deg);
         color: #9254de;
-        transition: all 0.5s;
+        transition: all 1.5s;
       }
     }
   }

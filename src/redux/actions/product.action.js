@@ -7,3 +7,6 @@ export const getProductListAction = createAction(
 export const getProductDetailAction = createAction(
   REQUEST(PRODUCT_ACTION.GET_PRODUCT_DETAIL)
 );
+export const getSaleListAction = createAction(
+  REQUEST(PRODUCT_ACTION.GET_SALE_LIST)
+);

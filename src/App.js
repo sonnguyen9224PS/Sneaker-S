@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.js";
 import "./App.css";
+
 import "antd/dist/antd.less";
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
@@ -15,6 +16,7 @@ import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import RegisterPage from "./pages/RegisterPage/index.jsx";
 import LoginPage from "./pages/LoginPage/index.jsx";
+import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import AdminPage from "./pages/AdminPage";
 import AboutPage from "./pages/AboutPage";
@@ -42,6 +44,7 @@ function App() {
           element={<ProductDetailPage />}
         />
         <Route path={ROUTES.USER.ABOUT} element={<AboutPage />} />
+        <Route path={ROUTES.USER.CART} element={<CartPage />} />
         <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />} />
       </Route>
       <Route element={<LoginLayout />}>
