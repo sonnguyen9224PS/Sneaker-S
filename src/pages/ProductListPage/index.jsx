@@ -245,7 +245,10 @@ const ProductListPage = () => {
             })}
           >
             <Card size="small" title={item.name}>
-              {item.price.toLocaleString("vi-VN")}
+              <div>
+                <img src={item.images[0]?.src} alt="" width={200} />
+              </div>
+              <div>{item.price.toLocaleString("vi-VN")}</div>
             </Card>
           </Link>
         </Col>

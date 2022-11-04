@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon, {
   HomeOutlined,
@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
 import { Row, Col, Dropdown, Menu, Badge } from "antd";
 import * as S from "./styles";
-import { logoutAction } from "../../redux/actions";
+import { logoutAction, getCategoryListAction } from "../../redux/actions";
 
 function Header() {
   const navigate = useNavigate();
@@ -35,6 +35,14 @@ function Header() {
     });
   }, [categoryList.data]);
 
+  useEffect(() => {
+    dispatch(
+      getCategoryListAction({
+        logo: true,
+      })
+    );
+  }, []);
+
   return (
     <S.HeaderContainerWrapper>
       <S.Container>
@@ -42,12 +50,7 @@ function Header() {
           <Col span="4">
             <S.HeaderLogo>
               <Link to={ROUTES.USER.HOME}>
-                <img
-                  src="https://img.freepik.com/premium-vector/highquality-logo-concept-features-sneaker-made-vibrant-segments-with-cool-modern-look-vintage-hand-drawn_668007-95.jpg?w=2000"
-                  alt="logo"
-                  width={60}
-                  height={60}
-                />
+                <span className="logo">Sneaker-S</span>
               </Link>
             </S.HeaderLogo>
           </Col>
@@ -55,7 +58,7 @@ function Header() {
             <S.HeaderRight>
               <Row>
                 <Col span={24}>
-                  <S.HeaderRightTop logout={<Icon />}>
+                  <S.HeaderRightTop>
                     <div className="contact">
                       <a href="tel: 038 594 1277">Hotline: 038 594 1277</a>
                     </div>
@@ -115,7 +118,7 @@ function Header() {
                     <ul className="mainMenu">
                       <li onClick={() => navigate(ROUTES.USER.HOME)}>
                         <HomeOutlined style={{ marginRight: 4 }} />
-                        trang chủ
+                        home
                       </li>
                       <li className="dropDown">
                         sneakers
@@ -132,10 +135,10 @@ function Header() {
                         Sale all
                         <Icon
                           className="rotateIcon"
-                          style={{ marginLeft: "0.1875rem" }}
+                          style={{ marginLeft: "0.1875rem", color: "#000" }}
                           component={CaretDownOutlined}
                         />
-                        <ul className="subMenuSneaker">
+                        <ul className="subMenuSneaker dropSale">
                           <li
                             onClick={() =>
                               navigate(ROUTES.USER.PRODUCT_LIST, {

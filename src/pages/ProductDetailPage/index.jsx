@@ -100,8 +100,7 @@ const ProductDetailPage = () => {
     if (!productDetail.data?.images?.length) return null;
     return (
       <img
-        src={productDetail.data?.images[0].src}
-        alt={productDetail.data?.images[0].name}
+        src="https://htmldemo.net/james/james/img/product/4.png"
         style={{ width: 300, height: "auto" }}
       ></img>
     );
