@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.js";
 import "./App.css";
@@ -25,6 +25,7 @@ import { getUserInfoAction, getCategoryListAction } from "./redux/actions/";
 import { ROUTES } from "./constants/routes";
 
 function App() {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
@@ -34,6 +35,11 @@ function App() {
     }
     dispatch(getCategoryListAction());
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <Routes>
       <Route element={<UserLayout />}>
