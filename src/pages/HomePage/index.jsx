@@ -339,7 +339,7 @@ function HomePage() {
           </Row>
           <Container>
             <Row gutter={[16, 16]} justify="space-evenly">
-              <Link>
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [1] }}>
                 <Col
                   span={4.8}
                   style={{ display: "flex", alignItems: "center" }}
@@ -353,7 +353,7 @@ function HomePage() {
                   </div>
                 </Col>
               </Link>
-              <Link>
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [4] }}>
                 <Col
                   span={4.8}
                   style={{ display: "flex", alignItems: "center" }}
@@ -368,7 +368,7 @@ function HomePage() {
                 </Col>
               </Link>
 
-              <Link>
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [3] }}>
                 <Col
                   span={4.8}
                   style={{ display: "flex", alignItems: "center" }}
@@ -383,7 +383,7 @@ function HomePage() {
                 </Col>
               </Link>
 
-              <Link>
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [12] }}>
                 <Col
                   span={4.8}
                   style={{ display: "flex", alignItems: "center" }}
@@ -398,7 +398,7 @@ function HomePage() {
                 </Col>
               </Link>
 
-              <Link>
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [5] }}>
                 <Col
                   span={4.8}
                   style={{ display: "flex", alignItems: "center" }}

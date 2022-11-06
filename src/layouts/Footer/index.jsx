@@ -61,32 +61,60 @@ function Footer() {
         </S.ContactFooter>
         <S.ShopInfo>
           <Container>
-            <Row>
+            <Row className="serviceShop">
               <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
                 <h4 className="infoTtl">Hỗ trợ khách hàng</h4>
-                <p>Thông tin liên hệ</p>
-                <p>Hướng dẫn mua hàng</p>
-                <p>Phương thức thanh toán</p>
-                <p>Hỗ trợ và giải đáp thắc mắc</p>
+                <Link>
+                  <p>Thông tin liên hệ</p>
+                </Link>
+                <Link>
+                  <p>Hướng dẫn mua hàng</p>
+                </Link>
+                <Link>
+                  <p>Phương thức thanh toán</p>
+                </Link>
+                <Link>
+                  <p>Hỗ trợ và giải đáp thắc mắc</p>
+                </Link>
               </Col>
               <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
                 <h4 className="infoTtl">Chính sách</h4>
-                <p>Chính sách giao hàng</p>
-                <p>Chính sách đổi trả</p>
-                <p>Chính sách bảo hành</p>
-                <p>Chính sách bảo mật người dùng</p>
+                <Link>
+                  <p>Chính sách giao hàng</p>
+                </Link>
+                <Link>
+                  <p>Chính sách đổi trả</p>
+                </Link>
+                <Link>
+                  <p>Chính sách bảo hành</p>
+                </Link>
+                <Link>
+                  <p>Chính sách bảo mật người dùng</p>
+                </Link>
               </Col>
               <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
                 <h4 className="infoTtl">Dịch vụ</h4>
-                <p>Dịch vụ ký gửi</p>
-                <p>Dịch vụ Spa và sửa giày</p>
+                <Link>
+                  <p>Dịch vụ ký gửi</p>
+                </Link>
+                <Link>
+                  <p>Dịch vụ Spa và sửa giày</p>
+                </Link>
               </Col>
               <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
                 <h4 className="infoTtl">Thông tin</h4>
-                <p>Về chúng tôi</p>
-                <p>Tin tức và sự kiện</p>
-                <p>Tuyển dụng</p>
-                <p>Điều khoản dịch vụ</p>
+                <Link>
+                  <p>Về chúng tôi</p>
+                </Link>
+                <Link>
+                  <p>Tin tức và sự kiện</p>
+                </Link>
+                <Link>
+                  <p>Tuyển dụng</p>
+                </Link>
+                <Link>
+                  <p>Điều khoản dịch vụ</p>
+                </Link>
               </Col>
             </Row>
           </Container>

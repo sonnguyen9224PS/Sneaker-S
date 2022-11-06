@@ -74,6 +74,13 @@ export const ShopInfo = styled.footer`
     font-size: 18px;
     margin-bottom: 28px;
   }
+  .serviceShop {
+    p {
+      &:hover {
+        color: #c83535;
+      }
+    }
+  }
 `;
 export const FooterPage = styled.footer`
   width: 100%;
