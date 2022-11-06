@@ -1,29 +1,51 @@
 import styled from "styled-components";
+export const FooterWrapper = styled.footer`
+  height: 440px;
+  font-family: "Fredoka", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 
 export const ContactFooter = styled.div`
   width: 100%;
   .contactShop {
-    .contactShopLeft {
+    font-size: 16px;
+    .addressShopLeft {
+      padding: 20px;
+      padding-left: 35px;
       background-color: #f5f5f5;
-      .signMailForm {
-        display: flex;
+      & > h3 {
+        font-weight: bold;
+        text-transform: uppercase;
+        & > i {
+          margin-right: 4px;
+          font-size: 16px;
+        }
+      }
+      & > p {
+        & > i {
+          margin-right: 4px;
+          font-size: 16px;
+        }
+        &:hover {
+          color: #c83535;
+          & > i {
+            color: #000;
+          }
+        }
       }
     }
     .contactShopRight {
       background-color: #eae8e8;
+      h3 > i {
+        margin-right: 4px;
+      }
     }
   }
 `;
-
 export const ContainerFooter = styled.div`
   padding: 16px 31px;
-  & > h3 {
-    border-top: solid 1px #c2bcbc;
-    padding-top: 8px;
-    & > i {
-      margin-right: 4px;
-    }
-  }
   .followSocial {
     display: flex;
     & > a {
@@ -39,27 +61,28 @@ export const ContainerFooter = styled.div`
         color: #9254de;
         transition: all 1.5s;
       }
+      & > i {
+        font-size: 30px;
+      }
     }
   }
 `;
-export const FooterWrapper = styled.footer`
-  font-family: "Fredoka", sans-serif;
+export const ShopInfo = styled.footer`
+  width: 100%;
+  font-size: 16px;
+  h4 {
+    font-size: 18px;
+    margin-bottom: 28px;
+  }
+`;
+export const FooterPage = styled.footer`
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  padding: 16px;
-  height: 480px;
-`;
-export const FooterTop = styled.div`
-  height: 400px;
-`;
-export const FooterLeft = styled.div`
-  background-color: #232222;
-`;
-export const FooterRight = styled.div`
-  background-color: #1d1d1d;
-`;
-export const FooterBottom = styled.div`
-  height: 80px;
-  background-color: #141414;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #f6f6f8;
+  p {
+    margin: 0;
+  }
 `;

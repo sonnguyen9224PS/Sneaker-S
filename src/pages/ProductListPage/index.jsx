@@ -51,6 +51,7 @@ const ProductListPage = () => {
   //categoryId
   useEffect(() => {
     if (state?.categoryId?.length) {
+      console.log(1);
       dispatch(
         getProductListAction({
           params: {
@@ -66,6 +67,7 @@ const ProductListPage = () => {
       });
       window.scrollTo(0, 0);
     } else {
+      console.log(2);
       dispatch(
         getProductListAction({
           params: {
@@ -77,6 +79,7 @@ const ProductListPage = () => {
       dispatch(getCategoryListAction());
     }
   }, [state]);
+
   //new
   useEffect(() => {
     if (state?.new) {

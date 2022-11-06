@@ -16,6 +16,7 @@ function Header() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
   const { categoryList } = useSelector((state) => state.category);
+
   const { cartList } = useSelector((state) => state.cart);
 
   const renderCategoryShoes = useMemo(() => {
@@ -33,7 +34,7 @@ function Header() {
         </li>
       );
     });
-  }, [categoryList.data]);
+  }, [categoryList]);
 
   useEffect(() => {
     dispatch(
@@ -120,7 +121,10 @@ function Header() {
                         <HomeOutlined style={{ marginRight: 4 }} />
                         home
                       </li>
-                      <li className="dropDown">
+                      <li
+                        className="dropDown"
+                        // onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
+                      >
                         sneakers
                         <Icon
                           className="rotateIcon"
@@ -131,7 +135,15 @@ function Header() {
                           {renderCategoryShoes}
                         </ul>
                       </li>
-                      <li className="dropDown" style={{ color: "#bb0a08" }}>
+                      <li
+                        onClick={() =>
+                          navigate(ROUTES.USER.PRODUCT_LIST, {
+                            state: { sale: 30 },
+                          })
+                        }
+                        className="dropDown"
+                        style={{ color: "#bb0a08" }}
+                      >
                         Sale all
                         <Icon
                           className="rotateIcon"

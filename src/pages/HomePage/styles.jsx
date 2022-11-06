@@ -67,6 +67,21 @@ export const MainWrapper = styled.div`
     .nameProduct {
       text-transform: uppercase;
       padding-top: 6px;
+      & > i {
+        margin-right: 4px;
+        color: #0050ff;
+      }
+    }
+    .offProduct {
+      margin: auto;
+      padding: 2px;
+      border: dashed 2px white;
+      width: fit-content;
+      background: #ff3800;
+      color: #efefef;
+      & > i {
+        margin-right: 4px;
+      }
     }
     .productDescription {
       display: flex;
@@ -75,10 +90,22 @@ export const MainWrapper = styled.div`
       .priceProduct {
         font-size: 17px;
         font-weight: bold;
+        .cost {
+          text-decoration: line-through;
+        }
+        .salePrice {
+          margin-left: 5px;
+          color: red;
+        }
+        .afterPrice {
+          margin-left: 5px;
+          color: #000;
+        }
       }
-      .salePrice {
-        margin-left: 5px;
-        color: red;
+    }
+    .ratingProduct {
+      & > span:first-child {
+        margin-right: 16px;
       }
     }
     &:hover {
@@ -105,6 +132,7 @@ export const MainWrapper = styled.div`
   .moreBtn {
     font-size: 16px;
     margin-bottom: 20px;
+    border-radius: 20px;
     &:hover {
       font-weight: bold;
     }
@@ -221,12 +249,14 @@ export const ArrivalWrapper = styled.div`
   .productItem {
     &:before {
       content: "NEW";
+      background-color: deepskyblue;
     }
   }
 `;
 export const BannerCollection = styled.div`
   width: 100%;
   height: 400px;
+  margin-bottom: 30px;
   background-size: cover;
   background-image: url(https://htmldemo.net/james/james/img/banner/banner-bg.jpg);
   background-position-x: 45%;
@@ -271,5 +301,57 @@ export const BannerCollection = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
+  }
+`;
+export const SignificantBrand = styled.div`
+  margin-bottom: 30px;
+  .brandItem {
+    width: 210px;
+    height: 210px;
+    overflow: hidden;
+    & > img {
+    }
+    &:hover {
+      & > img {
+        scale: 1.03;
+        transition: all 0.8s;
+      }
+    }
+  }
+`;
+export const Blog = styled.div``;
+export const SignMail = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 312px;
+  background-image: url(https://theme.hstatic.net/200000384421/1000955298/14/ft_newsletter_bg.png?v=7);
+  .signTtl {
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .formSign {
+    position: relative;
+    display: flex;
+    width: 500px;
+    .signInput {
+      width: 500px;
+      background: none;
+      color: #fff;
+    }
+    .signBtn {
+      position: absolute;
+      right: 0;
+      background: none;
+      color: #fff;
+      border: none;
+      outline: none;
+      &:hover {
+        color: #50a5a6;
+      }
+    }
   }
 `;
