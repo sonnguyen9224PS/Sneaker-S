@@ -1,10 +1,11 @@
-import { put, takeEvery } from "redux-saga/effects";
+import { takeEvery, put } from "redux-saga/effects";
 import axios from "axios";
-import { SUCCESS, FAIL, REQUEST, LOCATION_ACTION } from "../constants";
+
+import { LOCATION_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 
 function* getCityListSaga(action) {
   try {
-    const result = yield axios.get(`http://localhost:4000/cities`);
+    const result = yield axios.get("http://localhost:4000/cities");
     yield put({
       type: SUCCESS(LOCATION_ACTION.GET_CITY_LIST),
       payload: {
@@ -15,15 +16,16 @@ function* getCityListSaga(action) {
     yield put({
       type: FAIL(LOCATION_ACTION.GET_CITY_LIST),
       payload: {
-        error: "Error!",
+        error: "Fail!",
       },
     });
   }
 }
+
 function* getDistrictListSaga(action) {
   try {
     const { cityCode } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/districts`, {
+    const result = yield axios.get("http://localhost:4000/districts", {
       params: {
         parentcode: cityCode,
       },
@@ -38,17 +40,18 @@ function* getDistrictListSaga(action) {
     yield put({
       type: FAIL(LOCATION_ACTION.GET_DISTRICT_LIST),
       payload: {
-        error: "Error!",
+        error: e.response.data,
       },
     });
   }
 }
+
 function* getWardListSaga(action) {
   try {
-    const { wardCode } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/wards`, {
+    const { districtCode } = action.payload;
+    const result = yield axios.get("http://localhost:4000/wards", {
       params: {
-        parentcode: wardCode,
+        parentcode: districtCode,
       },
     });
     yield put({
@@ -61,7 +64,7 @@ function* getWardListSaga(action) {
     yield put({
       type: FAIL(LOCATION_ACTION.GET_WARD_LIST),
       payload: {
-        error: "Error!",
+        error: e.response.data,
       },
     });
   }

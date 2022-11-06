@@ -98,12 +98,10 @@ function CheckoutPage() {
                         placeholder="Quận/huyện"
                         style={{ width: "100%" }}
                         onChange={(value) => {
-                          dispatch(
-                            getWardListAction(
-                              getWardListAction({ districtCode: value })
-                            )
-                          );
-                          infoForm.setFieldsValue({ ward: undefined });
+                          dispatch(getWardListAction({ districtCode: value }));
+                          infoForm.setFieldsValue({
+                            ward: undefined,
+                          });
                         }}
                       >
                         {renderDistrictList}

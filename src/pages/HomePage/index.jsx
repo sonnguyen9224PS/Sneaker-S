@@ -313,7 +313,11 @@ function HomePage() {
           </Row>
         </Container>
         <Row>
-          <S.BannerCollection>
+          <S.BannerCollection
+            onClick={() => {
+              navigate(ROUTES.USER.PRODUCT_LIST);
+            }}
+          >
             <Container className="containerBanner">
               <div className="bannerCollection">
                 <div>online & in store</div>
