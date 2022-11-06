@@ -26,7 +26,7 @@ function HomePage() {
       getProductListAction({
         params: {
           page: 1,
-          limit: PRODUCT_LIST_LIMIT,
+          limit: 5,
           new: true,
         },
       })
@@ -39,7 +39,7 @@ function HomePage() {
       getSaleListAction({
         params: {
           page: 1,
-          limit: PRODUCT_LIST_LIMIT,
+          limit: 5,
           sale: 30,
         },
       })
@@ -48,7 +48,6 @@ function HomePage() {
   }, []);
 
   // render
-
   const renderProductListSale = useMemo(() => {
     return saleProductList.data.map((item) => {
       return (
@@ -59,6 +58,7 @@ function HomePage() {
             flex: 1,
             backgroundColor: "#efefef",
             borderRight: "solid 1px #fff",
+            minWidth: "20%",
           }}
         >
           <Link
