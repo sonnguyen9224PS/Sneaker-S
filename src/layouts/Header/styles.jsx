@@ -152,7 +152,6 @@ export const HeaderRightDown = styled.div`
           &:hover {
             cursor: pointer;
             color: #fff;
-            transition: all 0.3s;
             background-color: #000;
           }
         }

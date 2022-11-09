@@ -102,18 +102,9 @@ const ProductDetailPage = () => {
       <img
         src="https://htmldemo.net/james/james/img/product/4.png"
         style={{ width: 300, height: "auto" }}
+        alt=""
       ></img>
     );
-    // return productDetail.data?.images?.map((item) => {
-    //   return (
-    //     <img
-    //       key={item.id}
-    //       src={item.src}
-    //       alt={item.name}
-    //       style={{ width: 300, height: "auto" }}
-    //     />
-    //   );
-    // });
   }, [productList.data]);
 
   return (
@@ -127,8 +118,14 @@ const ProductDetailPage = () => {
             <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to={ROUTES.USER.PRODUCT_DETAIL}>{editedNameProduct}</Link>
+            <Link
+              to={ROUTES.USER.PRODUCT_LIST}
+              state={{ categoryId: [productDetail?.data.category?.id] }}
+            >
+              {productDetail?.data.category?.name}
+            </Link>
           </Breadcrumb.Item>
+          <Breadcrumb.Item>{editedNameProduct}</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
           <Col span="12">{renderProductImage}</Col>

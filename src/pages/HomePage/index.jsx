@@ -4,7 +4,6 @@ import { Carousel, Col, Row, Button, Form, Input } from "antd";
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
-import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
 import { Container } from "../../layouts/Header/styles";
 
 import {
@@ -15,11 +14,11 @@ import {
 import * as S from "./styles";
 
 function HomePage() {
-  const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { saleProductList } = useSelector((state) => state.product);
+  // const [form] = Form.useForm();
 
   useEffect(() => {
     dispatch(
@@ -448,7 +447,13 @@ function HomePage() {
           <Row>
             <Col span={24}>
               <h2 className="signTtl">Đăng kí ngay để nhận tin tức</h2>
-              <Form form={form} name="signForm" className="formSign">
+              <Form
+                // form={form}
+                name="signForm"
+                className="formSign"
+                // initialValues={{ signInput: "" }}
+                // onFinish={() => form.resetFields(["signInput"])}
+              >
                 <Form.Item>
                   <Input
                     name="signInput"
@@ -456,13 +461,7 @@ function HomePage() {
                     placeholder="Nhập email"
                   />
                 </Form.Item>
-                <Button
-                  className="signBtn"
-                  htmlType="submit"
-                  onClick={() => {
-                    form.resetFields();
-                  }}
-                >
+                <Button className="signBtn" htmlType="submit">
                   <i class="fa-solid fa-paper-plane"></i>
                 </Button>
               </Form>

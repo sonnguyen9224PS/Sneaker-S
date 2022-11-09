@@ -8,6 +8,7 @@ export const ROUTES = {
     ABOUT: "/about",
     CART: "/cart",
     CHECKOUT: "/checkout",
+    SUCCESS: "/success",
     MY_PROFILE: "/my-profile",
   },
   ADMIN: {

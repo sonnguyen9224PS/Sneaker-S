@@ -8,10 +8,11 @@ import {
   Breadcrumb,
   Row,
   Modal,
+  Alert,
 } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import * as S from "./styles";
-import { Link, generatePath } from "react-router-dom";
+import { Link, generatePath, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
 import {
@@ -22,8 +23,10 @@ import { Container } from "../../layouts/Header/styles";
 
 function CartPage() {
   const { confirm } = Modal;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { cartList } = useSelector((state) => state.cart);
+  const { cartList } = useSelector((state) => state.checkOut);
+  const { userInfo } = useSelector((state) => state.user);
 
   const handleChangeQuantity = (id, value) => {
     dispatch(
@@ -50,11 +53,9 @@ function CartPage() {
       onCancel() {},
     });
   };
-  const totalPay = () => {
-    let total = 0;
-    cartList.map((item) => (total += item.price * item.quantity));
-    return total;
-  };
+  const totalPrice = cartList
+    .map((item) => item.price * item.quantity)
+    .reduce((total, price) => total + price, 0);
   const tableColumn = [
     {
       title: "Ảnh",
@@ -168,7 +169,7 @@ function CartPage() {
               <span>Tổng tiền thanh toán</span>
               <Input
                 disabled={true}
-                value={`${totalPay().toLocaleString("vi-VN")}₫`}
+                value={`${totalPrice.toLocaleString("vi-VN")}₫`}
                 style={{
                   color: "#000",
                   textAlign: "right",
@@ -177,9 +178,25 @@ function CartPage() {
               ></Input>
             </div>
           </div>
-          <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
-            <Button>Tiến hành thanh toán</Button>
-          </Link>
+          {userInfo.data?.id ? (
+            <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
+              <Button>Tiến hành thanh toán</Button>
+            </Link>
+          ) : (
+            <Alert
+              message="Bạn cần đăng nhập để thanh toán"
+              description={
+                <span>
+                  Click
+                  <Link to={ROUTES.LOGIN} style={{ fontWeight: "bold" }}>
+                    Đăng nhập
+                  </Link>
+                  để đăng nhập
+                </span>
+              }
+              type="error"
+            />
+          )}
         </S.CartBody>
       </Container>
     </>

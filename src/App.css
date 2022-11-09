@@ -1,5 +1,7 @@
 :root {
   --primaryTextColor: #6a6a6a;
+  --primaryBorderColor: #cecdcd;
+  --secondColor: #2a9dcc;
 }
 * {
   box-sizing: border-box;

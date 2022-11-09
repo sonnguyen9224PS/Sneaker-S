@@ -19,6 +19,7 @@ import LoginPage from "./pages/LoginPage/index.jsx";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import AdminPage from "./pages/AdminPage";
+import SuccessPage from "./pages/SuccessPage";
 import AboutPage from "./pages/AboutPage";
 import { getUserInfoAction, getCategoryListAction } from "./redux/actions/";
 
@@ -51,6 +52,7 @@ function App() {
         />
         <Route path={ROUTES.USER.ABOUT} element={<AboutPage />} />
         <Route path={ROUTES.USER.CART} element={<CartPage />} />
+        <Route path={ROUTES.USER.SUCCESS} element={<SuccessPage />} />
         <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />} />
       </Route>
       <Route element={<LoginLayout />}>

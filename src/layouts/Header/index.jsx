@@ -16,22 +16,14 @@ function Header() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
   const { categoryList } = useSelector((state) => state.category);
-
-  const { cartList } = useSelector((state) => state.cart);
+  const { cartList } = useSelector((state) => state.checkOut);
 
   const renderCategoryShoes = useMemo(() => {
-    return categoryList.data.map((item) => {
+    return categoryList?.data.map((item) => {
       return (
-        <li
-          key={item.id}
-          onClick={() =>
-            navigate(ROUTES.USER.PRODUCT_LIST, {
-              state: { categoryId: [item.id] },
-            })
-          }
-        >
-          {item.name}
-        </li>
+        <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [item.id] }}>
+          <li key={item.id}>{item.name}</li>
+        </Link>
       );
     });
   }, [categoryList]);
@@ -121,11 +113,8 @@ function Header() {
                         <HomeOutlined style={{ marginRight: 4 }} />
                         home
                       </li>
-                      <li
-                        className="dropDown"
-                        // onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
-                      >
-                        sneakers
+                      <li className="dropDown">
+                        <Link to={ROUTES.USER.PRODUCT_LIST}>sneakers</Link>
                         <Icon
                           className="rotateIcon"
                           style={{ marginLeft: "0.1875rem" }}
@@ -135,16 +124,13 @@ function Header() {
                           {renderCategoryShoes}
                         </ul>
                       </li>
-                      <li
-                        onClick={() =>
-                          navigate(ROUTES.USER.PRODUCT_LIST, {
-                            state: { sale: 30 },
-                          })
-                        }
-                        className="dropDown"
-                        style={{ color: "#bb0a08" }}
-                      >
-                        Sale all
+                      <li className="dropDown" style={{ color: "#bb0a08" }}>
+                        <Link
+                          to={ROUTES.USER.PRODUCT_LIST}
+                          state={{ sale: 30 }}
+                        >
+                          Sale all
+                        </Link>
                         <Icon
                           className="rotateIcon"
                           style={{ marginLeft: "0.1875rem", color: "#000" }}
