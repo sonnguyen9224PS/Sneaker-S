@@ -100,7 +100,7 @@ function* getProductDetailSaga(action) {
     const result = yield axios.get(`http://localhost:4000/products/${id}`, {
       params: {
         _expand: "category",
-        _embed: ["options", "images"],
+        _embed: ["images", "favorites"],
       },
     });
     yield put({
@@ -113,7 +113,7 @@ function* getProductDetailSaga(action) {
     yield put({
       type: FAIL(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
       payload: {
-        error: "get product detail error",
+        error: e.response?.data,
       },
     });
   }

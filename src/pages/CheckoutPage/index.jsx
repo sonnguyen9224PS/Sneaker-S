@@ -1,6 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ROUTES } from "../../constants/routes";
-import { Row, Col, Input, Select, Button, Form, Radio, Badge } from "antd";
+import {
+  Row,
+  Col,
+  Input,
+  Select,
+  Button,
+  Form,
+  Radio,
+  Badge,
+  Alert,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -499,13 +509,35 @@ function CheckoutPage() {
                       <Link to={ROUTES.USER.CART}>
                         <span>Quay về giỏ hàng</span>
                       </Link>
-                      <Button
-                        onClick={() => {
-                          checkoutForm.submit();
-                        }}
-                      >
-                        Đặt hàng
-                      </Button>
+
+                      {userInfo.data?.id ? (
+                        <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
+                          <Button
+                            onClick={() => {
+                              checkoutForm.submit();
+                            }}
+                          >
+                            Đặt hàng
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Alert
+                          message="Bạn cần đăng nhập để đặt hàng!"
+                          description={
+                            <span>
+                              Click
+                              <Link
+                                to={ROUTES.LOGIN}
+                                style={{ fontWeight: "bold" }}
+                              >
+                                Đăng nhập
+                              </Link>
+                              để đăng nhập
+                            </span>
+                          }
+                          type="error"
+                        />
+                      )}
                     </Row>
                   </Col>
                 </Row>

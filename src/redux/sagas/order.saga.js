@@ -23,7 +23,7 @@ function* orderProductSaga(action) {
     yield put({
       type: FAIL(ORDER_ACTION.ORDER_PRODUCT),
       payload: {
-        error: "Fail!",
+        error: e.response?.data,
       },
     });
   }
@@ -48,7 +48,7 @@ function* getOrderListSaga(action) {
     yield put({
       type: FAIL(ORDER_ACTION.GET_ORDER_LIST),
       payload: {
-        error: "Fail!",
+        error: e.response?.data,
       },
     });
   }

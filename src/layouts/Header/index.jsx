@@ -21,8 +21,12 @@ function Header() {
   const renderCategoryShoes = useMemo(() => {
     return categoryList?.data.map((item) => {
       return (
-        <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [item.id] }}>
-          <li key={item.id}>{item.name}</li>
+        <Link
+          key={item.id}
+          to={ROUTES.USER.PRODUCT_LIST}
+          state={{ categoryId: [item.id] }}
+        >
+          <li>{item.name}</li>
         </Link>
       );
     });

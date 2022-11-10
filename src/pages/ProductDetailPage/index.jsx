@@ -9,8 +9,15 @@ import {
   InputNumber,
   notification,
   Collapse,
+  Form,
+  Rate,
+  Input,
+  Space,
 } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useParams, Link, generatePath } from "react-router-dom";
+import moment from "moment";
+
 import * as S from "./styles";
 import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,10 +26,15 @@ import {
   addToCartAction,
   getProductListAction,
   getCategoryListAction,
+  unFavoriteProductAction,
+  favoriteProductAction,
+  postReviewAction,
+  getReviewListAction,
 } from "../../redux/actions";
 import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
 
 const ProductDetailPage = () => {
+  const [reviewForm] = Form.useForm();
   const { Panel } = Collapse;
   const [optionSize, setOptionSize] = useState(42);
   const [productQuantity, setProductQuantity] = useState(1);
@@ -31,16 +43,62 @@ const ProductDetailPage = () => {
   const productId = parseInt(id.split(".")[1]);
   const productName = id.split(".")[0];
   const editedNameProduct = productName.replaceAll("-", " ");
-  //
   const dispatch = useDispatch();
   const { productDetail } = useSelector((state) => state.product);
   const { productList } = useSelector((state) => state.product);
+  const { userInfo } = useSelector((state) => state.user);
+  const { reviewList } = useSelector((state) => state.review);
 
   const openNotification = () => {
     notification.open({
       message: "Thêm sản phẩm vào giỏ hàng thành công.",
       icon: <i class="fa-solid fa-circle-check"></i>,
     });
+  };
+  const isLike = userInfo.data.id
+    ? productDetail.data.favorites?.some(
+        (item) => item.userId === userInfo.data.id
+      )
+    : false;
+
+  const isReviewed = userInfo.data.id
+    ? reviewList.data.some((item) => item.userId === userInfo.data.id)
+    : false;
+
+  const handleToggleFavorite = () => {
+    if (userInfo.data?.id) {
+      if (isLike) {
+        const favoriteData = productDetail.data.favorites?.find(
+          (item) => item.userId === userInfo.data.id
+        );
+        if (favoriteData) {
+          dispatch(
+            unFavoriteProductAction({
+              id: favoriteData.id,
+            })
+          );
+        }
+      } else {
+        dispatch(
+          favoriteProductAction({
+            userId: userInfo.data.id,
+            productId: productDetail.data.id,
+          })
+        );
+      }
+    } else {
+      notification.warn({ message: "Bạn cần đăng nhập" });
+    }
+  };
+
+  const handlePostReview = (values) => {
+    dispatch(
+      postReviewAction({
+        ...values,
+        userId: userInfo.data.id,
+        productId: productDetail.data.id,
+      })
+    );
   };
 
   useEffect(() => {
@@ -49,6 +107,7 @@ const ProductDetailPage = () => {
         id: productId,
       })
     );
+    dispatch(getReviewListAction({ productId: productId }));
   }, [productId]);
 
   useEffect(() => {
@@ -81,7 +140,7 @@ const ProductDetailPage = () => {
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
       return (
-        <Col span={6}>
+        <Col key={item.id} span={6}>
           <Link
             key={item.id}
             to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
@@ -96,6 +155,7 @@ const ProductDetailPage = () => {
       );
     });
   }, [productList.data]);
+
   const renderProductImage = useMemo(() => {
     if (!productDetail.data?.images?.length) return null;
     return (
@@ -106,6 +166,24 @@ const ProductDetailPage = () => {
       ></img>
     );
   }, [productList.data]);
+
+  const renderReviewList = useMemo(() => {
+    if (!reviewList.data.length) return null;
+    return reviewList.data?.map((item) => {
+      return (
+        <div>
+          <Space>
+            <h3>{item.user.fullName}</h3>
+            <h4>{moment(item.createdAt).fromNow()}</h4>
+          </Space>
+          <div>
+            <Rate value={item.rate} disabled style={{ fontSize: 12 }} />
+          </div>
+          <div>{item.comment}</div>
+        </div>
+      );
+    });
+  }, [reviewList.data]);
 
   return (
     <>
@@ -128,10 +206,50 @@ const ProductDetailPage = () => {
           <Breadcrumb.Item>{editedNameProduct}</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
-          <Col span="12">{renderProductImage}</Col>
+          <Col span="12">
+            <Row style={{ flexDirection: "column" }}>
+              <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
+                {renderProductImage}
+              </Col>
+              <Col span="12" style={{ maxWidth: "100%" }}>
+                <Card size="small" bordered={false} title="Đánh giá sản phẩm">
+                  {userInfo.data.id && !isReviewed && (
+                    <Form
+                      name="reviewForm"
+                      form={reviewForm}
+                      layout="vertical"
+                      onFinish={(values) => {
+                        handlePostReview(values);
+                        reviewForm.resetFields();
+                      }}
+                    >
+                      <Form.Item label="Rate" name="rate">
+                        <Rate />
+                      </Form.Item>
+                      <Form.Item label="Comment" name="comment">
+                        <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
+                      </Form.Item>
+                      <Button htmlType="submit" block>
+                        Đăng
+                      </Button>
+                    </Form>
+                  )}
+                  {renderReviewList}
+                </Card>
+              </Col>
+            </Row>
+          </Col>
           <Col span="12">
             <Card title={`Chi tiết sản phẩm - ${editedNameProduct}`}>
               <h3>{productDetail.data.name}</h3>
+              <Button
+                size="large"
+                danger={isLike}
+                icon={isLike ? <HeartFilled /> : <HeartOutlined />}
+                onClick={() => handleToggleFavorite()}
+              >
+                Đã thích({productDetail.data?.favorites?.length || 0})
+              </Button>
               <p>{productDetail.data.category?.name}</p>
               <Row>
                 <Col span={4}>

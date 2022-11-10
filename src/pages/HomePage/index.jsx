@@ -18,14 +18,13 @@ function HomePage() {
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { saleProductList } = useSelector((state) => state.product);
-  // const [form] = Form.useForm();
 
   useEffect(() => {
     dispatch(
       getProductListAction({
         params: {
           page: 1,
-          limit: 5,
+          limit: 8,
           new: true,
         },
       })
@@ -38,7 +37,7 @@ function HomePage() {
       getSaleListAction({
         params: {
           page: 1,
-          limit: 5,
+          limit: 8,
           sale: 30,
         },
       })
@@ -51,13 +50,11 @@ function HomePage() {
     return saleProductList.data.map((item) => {
       return (
         <Col
-          span={4.8}
+          span={6}
           key={item.id}
           style={{
-            flex: 1,
             backgroundColor: "#efefef",
-            borderRight: "solid 1px #fff",
-            minWidth: "20%",
+            borderRight: "solid 4px #fff",
           }}
         >
           <Link
@@ -117,13 +114,11 @@ function HomePage() {
     return productList.data.map((item) => {
       return (
         <Col
-          span={4.8}
+          span={6}
           key={item.id}
           style={{
-            flex: 1,
             backgroundColor: "#efefef",
-            borderRight: "solid 1px #fff",
-            minWidth: "20%",
+            borderRight: "solid 4px #fff",
           }}
         >
           <Link

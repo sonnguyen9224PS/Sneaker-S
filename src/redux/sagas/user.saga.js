@@ -51,7 +51,7 @@ function* registerSaga(action, callback) {
     yield put({
       type: FAIL(USER_ACTION.REGISTER),
       payload: {
-        error: e.response.data,
+        error: e.response?.data,
       },
     });
   }
@@ -71,7 +71,7 @@ function* getUserInfoSaga(action) {
     yield put({
       type: FAIL(USER_ACTION.GET_USER_INFO),
       payload: {
-        error: "get info error",
+        error: e.response?.data,
       },
     });
   }

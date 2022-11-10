@@ -16,7 +16,7 @@ function* getCityListSaga(action) {
     yield put({
       type: FAIL(LOCATION_ACTION.GET_CITY_LIST),
       payload: {
-        error: "Fail!",
+        error: e.response?.data,
       },
     });
   }
@@ -40,7 +40,7 @@ function* getDistrictListSaga(action) {
     yield put({
       type: FAIL(LOCATION_ACTION.GET_DISTRICT_LIST),
       payload: {
-        error: e.response.data,
+        error: e.response?.data,
       },
     });
   }

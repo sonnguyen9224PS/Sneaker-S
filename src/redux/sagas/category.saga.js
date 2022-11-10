@@ -20,7 +20,7 @@ function* getCategoryListSaga(action) {
     yield put({
       type: FAIL(CATEGORY_ACTION.GET_CATEGORY_LIST),
       payload: {
-        error: "get category list error!",
+        error: e.response?.data,
       },
     });
   }

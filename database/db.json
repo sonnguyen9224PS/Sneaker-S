@@ -317,6 +317,42 @@
       "name": "Off-white"
     }
   ],
+  "favorites": [
+    {
+      "userId": 5,
+      "productId": 1,
+      "createdAt": 1668096109122,
+      "updatedAt": 1668096109122,
+      "id": 1
+    },
+    {
+      "userId": 5,
+      "productId": 3,
+      "createdAt": 1668099684820,
+      "updatedAt": 1668099684820,
+      "id": 2
+    }
+  ],
+  "reviews": [
+    {
+      "rate": 2,
+      "comment": "giá hơi chát :v",
+      "userId": 5,
+      "productId": 1,
+      "createdAt": 1668097819718,
+      "updatedAt": 1668097819718,
+      "id": 3
+    },
+    {
+      "rate": 5,
+      "comment": "good job!",
+      "userId": 5,
+      "productId": 3,
+      "createdAt": 1668099677739,
+      "updatedAt": 1668099677739,
+      "id": 4
+    }
+  ],
   "orders": [
     {
       "email": "son5@gmail.com",
