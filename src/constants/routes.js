@@ -9,7 +9,7 @@ export const ROUTES = {
     CART: "/cart",
     CHECKOUT: "/checkout",
     SUCCESS: "/success",
-    MY_PROFILE: "/my-profile",
+    PROFILE: "/profile",
   },
   ADMIN: {
     DASHBOARD: "/admin/",

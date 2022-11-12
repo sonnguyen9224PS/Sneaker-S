@@ -4,6 +4,9 @@ import Icon, {
   HomeOutlined,
   UserOutlined,
   CaretDownOutlined,
+  HistoryOutlined,
+  HeartOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
@@ -67,11 +70,73 @@ function Header() {
                               <Menu.Item
                                 key={1}
                                 onClick={() => {
-                                  dispatch(logoutAction());
+                                  navigate(ROUTES.USER.PROFILE, {
+                                    state: { activeKey: "1" },
+                                  });
                                 }}
                               >
                                 <Icon
                                   component={UserOutlined}
+                                  style={{
+                                    display: "inline-block",
+                                    marginRight: 3,
+                                    fontSize: 16,
+                                  }}
+                                />
+                                Thông tin cá nhân
+                              </Menu.Item>
+                              <Menu.Item
+                                key={2}
+                                onClick={() => {
+                                  navigate(ROUTES.USER.PROFILE, {
+                                    state: { activeKey: "2" },
+                                  });
+                                }}
+                              >
+                                <Icon
+                                  component={HistoryOutlined}
+                                  style={{
+                                    display: "inline-block",
+                                    marginRight: 3,
+                                    fontSize: 16,
+                                  }}
+                                />
+                                Lịch sử giao dịch
+                              </Menu.Item>
+                              <Menu.Item
+                                key={3}
+                                onClick={() => {
+                                  navigate(ROUTES.USER.PROFILE, {
+                                    state: { activeKey: "3" },
+                                  });
+                                }}
+                              >
+                                <Icon
+                                  component={HeartOutlined}
+                                  style={{
+                                    display: "inline-block",
+                                    marginRight: 3,
+                                    fontSize: 16,
+                                  }}
+                                />
+                                Sản phẩm yêu thích
+                              </Menu.Item>
+                              <Menu.Item
+                                key={4}
+                                onClick={() =>
+                                  dispatch(
+                                    logoutAction({
+                                      callBack: {
+                                        gotoHome: () => {
+                                          navigate(ROUTES.USER.HOME);
+                                        },
+                                      },
+                                    })
+                                  )
+                                }
+                              >
+                                <Icon
+                                  component={LogoutOutlined}
                                   style={{
                                     display: "inline-block",
                                     marginRight: 3,
@@ -103,7 +168,7 @@ function Header() {
                       <Link to={ROUTES.USER.CART}>
                         <Badge color="#000" count={cartList.length}>
                           <span className="cart">
-                            <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                            <i class="fa-solid fa-cart-arrow-down"></i>
                           </span>
                         </Badge>
                       </Link>

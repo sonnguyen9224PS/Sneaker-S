@@ -1,7 +1,14 @@
 import styled from "styled-components";
 export const HeaderContainerWrapper = styled.header`
+  position: sticky;
   font-family: "Fredoka", sans-serif;
   width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 `;
 
 export const Container = styled.div`
@@ -89,7 +96,7 @@ export const HeaderRightDown = styled.div`
         bottom: 0;
         left: 51%;
         right: 51%;
-        height: 3px;
+        height: 2px;
         background-color: #b93d3d;
       }
       &:first-child {

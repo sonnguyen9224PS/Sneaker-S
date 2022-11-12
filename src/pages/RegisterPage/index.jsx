@@ -39,6 +39,7 @@ const RegisterPage = () => {
           email: values.email,
           password: values.password,
           role: "user",
+          avatar: "",
         },
         callback: {
           goToLogin: () => navigate(ROUTES.LOGIN),

@@ -77,8 +77,31 @@ function* getUserInfoSaga(action) {
   }
 }
 
+function* updateAvatarSaga(action) {
+  try {
+    const { avatar, id } = action.payload;
+    const result = yield axios.patch(`http://localhost:4000/users/${id}`, {
+      avatar: avatar,
+    });
+    yield put({
+      type: SUCCESS(USER_ACTION.UPDATE_AVATAR),
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: FAIL(USER_ACTION.UPDATE_AVATAR),
+      payload: {
+        error: e.response?.data,
+      },
+    });
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(REQUEST(USER_ACTION.LOGIN), loginSaga);
   yield takeEvery(REQUEST(USER_ACTION.REGISTER), registerSaga);
   yield takeEvery(REQUEST(USER_ACTION.GET_USER_INFO), getUserInfoSaga);
+  yield takeEvery(REQUEST(USER_ACTION.UPDATE_AVATAR), updateAvatarSaga);
 }

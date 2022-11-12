@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Row, Col, Button } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 import { Container } from "../../layouts/Header/styles";
-
 import * as S from "./styles";
-import { ROUTES } from "../../constants/routes";
 
 function Success() {
   setTimeout(() => {

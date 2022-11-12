@@ -93,3 +93,38 @@ export const FooterPage = styled.footer`
     margin: 0;
   }
 `;
+export const SignMail = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 312px;
+  background-image: url(https://theme.hstatic.net/200000384421/1000955298/14/ft_newsletter_bg.png?v=7);
+  .signTtl {
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .formSign {
+    position: relative;
+    display: flex;
+    width: 500px;
+    .signInput {
+      width: 500px;
+      background: none;
+      color: #fff;
+    }
+    .signBtn {
+      position: absolute;
+      right: 0;
+      background: none;
+      color: #fff;
+      border: none;
+      outline: none;
+      &:hover {
+        color: #50a5a6;
+      }
+    }
+  }
+`;

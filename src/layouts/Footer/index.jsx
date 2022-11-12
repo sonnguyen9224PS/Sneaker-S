@@ -8,6 +8,25 @@ function Footer() {
   return (
     <>
       <S.FooterWrapper>
+        <S.SignMail>
+          <Row>
+            <Col span={24}>
+              <h2 className="signTtl">Đăng kí ngay để nhận tin tức</h2>
+              <Form name="signForm" className="formSign">
+                <Form.Item>
+                  <Input
+                    name="signInput"
+                    className="signInput"
+                    placeholder="Nhập email"
+                  />
+                </Form.Item>
+                <Button className="signBtn" htmlType="submit">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+        </S.SignMail>
         <S.ContactFooter>
           <Row className="contactShop">
             <Col span={12} className="addressShopLeft">

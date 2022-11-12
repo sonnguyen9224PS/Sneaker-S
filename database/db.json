@@ -1,58 +1,36 @@
 {
   "users": [
     {
-      "email": "son@gmail.com",
-      "password": "$2a$10$WlOTehkojg1Qv74tmMqCZO16YdyFD.L.LllBgYCsYbK5PbyFacK8S",
-      "fullName": "nguyen thai son",
-      "role": "user",
-      "createdAt": 1665420819271,
-      "updatedAt": 1665420819272,
-      "id": 1
-    },
-    {
-      "email": "son2@gmail.com",
-      "password": "$2a$10$W3j03B8Gd0De7iiheEtyL.LeubGFB/4mjxcJv1MFUbM45rfTDfHxC",
-      "fullName": "son2",
-      "role": "user",
-      "createdAt": 1665460885392,
-      "updatedAt": 1665460885392,
-      "id": 2
-    },
-    {
-      "email": "son3@gmail.com",
-      "password": "$2a$10$iDsD38Ie6hoqQyVZlAR9welZJFYFG9yE.oRvunxz93aHAPExouJ.K",
-      "fullName": "son3",
-      "role": "user",
-      "createdAt": 1665483729320,
-      "updatedAt": 1665483729320,
-      "id": 3
-    },
-    {
-      "email": "son4@gmail.com",
-      "password": "$2a$10$kQPZXZECZLl.QXBBa88xUu4xPo5.WdFhvPOiBaNHawWFXtxf2jeEa",
-      "fullName": "son4",
-      "role": "user",
-      "createdAt": 1665483765921,
-      "updatedAt": 1665483765921,
-      "id": 4
-    },
-    {
+      "avatar": "blob:http://localhost:3000/09040847-500e-464a-be60-1c05648d1fcb",
       "email": "son5@gmail.com",
       "password": "$2a$10$HfDHYqXeKdCWTlWNhnKbIOMxpugz.oLmAwUD1H7RHFc5NW4pRhSYm",
       "fullName": "son5",
       "role": "user",
       "createdAt": 1665504502024,
-      "updatedAt": 1665504502024,
-      "id": 5
+      "updatedAt": 1668220390358,
+      "id": 1,
+      "param": {}
     },
     {
+      "avatar": "",
       "email": "son-admin@gmail.com",
       "password": "$2a$10$lMDpVluJVeAEM1kUNgHE5.SrUOAasxiYheN59cNtVttiDFKC8cM4O",
       "fullName": "son-admin",
       "role": "admin",
       "createdAt": 1665565063703,
       "updatedAt": 1665565063703,
-      "id": 6
+      "id": 2
+    },
+    {
+      "email": "son1@gmail.com",
+      "password": "$2a$10$55pmifnzE2MZ.51yXG4xqO2dmtmgK9Kwv0PqOed8fwRiPWiHM2u9u",
+      "fullName": "son1",
+      "role": "user",
+      "avatar": "",
+      "createdAt": 1668186250510,
+      "updatedAt": 1668188899091,
+      "id": 3,
+      "param": {}
     }
   ],
   "products": [
@@ -319,82 +297,33 @@
   ],
   "favorites": [
     {
-      "userId": 5,
-      "productId": 1,
-      "createdAt": 1668096109122,
-      "updatedAt": 1668096109122,
-      "id": 1
+      "userId": 1,
+      "productId": 2,
+      "createdAt": 1668225187431,
+      "updatedAt": 1668225187431,
+      "id": 2
     },
     {
-      "userId": 5,
-      "productId": 3,
-      "createdAt": 1668099684820,
-      "updatedAt": 1668099684820,
-      "id": 2
+      "userId": 1,
+      "productId": 1,
+      "createdAt": 1668275596397,
+      "updatedAt": 1668275596399,
+      "id": 3
     }
   ],
   "reviews": [
     {
-      "rate": 2,
-      "comment": "giá hơi chát :v",
-      "userId": 5,
-      "productId": 1,
-      "createdAt": 1668097819718,
-      "updatedAt": 1668097819718,
-      "id": 3
-    },
-    {
       "rate": 5,
-      "comment": "good job!",
-      "userId": 5,
-      "productId": 3,
-      "createdAt": 1668099677739,
-      "updatedAt": 1668099677739,
-      "id": 4
-    }
-  ],
-  "orders": [
-    {
-      "email": "son5@gmail.com",
-      "fullName": "son5",
-      "phoneNumber": "0387589",
-      "address": "12332da nang a",
-      "cityCode": "Thành phố Hà Nội",
-      "districtCode": "Quận Ba Đình",
-      "wardCode": "Phường Cống Vị",
-      "transport": "0",
-      "method": "atm",
-      "bank": "HSBC",
-      "userId": 5,
-      "totalPrice": 2400000,
-      "status": "pending",
-      "createdAt": 1668017093173,
-      "updatedAt": 1668017093174,
-      "id": 1
-    }
-  ],
-  "orderProducts": [
-    {
-      "orderId": 1,
-      "productId": 2,
-      "productName": "Vans X old",
-      "price": 1200000,
-      "quantity": 1,
-      "createdAt": 1668017093414,
-      "updatedAt": 1668017093414,
-      "id": 1
-    },
-    {
-      "orderId": 1,
+      "comment": "giày đẹp, giá tốt !",
+      "userId": 1,
       "productId": 1,
-      "productName": "Nike air jordan new",
-      "price": 1200000,
-      "quantity": 1,
-      "createdAt": 1668017093521,
-      "updatedAt": 1668017093521,
-      "id": 2
+      "createdAt": 1668225136442,
+      "updatedAt": 1668225136442,
+      "id": 1
     }
   ],
+  "orders": [],
+  "orderProducts": [],
   "cities": [
     {
       "id": 10993,

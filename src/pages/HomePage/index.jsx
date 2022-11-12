@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from "react";
-import { Carousel, Col, Row, Button, Form, Input } from "antd";
+import { Carousel, Col, Row, Button } from "antd";
 
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -438,31 +438,6 @@ function HomePage() {
             </Carousel>
           </Container>
         </S.Blog>
-        <S.SignMail>
-          <Row>
-            <Col span={24}>
-              <h2 className="signTtl">Đăng kí ngay để nhận tin tức</h2>
-              <Form
-                // form={form}
-                name="signForm"
-                className="formSign"
-                // initialValues={{ signInput: "" }}
-                // onFinish={() => form.resetFields(["signInput"])}
-              >
-                <Form.Item>
-                  <Input
-                    name="signInput"
-                    className="signInput"
-                    placeholder="Nhập email"
-                  />
-                </Form.Item>
-                <Button className="signBtn" htmlType="submit">
-                  <i class="fa-solid fa-paper-plane"></i>
-                </Button>
-              </Form>
-            </Col>
-          </Row>
-        </S.SignMail>
       </S.MainWrapper>
     </>
   );

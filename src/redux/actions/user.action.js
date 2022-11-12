@@ -7,3 +7,6 @@ export const logoutAction = createAction(REQUEST(USER_ACTION.LOGOUT));
 export const getUserInfoAction = createAction(
   REQUEST(USER_ACTION.GET_USER_INFO)
 );
+export const updateAvatarAction = createAction(
+  REQUEST(USER_ACTION.UPDATE_AVATAR)
+);

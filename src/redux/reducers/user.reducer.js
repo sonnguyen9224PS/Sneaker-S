@@ -15,6 +15,10 @@ const initialState = {
     loading: false,
     error: "",
   },
+  updateUserData: {
+    loading: false,
+    error: "",
+  },
 };
 
 const userReducer = createReducer(initialState, {
@@ -83,8 +87,10 @@ const userReducer = createReducer(initialState, {
     };
   },
   //logout
-  [REQUEST(USER_ACTION.LOGOUT)]: (state) => {
+  [REQUEST(USER_ACTION.LOGOUT)]: (state, action) => {
+    const { callBack } = action.payload;
     localStorage.removeItem("accessToken");
+    callBack.gotoHome();
     return {
       ...state,
       userInfo: {
@@ -123,6 +129,37 @@ const userReducer = createReducer(initialState, {
         ...state.userInfo,
         loading: false,
         error: "error",
+      },
+    };
+  },
+
+  [REQUEST(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+    return {
+      ...state,
+      updateUserData: {
+        ...state.updateUserData,
+        loading: true,
+        error: "",
+      },
+    };
+  },
+  [SUCCESS(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+    return {
+      ...state,
+      updateUserData: {
+        ...state.updateUserData,
+        loading: false,
+      },
+    };
+  },
+  [FAIL(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+    const { error } = action.payload;
+    return {
+      ...state,
+      updateUserData: {
+        ...state.updateUserData,
+        loading: false,
+        error: error,
       },
     };
   },

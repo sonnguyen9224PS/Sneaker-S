@@ -2,8 +2,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.js";
 import "./App.css";
-
 import "antd/dist/antd.less";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
 
@@ -20,6 +22,8 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import AdminPage from "./pages/AdminPage";
 import SuccessPage from "./pages/SuccessPage";
+import ProfilePage from "./pages/ProfilePage";
+
 import AboutPage from "./pages/AboutPage";
 import { getUserInfoAction, getCategoryListAction } from "./redux/actions/";
 
@@ -54,6 +58,7 @@ function App() {
         <Route path={ROUTES.USER.CART} element={<CartPage />} />
         <Route path={ROUTES.USER.SUCCESS} element={<SuccessPage />} />
         <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />} />
+        <Route path={ROUTES.USER.PROFILE} element={<ProfilePage />} />
       </Route>
       <Route element={<LoginLayout />}>
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
