@@ -50,14 +50,12 @@ const ProductDetailPage = () => {
   const { productList } = useSelector((state) => state.product);
   const { userInfo } = useSelector((state) => state.user);
   const { reviewList } = useSelector((state) => state.review);
-
   const openNotification = () => {
     notification.open({
       message: "Thêm sản phẩm vào giỏ hàng thành công.",
       icon: <i class="fa-solid fa-circle-check"></i>,
     });
   };
-
   const isLike = userInfo.data.id
     ? productDetail.data.favorites?.some(
         (item) => item.userId === userInfo.data.id
@@ -69,7 +67,7 @@ const ProductDetailPage = () => {
     : false;
 
   const handleToggleFavorite = () => {
-    if (userInfo.data?.id) {
+    if (userInfo.data.id) {
       if (isLike) {
         const favoriteData = productDetail.data.favorites?.find(
           (item) => item.userId === userInfo.data.id
@@ -78,10 +76,14 @@ const ProductDetailPage = () => {
           dispatch(
             unFavoriteProductAction({
               id: favoriteData.id,
+              productId: productDetail.data.id,
             })
           );
         }
       } else {
+        notification.info({
+          message: `Đã thêm vào list Sản phẩm yêu thích.`,
+        });
         dispatch(
           favoriteProductAction({
             userId: userInfo.data.id,
@@ -110,6 +112,7 @@ const ProductDetailPage = () => {
     );
     dispatch(getReviewListAction({ productId: productId }));
   }, [productId]);
+
   useEffect(() => {
     dispatch(
       getProductListAction({
@@ -122,6 +125,7 @@ const ProductDetailPage = () => {
     );
     dispatch(getCategoryListAction());
   }, [productDetail.data.categoryId]);
+
   const handleAddToCart = () => {
     openNotification();
     dispatch(
@@ -132,6 +136,8 @@ const ProductDetailPage = () => {
         quantity: productQuantity,
         size: optionSize,
         slug: productDetail.data.slug,
+        categoryName: productDetail.data?.category?.name,
+        image: productDetail.data.images[0].src,
       })
     );
   };
@@ -156,8 +162,8 @@ const ProductDetailPage = () => {
   }, [productList.data]);
 
   const renderReviewList = useMemo(() => {
-    if (!reviewList.data?.length) return null;
-    return reviewList.data.map((item) => {
+    if (!reviewList.data.length) return null;
+    return reviewList.data?.map((item) => {
       return (
         <div>
           <Space>
@@ -173,32 +179,20 @@ const ProductDetailPage = () => {
     });
   }, [reviewList.data]);
 
-  const data = [
-    {
-      image:
-        "https://product.hstatic.net/200000384421/product/thiet_ke_khong_ten__16__3d0c9198_48bb72b0c95a44d6be92fd8e159f3247.png",
-    },
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-    },
-    {
-      image:
-        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-    },
-  ];
   const renderProductImage = useMemo(() => {
     if (!productDetail.data?.images?.length) return null;
+    const data = [
+      {
+        image: productDetail.data.images[0]?.src,
+      },
+      {
+        image: productDetail.data.images[1]?.src,
+      },
+      {
+        image: productDetail.data.images[2]?.src,
+      },
+    ];
     return (
-      // <img
-      //   src={productDetail.data.images[0].src}
-      //   style={{ width: 300, height: "auto" }}
-      //   alt=""
-      // ></img>
       <Row justify="center" style={{ marginBottom: "3rem" }}>
         <div
           style={{
@@ -211,8 +205,6 @@ const ProductDetailPage = () => {
             width="600px"
             height="300px"
             radius="10px"
-            // automatic={true}
-            dots={true}
             pauseIconColor="white"
             pauseIconSize="40px"
             slideBackgroundColor="darkgrey"
@@ -223,7 +215,7 @@ const ProductDetailPage = () => {
         </div>
       </Row>
     );
-  }, [productList.data]);
+  }, []);
 
   return (
     <>
@@ -238,9 +230,9 @@ const ProductDetailPage = () => {
           <Breadcrumb.Item>
             <Link
               to={ROUTES.USER.PRODUCT_LIST}
-              state={{ categoryId: [productDetail?.data.category?.id] }}
+              state={{ categoryId: [productDetail.data.category?.id] }}
             >
-              {productDetail?.data.category?.name}
+              {productDetail.data.category?.name}
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{editedNameProduct}</Breadcrumb.Item>

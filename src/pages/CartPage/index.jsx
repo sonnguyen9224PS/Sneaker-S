@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import * as S from "./styles";
-import { Link, generatePath, useNavigate } from "react-router-dom";
+import { Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
 import {
@@ -23,9 +23,9 @@ import { Container } from "../../layouts/Header/styles";
 
 function CartPage() {
   const { confirm } = Modal;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartList } = useSelector((state) => state.checkOut);
+  console.log("🚀 ~ file: index.jsx ~ line 28 ~ CartPage ~ cartList", cartList);
   const { userInfo } = useSelector((state) => state.user);
 
   const handleChangeQuantity = (id, value) => {
@@ -56,29 +56,47 @@ function CartPage() {
   const totalPrice = cartList
     .map((item) => item.price * item.quantity)
     .reduce((total, price) => total + price, 0);
+
   const tableColumn = [
     {
       title: "Ảnh",
       dataIndex: "image",
       width: "8rem",
       key: "image",
+      render: (image) => {
+        return (
+          <div style={{ width: 60, height: 60 }}>
+            <img
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              src={image}
+              alt=""
+            />
+          </div>
+        );
+      },
     },
     {
       title: "Tên sản phẩm",
       dataIndex: "name",
       width: "8rem",
       key: "name",
-      render: (_, record) => {
+      render: (name, record) => {
         return (
           <Link
             to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
               id: `${record.slug}.${record.productId}`,
             })}
           >
-            {record.name}
+            {name}
           </Link>
         );
       },
+    },
+    {
+      title: "Brand",
+      dataIndex: "categoryName",
+      width: "8rem",
+      key: "categoryName",
     },
     {
       title: "Size",
@@ -87,7 +105,7 @@ function CartPage() {
       key: "size",
     },
     {
-      title: "Giá",
+      title: "Đơn giá",
       dataIndex: "price",
       width: "8rem",
       key: "price",
@@ -117,7 +135,7 @@ function CartPage() {
         `${(record.price * record.quantity).toLocaleString("vi-VN")}₫`,
     },
     {
-      title: "Chỉnh sửa",
+      title: "Xoá",
       dataIndex: "action",
       width: "8rem",
       key: "action",
@@ -132,6 +150,7 @@ function CartPage() {
       },
     },
   ];
+
   return (
     <>
       <Container>

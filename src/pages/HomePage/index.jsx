@@ -1,23 +1,44 @@
-import React, { useMemo, useEffect } from "react";
-import { Carousel, Col, Row, Button } from "antd";
+import React, { useMemo, useEffect, useState } from "react";
+import { Col, Row, Button, Tooltip, Modal } from "antd";
 
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
-import { Container } from "../../layouts/Header/styles";
 
 import {
   getProductListAction,
   getCategoryListAction,
   getSaleListAction,
+  getProductDetailAction,
 } from "../../redux/actions";
 import * as S from "./styles";
+import { Container } from "../../layouts/Header/styles";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper";
 
 function HomePage() {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { saleProductList } = useSelector((state) => state.product);
+  const { productDetail } = useSelector((state) => state.product);
+
+  const handlePreviewImage = (id) => {
+    dispatch(getProductDetailAction({ id: id }));
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     dispatch(
@@ -57,54 +78,65 @@ function HomePage() {
             borderRight: "solid 4px #fff",
           }}
         >
-          <Link
-            to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
-              id: `${item.slug}.${item.id}`,
-            })}
-          >
-            <div size="small" className="productItem">
-              <div className="imageItem">
+          <div size="small" className="productItem">
+            <div className="imageItem">
+              <Link
+                to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                  id: `${item.slug}.${item.id}`,
+                })}
+              >
                 <img
                   src="https://htmldemo.net/james/james/img/product/8.png"
                   width="100%"
                   alt=""
                 />
-                <div className="actionProduct">
-                  <Button icon={<i class="fa-solid fa-cart-plus"></i>}></Button>
-                  <Button icon={<i class="fa-regular fa-heart"></i>}></Button>
-                </div>
-              </div>
-              <div className="offProduct">
-                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
-              </div>
-              <div className="nameProduct">
-                <i class="fa-solid fa-award"></i>
-                {item.name}
-              </div>
+              </Link>
+              <div className="actionProduct">
+                <Tooltip title="Preview">
+                  <Button
+                    icon={<i class="fa-solid fa-eye"></i>}
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      handlePreviewImage(item.id);
+                    }}
+                  ></Button>
+                </Tooltip>
 
-              <div className="productDescription">
-                <span className="priceProduct">
-                  <i
-                    class="fa-solid fa-money-bill-wheat"
-                    style={{ color: "#00cfff", marginRight: 3 }}
-                  ></i>
-                  <span className="cost">
-                    {item.price.toLocaleString("vi-VN")}₫
-                  </span>
-                  <span className="salePrice">
-                    {(item.price * ((100 - item.sale) / 100)).toLocaleString(
-                      "vi-VN"
-                    )}
-                    ₫
-                  </span>
-                </span>
+                <Tooltip title="Thêm vào giỏ hàng">
+                  <Button icon={<i class="fa-solid fa-cart-plus"></i>}></Button>
+                </Tooltip>
               </div>
-              <p className="ratingProduct">
-                <span>Rating</span>
-                <span>Đã bán: {item.sold} </span>
-              </p>
             </div>
-          </Link>
+            <div className="offProduct">
+              <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+            </div>
+            <div className="nameProduct">
+              <i class="fa-solid fa-award"></i>
+              {item.name}
+            </div>
+
+            <div className="productDescription">
+              <span className="priceProduct">
+                <i
+                  class="fa-solid fa-money-bill-wheat"
+                  style={{ color: "#00cfff", marginRight: 3 }}
+                ></i>
+                <span className="cost">
+                  {item.price.toLocaleString("vi-VN")}₫
+                </span>
+                <span className="salePrice">
+                  {(item.price * ((100 - item.sale) / 100)).toLocaleString(
+                    "vi-VN"
+                  )}
+                  ₫
+                </span>
+              </span>
+            </div>
+            <p className="ratingProduct">
+              <span>Rating</span>
+              <span>Đã bán: {item.sold} </span>
+            </p>
+          </div>
         </Col>
       );
     });
@@ -164,10 +196,84 @@ function HomePage() {
   return (
     <>
       <S.MainWrapper>
+        <S.ModalPreview>
+          <Modal
+            style={{ padding: 10 }}
+            footer={null}
+            cancelButtonProps={{ style: { display: "none" } }}
+            okButtonProps={{ style: { display: "none" } }}
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <S.PreviewSwipeWrap
+              style={{ width: 400, height: 400, margin: "auto" }}
+            >
+              <>
+                {!productDetail.data?.images?.length ? null : (
+                  <>
+                    <Swiper
+                      style={{
+                        "--swiper-navigation-color": "#fff",
+                        "--swiper-pagination-color": "#fff",
+                      }}
+                      loop={true}
+                      spaceBetween={10}
+                      thumbs={{ swiper: thumbsSwiper }}
+                      modules={[FreeMode, Thumbs]}
+                      className="mySwiper2"
+                    >
+                      <>
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[0].src} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[1].src} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[2].src} />
+                        </SwiperSlide>
+                      </>
+                    </Swiper>
+                    <Swiper
+                      onSwiper={setThumbsSwiper}
+                      loop={true}
+                      spaceBetween={10}
+                      slidesPerView={4}
+                      freeMode={true}
+                      watchSlidesProgress={true}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                      className="mySwiper"
+                    >
+                      <SwiperSlide>
+                        <img src={productDetail.data.images[0].src} />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img src={productDetail.data.images[1].src} />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img src={productDetail.data.images[2].src} />
+                      </SwiperSlide>
+                    </Swiper>
+                  </>
+                )}
+              </>
+            </S.PreviewSwipeWrap>
+          </Modal>
+        </S.ModalPreview>
         <S.CarouselWrapper>
-          <Carousel className="customCarousel" autoplay>
-            <Link to={ROUTES.USER.PRODUCT_LIST}>
-              <div className="contentCarousel">
+          <Swiper
+            className="customCarousel mySwiper"
+            navigation={true}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[Navigation, Autoplay]}
+          >
+            <SwiperSlide className="contentCarousel">
+              <Link to={ROUTES.USER.PRODUCT_LIST}>
                 <img
                   src="https://theme.hstatic.net/200000384421/1000953401/14/home_slider_image_3.jpg?v=21"
                   alt=""
@@ -179,48 +285,39 @@ function HomePage() {
                     New collection
                   </Link>
                 </div>
-              </div>
-            </Link>
-            <Link to={ROUTES.USER.PRODUCT_LIST}>
-              <div className="contentCarousel">
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide className="contentCarousel">
+              <Link to={ROUTES.USER.PRODUCT_LIST}>
                 <img
                   src="https://theme.hstatic.net/200000384421/1000953401/14/home_slider_image_1.jpg?v=21"
                   alt=""
                   width="100%"
                 />
                 <div className="shoppingDiv">
-                  <Link to={ROUTES.USER.PRODUCT_LIST} className="shoppingBtn">
-                    Shop now
+                  <Link to={ROUTES.USER.PRODUCT_LIST}>Shop now</Link>
+                  <Link to={ROUTES.USER.PRODUCT_LIST} state={{ new: true }}>
+                    New collection
                   </Link>
-                  <Link>New collection</Link>
                 </div>
-              </div>
-            </Link>
-            <Link to={ROUTES.USER.PRODUCT_LIST}>
-              <div className="contentCarousel">
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide className="contentCarousel">
+              <Link to={ROUTES.USER.PRODUCT_LIST}>
                 <img
                   src="https://theme.hstatic.net/200000384421/1000953401/14/home_slider_image_4.jpg?v=21"
                   alt=""
                   width="100%"
                 />
                 <div className="shoppingDiv">
-                  <Link to={ROUTES.USER.PRODUCT_LIST} href="">
-                    Shop now
-                  </Link>
-                  <Link
-                    href=""
-                    onClick={() =>
-                      navigate(ROUTES.USER.PRODUCT_LIST, {
-                        state: { new: true },
-                      })
-                    }
-                  >
+                  <Link to={ROUTES.USER.PRODUCT_LIST}>Shop now</Link>
+                  <Link to={ROUTES.USER.PRODUCT_LIST} state={{ new: true }}>
                     New collection
                   </Link>
                 </div>
-              </div>
-            </Link>
-          </Carousel>
+              </Link>
+            </SwiperSlide>
+          </Swiper>
         </S.CarouselWrapper>
         <S.OtherBrandWrapper>
           <div className="otherContent">
@@ -428,15 +525,7 @@ function HomePage() {
               <p>Cập nhật tin tức mới nhất về thời trang và sneaker!</p>
             </Col>
           </Row>
-          <Container>
-            <Carousel>
-              <Row>
-                <Col span={8}></Col>
-                <Col span={8}></Col>
-                <Col span={8}></Col>
-              </Row>
-            </Carousel>
-          </Container>
+          <Container></Container>
         </S.Blog>
       </S.MainWrapper>
     </>

@@ -34,6 +34,10 @@ function CheckoutPage() {
   const { wardList } = useSelector((state) => state.location);
   const { userInfo } = useSelector((state) => state.user);
   const { cartList } = useSelector((state) => state.checkOut);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 37 ~ CheckoutPage ~ cartList",
+    cartList
+  );
   const [transport, setTransport] = useState(0);
 
   const totalPrice = cartList
@@ -100,6 +104,7 @@ function CheckoutPage() {
             productName: item.name,
             price: item.price,
             quantity: item.quantity,
+            size: item.size,
           })),
         })
       );
@@ -458,10 +463,7 @@ function CheckoutPage() {
                       <Col span={8}>
                         <div className="cartItemImg">
                           <Badge count={item.quantity}>
-                            <img
-                              src="https://bizweb.sapocdn.net/thumb/compact/100/395/283/products/5877c30d5f179949c00611.jpg?v=1667639659153"
-                              alt=""
-                            />
+                            <img src={item.image} alt="" />
                           </Badge>
                         </div>
                       </Col>

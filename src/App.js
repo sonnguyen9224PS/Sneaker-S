@@ -3,8 +3,6 @@ import { useEffect } from "react";
 import "./App.js";
 import "./App.css";
 import "antd/dist/antd.less";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";

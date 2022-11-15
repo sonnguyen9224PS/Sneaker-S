@@ -9,9 +9,11 @@ import {
   Button,
   Upload,
   Form,
+  Space,
+  Modal,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link, generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { convertBase64ToImage, convertImageToBase64 } from "../../utils/file";
 
@@ -22,15 +24,17 @@ import {
   EditOutlined,
   LogoutOutlined,
   PlusOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
 import moment from "moment";
 import * as S from "./styles";
-
 import {
   getOrderList,
   logoutAction,
   updateAvatarAction,
+  getFavoriteList,
+  unFavoriteProductAction,
 } from "../../redux/actions";
 
 const ProfilePage = () => {
@@ -38,13 +42,39 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
   const { orderList } = useSelector((state) => state.order);
+  const { categoryList } = useSelector((state) => state.category);
+  const { favoriteList } = useSelector((state) => state.favorite);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 47 ~ ProfilePage ~ favoriteList",
+    favoriteList
+  );
   const { state } = useLocation();
-
+  const { confirm } = Modal;
   useEffect(() => {
     if (userInfo.data.id) {
-      dispatch(getOrderList({ userId: userInfo.data?.id }));
+      dispatch(getOrderList({ userId: userInfo.data.id }));
+      dispatch(getFavoriteList({ id: userInfo.data.id }));
     }
   }, [userInfo.data]);
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: "Bạn có muốn xoá sản phẩm này?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Có",
+      okType: "danger",
+      cancelText: "Không",
+      onOk() {
+        dispatch(
+          unFavoriteProductAction({
+            id: id,
+          })
+        );
+        window.location.reload();
+      },
+      onCancel() {},
+    });
+  };
 
   const tableColumns = [
     {
@@ -69,6 +99,79 @@ const ProfilePage = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt) => moment(createdAt).format("DD/MM/YYYY HH:mm"),
+    },
+    {
+      title: "Địa chỉ nhận hàng",
+      dataIndex: "address",
+      key: "address",
+      render: (_, record) => {
+        return (
+          <>
+            <p>Tỉnh/Thành phố: {record.cityCode}</p>
+            <p>Quận/Huyện: {record.districtCode}</p>
+            <p>Xã/Phường:{record.wardCode}</p>
+          </>
+        );
+      },
+    },
+  ];
+  const favoriteColumns = [
+    {
+      title: "Ảnh",
+      dataIndex: "image",
+      width: "8rem",
+      render: (_, record) => {
+        return (
+          <div style={{ width: 60, height: 60 }}>
+            <img
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              src={record.product?.images[0]?.src}
+              alt=""
+            />
+          </div>
+        );
+      },
+    },
+    {
+      title: "Tên sản phẩm",
+      dataIndex: "product",
+      width: "8rem",
+      render: (_, record) => {
+        return record.product?.name;
+      },
+    },
+    {
+      title: "Brand",
+      dataIndex: "product",
+      width: "8rem",
+      render: (_, record) => {
+        const data = categoryList.data.find(
+          (item) => item.id === record.product.categoryId
+        );
+        return data.name;
+      },
+    },
+    {
+      title: "Giá",
+      dataIndex: "product",
+      width: "8rem",
+      render: (_, record) => {
+        return `${record.product?.price.toLocaleString("vi-VN")}₫`;
+      },
+    },
+    {
+      title: "Xoá",
+      dataIndex: "action",
+      width: "8rem",
+      render: (_, record) => {
+        return (
+          <Space>
+            <Button onClick={() => showDeleteConfirm(record.id)}>
+              <i class="fa-solid fa-trash"></i>
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 
@@ -210,17 +313,22 @@ const ProfilePage = () => {
               pagination={false}
               expandable={{
                 expandedRowRender: (record) => (
-                  <ul>
-                    {record.orderProducts.map((item) => (
-                      <li key={item.id}>
-                        {item.productName}
-                        {item.optionName && ` - ${item.optionName}`}
-                        {` - ${item.price}`}
-                        {` - ${item.quantity}`}
-                        {` - ${item.price * item.quantity}`}
-                      </li>
-                    ))}
-                  </ul>
+                  <>
+                    <ul>
+                      <p style={{ margin: 0 }}>Detail:</p>
+                      {record.orderProducts.map((item) => (
+                        <li key={item.id}>
+                          {item.productName}
+                          {item.optionName && ` - ${item.optionName}`}
+                          {` - đơn giá: ${item.price}`}
+                          {` - số lượng: ${item.quantity}`}
+                          {` - size: ${item.size}`}
+                          {` - thành tiền:  ${item.price * item.quantity}`}
+                        </li>
+                      ))}
+                    </ul>
+                    <p></p>
+                  </>
                 ),
               }}
             />
@@ -234,7 +342,12 @@ const ProfilePage = () => {
               </span>
             }
             key="3"
-          ></Tabs.TabPane>
+          >
+            <Table
+              columns={favoriteColumns}
+              dataSource={favoriteList.data}
+            ></Table>
+          </Tabs.TabPane>
           <Tabs.TabPane
             className="tabItem"
             tab={
