@@ -34,10 +34,7 @@ function CheckoutPage() {
   const { wardList } = useSelector((state) => state.location);
   const { userInfo } = useSelector((state) => state.user);
   const { cartList } = useSelector((state) => state.checkOut);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 37 ~ CheckoutPage ~ cartList",
-    cartList
-  );
+
   const [transport, setTransport] = useState(0);
 
   const totalPrice = cartList

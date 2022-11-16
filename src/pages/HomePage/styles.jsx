@@ -31,7 +31,7 @@ export const MainWrapper = styled.div`
         align-items: center;
         visibility: hidden;
         opacity: 0;
-        & > button {
+        & button {
           position: relative;
           height: 35px;
           width: 40px;
@@ -323,6 +323,8 @@ export const SignificantBrand = styled.div`
     }
   }
 `;
+export const ModalPreview = styled.div``;
+
 export const PreviewSwipeWrap = styled.div`
   .swiper {
     width: 100%;
@@ -394,5 +396,4 @@ export const PreviewSwipeWrap = styled.div`
     object-fit: contain;
   }
 `;
-export const ModalPreview = styled.div``;
 export const Blog = styled.div``;

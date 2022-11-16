@@ -236,7 +236,7 @@ function Header() {
                         </ul>
                       </li>
                       <li>membership</li>
-                      <li>blog</li>
+                      <li>tin tức và bài viết</li>
                     </ul>
                   </S.HeaderRightDown>
                 </Col>

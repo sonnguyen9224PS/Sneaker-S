@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Tabs,
   Table,
-  Image,
   Avatar,
   Row,
   Col,
@@ -44,12 +43,10 @@ const ProfilePage = () => {
   const { orderList } = useSelector((state) => state.order);
   const { categoryList } = useSelector((state) => state.category);
   const { favoriteList } = useSelector((state) => state.favorite);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 47 ~ ProfilePage ~ favoriteList",
-    favoriteList
-  );
+
   const { state } = useLocation();
   const { confirm } = Modal;
+
   useEffect(() => {
     if (userInfo.data.id) {
       dispatch(getOrderList({ userId: userInfo.data.id }));
@@ -161,14 +158,49 @@ const ProfilePage = () => {
     },
     {
       title: "Xoá",
-      dataIndex: "action",
+      dataIndex: "delete",
       width: "8rem",
       render: (_, record) => {
         return (
           <Space>
-            <Button onClick={() => showDeleteConfirm(record.id)}>
+            <Button
+              style={{
+                border: "none",
+                fontSize: 20,
+                boxShadow: "none",
+                background: "none",
+              }}
+              onClick={() => showDeleteConfirm(record.id)}
+            >
               <i class="fa-solid fa-trash"></i>
             </Button>
+          </Space>
+        );
+      },
+    },
+    {
+      title: "Mua",
+      dataIndex: "buy",
+      width: "8rem",
+      render: (_, record) => {
+        return (
+          <Space>
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                id: `${record.product.slug}.${record.id}`,
+              })}
+            >
+              <Button
+                style={{
+                  border: "none",
+                  fontSize: 20,
+                  boxShadow: "none",
+                  background: "none",
+                }}
+              >
+                <i class="fa-solid fa-cart-plus"></i>
+              </Button>
+            </Link>
           </Space>
         );
       },

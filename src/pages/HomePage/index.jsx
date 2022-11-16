@@ -1,15 +1,15 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { Col, Row, Button, Tooltip, Modal } from "antd";
+import { Col, Row, Button, Tooltip, Modal, Rate } from "antd";
 
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  getProductListAction,
   getCategoryListAction,
   getSaleListAction,
   getProductDetailAction,
+  getNewListAction,
 } from "../../redux/actions";
 import * as S from "./styles";
 import { Container } from "../../layouts/Header/styles";
@@ -24,8 +24,9 @@ function HomePage() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { productList } = useSelector((state) => state.product);
+
   const { saleProductList } = useSelector((state) => state.product);
+  const { newProductList } = useSelector((state) => state.product);
   const { productDetail } = useSelector((state) => state.product);
 
   const handlePreviewImage = (id) => {
@@ -42,20 +43,16 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(
-      getProductListAction({
+      getSaleListAction({
         params: {
           page: 1,
           limit: 8,
-          new: true,
+          sale: 30,
         },
       })
     );
-    dispatch(getCategoryListAction());
-  }, []);
-
-  useEffect(() => {
     dispatch(
-      getSaleListAction({
+      getNewListAction({
         params: {
           page: 1,
           limit: 8,
@@ -74,11 +71,10 @@ function HomePage() {
           span={6}
           key={item.id}
           style={{
-            backgroundColor: "#efefef",
             borderRight: "solid 4px #fff",
           }}
         >
-          <div size="small" className="productItem">
+          <div className="productItem">
             <div className="imageItem">
               <Link
                 to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
@@ -86,7 +82,7 @@ function HomePage() {
                 })}
               >
                 <img
-                  src="https://htmldemo.net/james/james/img/product/8.png"
+                  src={!item.images[0]?.src ? null : item.images[0].src}
                   width="100%"
                   alt=""
                 />
@@ -101,9 +97,16 @@ function HomePage() {
                     }}
                   ></Button>
                 </Tooltip>
-
                 <Tooltip title="Thêm vào giỏ hàng">
-                  <Button icon={<i class="fa-solid fa-cart-plus"></i>}></Button>
+                  <Link
+                    to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                      id: `${item.slug}.${item.id}`,
+                    })}
+                  >
+                    <Button
+                      icon={<i class="fa-solid fa-cart-plus"></i>}
+                    ></Button>
+                  </Link>
                 </Tooltip>
               </div>
             </div>
@@ -133,9 +136,14 @@ function HomePage() {
               </span>
             </div>
             <p className="ratingProduct">
-              <span>Rating</span>
-              <span>Đã bán: {item.sold} </span>
+              <span>Đánh giá:</span>
+              <Rate
+                value={!item.reviews[0]?.rate ? 0 : item.reviews[0].rate}
+                disabled
+                style={{ fontSize: 12 }}
+              />
             </p>
+            <p>Đã bán: {item.sold} </p>
           </div>
         </Col>
       );
@@ -143,13 +151,12 @@ function HomePage() {
   }, [saleProductList.data]);
 
   const renderProductListNew = useMemo(() => {
-    return productList.data.map((item) => {
+    return newProductList.data.map((item) => {
       return (
         <Col
           span={6}
           key={item.id}
           style={{
-            backgroundColor: "#efefef",
             borderRight: "solid 4px #fff",
           }}
         >
@@ -161,7 +168,7 @@ function HomePage() {
             <div size="small" className="productItem">
               <div className="imageItem">
                 <img
-                  src="https://htmldemo.net/james/james/img/product/2.png"
+                  src={!item.images[0]?.src ? null : item.images[0].src}
                   width="100%"
                   alt=""
                 />
@@ -191,7 +198,7 @@ function HomePage() {
         </Col>
       );
     });
-  }, [productList.data]);
+  }, [newProductList]);
 
   return (
     <>

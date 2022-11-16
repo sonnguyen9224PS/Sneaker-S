@@ -25,6 +25,17 @@ const initialState = {
     loading: false,
     error: "",
   },
+  newProductList: {
+    data: [],
+    meta: {},
+    loading: false,
+    error: "",
+  },
+  bestSellList: {
+    data: [],
+    loading: false,
+    error: "",
+  },
 };
 
 const productReducer = createReducer(initialState, {
@@ -128,7 +139,74 @@ const productReducer = createReducer(initialState, {
       },
     };
   },
+  [REQUEST(PRODUCT_ACTION.GET_NEW_LIST)]: (state, action) => {
+    return {
+      ...state,
+      newProductList: {
+        ...state.newProductList,
+        loading: true,
+        error: "",
+      },
+    };
+  },
+  [SUCCESS(PRODUCT_ACTION.GET_NEW_LIST)]: (state, action) => {
+    const { data, meta } = action.payload;
+    return {
+      ...state,
+      newProductList: {
+        ...state.newProductList,
+        data: data,
+        meta: meta,
+        loading: false,
+      },
+    };
+  },
+  [FAIL(PRODUCT_ACTION.GET_NEW_LIST)]: (state, action) => {
+    const { error } = action.payload;
+    return {
+      ...state,
+      newProductList: {
+        ...state.newProductList,
+        loading: false,
+        error: error,
+      },
+    };
+  },
 
+  [REQUEST(PRODUCT_ACTION.GET_BEST_SELL_LIST)]: (state, action) => {
+    return {
+      ...state,
+      bestSellList: {
+        ...state.bestSellList,
+        loading: true,
+        error: "",
+      },
+    };
+  },
+  [SUCCESS(PRODUCT_ACTION.GET_BEST_SELL_LIST)]: (state, action) => {
+    const { data } = action.payload;
+    return {
+      ...state,
+      bestSellList: {
+        ...state.bestSellList,
+        data: data,
+        loading: false,
+      },
+    };
+  },
+  [FAIL(PRODUCT_ACTION.GET_BEST_SELL_LIST)]: (state, action) => {
+    const { error } = action.payload;
+    return {
+      ...state,
+      bestSellList: {
+        ...state.bestSellList,
+        loading: false,
+        error: error,
+      },
+    };
+  },
+
+  //favorite
   [SUCCESS(FAVORITE_ACTION.FAVORITE_PRODUCT)]: (state, action) => {
     const { data } = action.payload;
     return {

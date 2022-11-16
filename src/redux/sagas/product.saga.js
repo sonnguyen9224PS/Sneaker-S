@@ -8,7 +8,7 @@ function* getProductListSaga(action) {
     const result = yield axios.get(`http://localhost:4000/products`, {
       params: {
         _expand: "category",
-        _embed: "images",
+        _embed: "reviews",
         _page: params.page,
         _limit: params.limit,
         ...(params.categoryId && { categoryId: params.categoryId }),
@@ -33,8 +33,6 @@ function* getProductListSaga(action) {
           price_gte: params.operator[0],
           price_lte: params.operator[1],
         }),
-        ...(params.new && { new: true }),
-        ...(params.sale && { sale: params.sale }),
       },
     });
 
@@ -66,6 +64,7 @@ function* getSaleListSaga(action) {
     const result = yield axios.get(`http://localhost:4000/products`, {
       params: {
         _expand: "category",
+        _embed: "reviews",
         _page: params.page,
         _limit: params.limit,
         ...(params.sale && { sale_gte: 1 }),
@@ -87,7 +86,69 @@ function* getSaleListSaga(action) {
     yield put({
       type: FAIL(PRODUCT_ACTION.GET_SALE_LIST),
       payload: {
-        error: "get sale productList error",
+        error: "Fail!",
+      },
+    });
+  }
+}
+//new list
+function* getNewListSaga(action) {
+  try {
+    const { params } = action.payload;
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _page: params.page,
+        _limit: params.limit,
+        ...(params.new && { new: true }),
+      },
+    });
+
+    yield put({
+      type: SUCCESS(PRODUCT_ACTION.GET_NEW_LIST),
+      payload: {
+        data: result.data,
+        meta: {
+          total: parseInt(result.headers["x-total-count"]),
+          page: params.page,
+          limit: params.limit,
+        },
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: FAIL(PRODUCT_ACTION.GET_NEW_LIST),
+      payload: {
+        error: "Fail!",
+      },
+    });
+  }
+}
+//best sell list
+function* getBestSellListSaga(action) {
+  try {
+    const { params } = action.payload;
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _page: params.page,
+        _limit: params.limit,
+        _sort: "sold",
+        _order: "desc",
+      },
+    });
+
+    yield put({
+      type: SUCCESS(PRODUCT_ACTION.GET_BEST_SELL_LIST),
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: FAIL(PRODUCT_ACTION.GET_BEST_SELL_LIST),
+      payload: {
+        error: "Fail!",
       },
     });
   }
@@ -130,4 +191,9 @@ export default function* productSaga() {
     getProductDetailSaga
   );
   yield takeEvery(REQUEST(PRODUCT_ACTION.GET_SALE_LIST), getSaleListSaga);
+  yield takeEvery(REQUEST(PRODUCT_ACTION.GET_NEW_LIST), getNewListSaga);
+  yield takeEvery(
+    REQUEST(PRODUCT_ACTION.GET_BEST_SELL_LIST),
+    getBestSellListSaga
+  );
 }

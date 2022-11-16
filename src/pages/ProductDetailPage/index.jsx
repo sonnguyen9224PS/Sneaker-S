@@ -16,12 +16,17 @@ import {
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useParams, Link, generatePath } from "react-router-dom";
-import moment from "moment";
-import { Carousel } from "react-carousel-minimal";
 
+import { useSelector, useDispatch } from "react-redux";
 import * as S from "./styles";
 import { ROUTES } from "../../constants/routes";
-import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { FreeMode, Thumbs } from "swiper";
 import {
   getProductDetailAction,
   addToCartAction,
@@ -35,6 +40,7 @@ import {
 import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
 
 const ProductDetailPage = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [reviewForm] = Form.useForm();
   const { Panel } = Collapse;
   const [optionSize, setOptionSize] = useState(42);
@@ -118,7 +124,7 @@ const ProductDetailPage = () => {
       getProductListAction({
         params: {
           page: 1,
-          limit: PRODUCT_LIST_LIMIT,
+          limit: 4,
           categoryId: productDetail.data.categoryId,
         },
       })
@@ -179,44 +185,6 @@ const ProductDetailPage = () => {
     });
   }, [reviewList.data]);
 
-  const renderProductImage = useMemo(() => {
-    if (!productDetail.data?.images?.length) return null;
-    const data = [
-      {
-        image: productDetail.data.images[0]?.src,
-      },
-      {
-        image: productDetail.data.images[1]?.src,
-      },
-      {
-        image: productDetail.data.images[2]?.src,
-      },
-    ];
-    return (
-      <Row justify="center" style={{ marginBottom: "3rem" }}>
-        <div
-          style={{
-            padding: "0 20px",
-          }}
-        >
-          <Carousel
-            data={data}
-            time={2000}
-            width="600px"
-            height="300px"
-            radius="10px"
-            pauseIconColor="white"
-            pauseIconSize="40px"
-            slideBackgroundColor="darkgrey"
-            slideImageFit="contain"
-            thumbnails={true}
-            thumbnailWidth="100px"
-          />
-        </div>
-      </Row>
-    );
-  }, []);
-
   return (
     <>
       <S.DetailWrapper>
@@ -241,7 +209,56 @@ const ProductDetailPage = () => {
           <Col span="12">
             <Row style={{ flexDirection: "column" }}>
               <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
-                {renderProductImage}
+                {/* carousel */}
+                <S.PreviewSwipeWrap
+                  style={{ width: 400, height: 400, margin: "auto" }}
+                >
+                  <>
+                    {!productDetail.data?.images?.length ? null : (
+                      <>
+                        <Swiper
+                          loop={true}
+                          spaceBetween={10}
+                          thumbs={{ swiper: thumbsSwiper }}
+                          modules={[FreeMode, Thumbs]}
+                          className="mySwiper2"
+                        >
+                          <>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[0].src} />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[1].src} />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[2].src} />
+                            </SwiperSlide>
+                          </>
+                        </Swiper>
+                        <Swiper
+                          onSwiper={setThumbsSwiper}
+                          loop={true}
+                          spaceBetween={10}
+                          slidesPerView={4}
+                          freeMode={true}
+                          watchSlidesProgress={true}
+                          modules={[FreeMode, Thumbs]}
+                          className="mySwiper"
+                        >
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[0].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[1].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[2].src} />
+                          </SwiperSlide>
+                        </Swiper>
+                      </>
+                    )}
+                  </>
+                </S.PreviewSwipeWrap>
               </Col>
 
               <Col span="12" style={{ maxWidth: "100%" }}>
@@ -273,15 +290,16 @@ const ProductDetailPage = () => {
             </Row>
           </Col>
           <Col span="12">
-            <Card title={`Chi tiết sản phẩm - ${editedNameProduct}`}>
+            <Card title={`Chi tiết sản phẩm`}>
               <h3>{productDetail.data.name}</h3>
               <Button
+                style={{ border: "none", outline: "none", boxShadow: "none" }}
                 size="large"
                 danger={isLike}
                 icon={isLike ? <HeartFilled /> : <HeartOutlined />}
                 onClick={() => handleToggleFavorite()}
               >
-                Đã thích({productDetail.data?.favorites?.length || 0})
+                Like({productDetail.data?.favorites?.length || 0})
               </Button>
               <p>{productDetail.data.category?.name}</p>
               <Row>

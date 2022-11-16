@@ -10,3 +10,9 @@ export const getProductDetailAction = createAction(
 export const getSaleListAction = createAction(
   REQUEST(PRODUCT_ACTION.GET_SALE_LIST)
 );
+export const getNewListAction = createAction(
+  REQUEST(PRODUCT_ACTION.GET_NEW_LIST)
+);
+export const getBestSellListAction = createAction(
+  REQUEST(PRODUCT_ACTION.GET_BEST_SELL_LIST)
+);

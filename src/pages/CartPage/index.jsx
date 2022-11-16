@@ -109,7 +109,7 @@ function CartPage() {
       dataIndex: "price",
       width: "8rem",
       key: "price",
-      render: (price) => `${price.toLocaleString("vi-VN")}₫`,
+      render: (price) => (!price ? null : `${price?.toLocaleString("vi-VN")}₫`),
     },
     {
       title: "Số lượng",
