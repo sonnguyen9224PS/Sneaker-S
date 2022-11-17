@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  font-family: "Fredoka", sans-serif;
+
   padding: 16px;
   min-height: calc(100vh - 570px);
   .ant-breadcrumb {

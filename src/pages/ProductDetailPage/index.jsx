@@ -13,6 +13,7 @@ import {
   Rate,
   Input,
   Space,
+  BackTop,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useParams, Link, generatePath } from "react-router-dom";
@@ -187,6 +188,8 @@ const ProductDetailPage = () => {
 
   return (
     <>
+      <BackTop />
+
       <S.DetailWrapper>
         <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
           <Breadcrumb.Item>

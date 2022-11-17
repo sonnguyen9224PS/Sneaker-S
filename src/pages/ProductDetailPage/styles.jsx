@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const DetailWrapper = styled.div`
+  font-family: "Fredoka", sans-serif;
+
   min-height: calc(100vh - 205px);
   .ant-row {
     width: 100%;

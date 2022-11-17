@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { Col, Row, Button, Tooltip, Modal, Rate } from "antd";
+import { Col, Row, Button, Tooltip, Modal, Rate, BackTop } from "antd";
 
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -202,6 +202,7 @@ function HomePage() {
 
   return (
     <>
+      <BackTop />
       <S.MainWrapper>
         <S.ModalPreview>
           <Modal

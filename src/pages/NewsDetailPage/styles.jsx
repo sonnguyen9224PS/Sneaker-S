@@ -14,4 +14,9 @@ export const NewsWrapper = styled.div`
     -webkit-box-orient: vertical;
     word-break: keep-all;
   }
+  .contentDetail {
+    & img {
+      width: 100%;
+    }
+  }
 `;

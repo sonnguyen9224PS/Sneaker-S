@@ -235,8 +235,9 @@ function Header() {
                           </li>
                         </ul>
                       </li>
-                      <li>membership</li>
-                      <li>tin tức và bài viết</li>
+                      <li>
+                        <Link to={ROUTES.USER.NEWS}> tin tức và bài viết</Link>
+                      </li>
                     </ul>
                   </S.HeaderRightDown>
                 </Col>

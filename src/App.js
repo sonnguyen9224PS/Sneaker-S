@@ -21,8 +21,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import AdminPage from "./pages/AdminPage";
 import SuccessPage from "./pages/SuccessPage";
 import ProfilePage from "./pages/ProfilePage";
-import MemberPage from "./pages/MemberPage";
 import NewsPage from "./pages/NewsPage";
+import NewsDetailPage from "./pages/NewsDetailPage";
 
 import { getUserInfoAction, getCategoryListAction } from "./redux/actions/";
 
@@ -57,8 +57,8 @@ function App() {
         <Route path={ROUTES.USER.SUCCESS} element={<SuccessPage />} />
         <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />} />
         <Route path={ROUTES.USER.PROFILE} element={<ProfilePage />} />
-        <Route path={ROUTES.USER.MEMBER} element={<MemberPage />} />
         <Route path={ROUTES.USER.NEWS} element={<NewsPage />} />
+        <Route path={ROUTES.USER.NEWS_DETAIL} element={<NewsDetailPage />} />
       </Route>
       <Route element={<LoginLayout />}>
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />

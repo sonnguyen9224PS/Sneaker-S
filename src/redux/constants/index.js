@@ -7,3 +7,4 @@ export * from "./location.constant";
 export * from "./order.constant";
 export * from "./favorite.constant";
 export * from "./review.constant";
+export * from "./news.constant";

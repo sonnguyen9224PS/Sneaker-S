@@ -1,26 +1,8 @@
 import styled from "styled-components";
 
 export const Profile = styled.div`
-  .ant-tabs-nav-list {
-    .ant-tabs-tab {
-      position: relative;
-      &:before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 20px;
-        height: 20px;
-        background: url(https://cdn-icons-png.flaticon.com/512/5499/5499206.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        transform: translateY(-50%);
-      }
-    }
-    .ant-tabs-tab-btn {
-      padding-left: 6px;
-    }
-  }
+  font-family: "Fredoka", sans-serif;
+
   .avatarRow {
     .avatarCol {
       display: flex;

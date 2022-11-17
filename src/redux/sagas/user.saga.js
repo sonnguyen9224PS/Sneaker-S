@@ -20,7 +20,7 @@ function* loginSaga(action) {
       yield callback.gotoDashboard();
     }
     yield notification.success({
-      message: "Login sucess!",
+      message: "Đăng nhập thành công!",
       placement: "topRight",
     });
   } catch (e) {
@@ -44,6 +44,10 @@ function* registerSaga(action, callback) {
       },
     });
     yield callback.goToLogin();
+    yield notification.success({
+      message: "Đăng ký tài khoản thành công!",
+      placement: "topRight",
+    });
   } catch (e) {
     notification.error({
       message: "Login failed!",

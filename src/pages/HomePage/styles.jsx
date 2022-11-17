@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MainWrapper = styled.div`
-  font-family: "Open Sans", sans-serif;
+  font-family: "Fredoka", sans-serif;
   min-height: calc(100vh - 570px);
   background-color: var(--pastel-purple);
   .productItem {

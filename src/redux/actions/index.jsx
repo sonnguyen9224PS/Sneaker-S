@@ -6,3 +6,4 @@ export * from "./location.action";
 export * from "./order.action";
 export * from "./favorite.action";
 export * from "./review.action";
+export * from "./news.action";
