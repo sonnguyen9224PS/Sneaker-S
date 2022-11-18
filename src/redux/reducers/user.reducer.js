@@ -15,7 +15,7 @@ const initialState = {
     loading: false,
     error: "",
   },
-  updateUserData: {
+  updatePassWord: {
     loading: false,
     error: "",
   },
@@ -133,31 +133,31 @@ const userReducer = createReducer(initialState, {
     };
   },
 
-  [REQUEST(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+  [REQUEST(USER_ACTION.UPDATE_PASSWORD)]: (state, action) => {
     return {
       ...state,
-      updateUserData: {
-        ...state.updateUserData,
+      updatePassWord: {
+        ...state.updatePassWord,
         loading: true,
         error: "",
       },
     };
   },
-  [SUCCESS(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+  [SUCCESS(USER_ACTION.UPDATE_PASSWORD)]: (state, action) => {
     return {
       ...state,
-      updateUserData: {
-        ...state.updateUserData,
+      updatePassWord: {
+        ...state.updatePassWord,
         loading: false,
       },
     };
   },
-  [FAIL(USER_ACTION.UPDATE_AVATAR)]: (state, action) => {
+  [FAIL(USER_ACTION.UPDATE_PASSWORD)]: (state, action) => {
     const { error } = action.payload;
     return {
       ...state,
-      updateUserData: {
-        ...state.updateUserData,
+      updatePassWord: {
+        ...state.updatePassWord,
         loading: false,
         error: error,
       },

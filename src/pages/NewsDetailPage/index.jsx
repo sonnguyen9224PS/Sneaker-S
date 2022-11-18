@@ -23,7 +23,14 @@ function NewsDetailPage() {
   const { bestSellList } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getNewsListAction());
+    dispatch(
+      getNewsListAction({
+        params: {
+          page: 1,
+          limit: 4,
+        },
+      })
+    );
     dispatch(
       getBestSellListAction({
         params: {
@@ -112,6 +119,9 @@ function NewsDetailPage() {
         <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
           <Breadcrumb.Item>
             <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to={ROUTES.USER.NEWS}>Danh mục tin tức</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Tin tức</Breadcrumb.Item>
         </Breadcrumb>

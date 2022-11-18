@@ -1,5 +1,17 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { Col, Row, Button, Tooltip, Modal, Rate, BackTop } from "antd";
+import {
+  Col,
+  Row,
+  Button,
+  Tooltip,
+  Modal,
+  Rate,
+  BackTop,
+  Radio,
+  notification,
+  Card,
+  InputNumber,
+} from "antd";
 
 import { Link, generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -10,6 +22,8 @@ import {
   getSaleListAction,
   getProductDetailAction,
   getNewListAction,
+  addToCartAction,
+  getNewsListAction,
 } from "../../redux/actions";
 import * as S from "./styles";
 import { Container } from "../../layouts/Header/styles";
@@ -24,13 +38,38 @@ function HomePage() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [optionSize, setOptionSize] = useState(42);
+  const [productQuantity, setProductQuantity] = useState(1);
+
+  const openNotification = () => {
+    notification.open({
+      message: "Thêm sản phẩm vào giỏ hàng thành công.",
+      icon: <i class="fa-solid fa-circle-check"></i>,
+    });
+  };
 
   const { saleProductList } = useSelector((state) => state.product);
   const { newProductList } = useSelector((state) => state.product);
   const { productDetail } = useSelector((state) => state.product);
+  const { newsList } = useSelector((state) => state.news);
 
   const handlePreviewImage = (id) => {
     dispatch(getProductDetailAction({ id: id }));
+  };
+  const handleAddToCart = () => {
+    openNotification();
+    dispatch(
+      addToCartAction({
+        productId: productDetail.data.id,
+        name: productDetail.data.name,
+        price: productDetail.data.price,
+        quantity: productQuantity,
+        size: optionSize,
+        slug: productDetail.data.slug,
+        categoryName: productDetail.data?.category?.name,
+        image: productDetail.data.images[0].src,
+      })
+    );
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +79,17 @@ function HomePage() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    dispatch(
+      getNewsListAction({
+        params: {
+          page: 1,
+          limit: 3,
+        },
+      })
+    );
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -67,25 +117,21 @@ function HomePage() {
   const renderProductListSale = useMemo(() => {
     return saleProductList.data.map((item) => {
       return (
-        <Col
-          span={6}
-          key={item.id}
-          style={{
-            borderRight: "solid 4px #fff",
-          }}
-        >
+        <Col span={6} key={item.id}>
           <div className="productItem">
-            <div className="imageItem">
+            <div className="imageWrap">
               <Link
                 to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
                   id: `${item.slug}.${item.id}`,
                 })}
               >
-                <img
-                  src={!item.images[0]?.src ? null : item.images[0].src}
-                  width="100%"
-                  alt=""
-                />
+                <div className="imageItem">
+                  <img
+                    src={!item.images[0]?.src ? null : item.images[0].src}
+                    width="100%"
+                    alt=""
+                  />
+                </div>
               </Link>
               <div className="actionProduct">
                 <Tooltip title="Preview">
@@ -110,40 +156,47 @@ function HomePage() {
                 </Tooltip>
               </div>
             </div>
-            <div className="offProduct">
-              <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
-            </div>
-            <div className="nameProduct">
-              <i class="fa-solid fa-award"></i>
-              {item.name}
-            </div>
+            <div className="contentProduct">
+              <div className="offProduct">
+                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+              </div>
+              <div className="nameProduct">
+                <i class="fa-solid fa-award"></i>
+                {item.name}
+              </div>
 
-            <div className="productDescription">
-              <span className="priceProduct">
-                <i
-                  class="fa-solid fa-money-bill-wheat"
-                  style={{ color: "#00cfff", marginRight: 3 }}
-                ></i>
-                <span className="cost">
-                  {item.price.toLocaleString("vi-VN")}₫
+              <div className="productDescription">
+                <span className="priceProduct">
+                  <i class="fa-regular fa-money-bill-1"></i>
+                  <span className="cost">
+                    {item.price.toLocaleString("vi-VN")}₫
+                  </span>
+                  <span className="salePrice">
+                    {(item.price * ((100 - item.sale) / 100)).toLocaleString(
+                      "vi-VN"
+                    )}
+                    ₫
+                  </span>
                 </span>
-                <span className="salePrice">
-                  {(item.price * ((100 - item.sale) / 100)).toLocaleString(
-                    "vi-VN"
-                  )}
-                  ₫
-                </span>
-              </span>
+              </div>
+              <p className="ratingProduct">
+                <i class="fa-regular fa-star-half-stroke"></i>
+                <span>Đánh giá:</span>
+                <Rate
+                  value={!item.reviews[0]?.rate ? 0 : item.reviews[0].rate}
+                  disabled
+                  style={{ fontSize: 12 }}
+                />
+              </p>
+              <p className="soldProduct">
+                <i class="fa-solid fa-hand-holding-dollar"></i>Đã bán:{" "}
+                {item.sold}{" "}
+              </p>
+              <div className="authenProduct">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Authenticity Guarantee</span>
+              </div>
             </div>
-            <p className="ratingProduct">
-              <span>Đánh giá:</span>
-              <Rate
-                value={!item.reviews[0]?.rate ? 0 : item.reviews[0].rate}
-                disabled
-                style={{ fontSize: 12 }}
-              />
-            </p>
-            <p>Đã bán: {item.sold} </p>
           </div>
         </Col>
       );
@@ -153,25 +206,20 @@ function HomePage() {
   const renderProductListNew = useMemo(() => {
     return newProductList.data.map((item) => {
       return (
-        <Col
-          span={6}
-          key={item.id}
-          style={{
-            borderRight: "solid 4px #fff",
-          }}
-        >
+        <Col span={6} key={item.id}>
           <Link
             to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
               id: `${item.slug}.${item.id}`,
             })}
           >
             <div size="small" className="productItem">
-              <div className="imageItem">
-                <img
-                  src={!item.images[0]?.src ? null : item.images[0].src}
-                  width="100%"
-                  alt=""
-                />
+              <div className="imageWrap">
+                <div className="imageItem">
+                  <img
+                    src={!item.images[0]?.src ? null : item.images[0].src}
+                    alt=""
+                  />
+                </div>
                 <div className="actionProduct">
                   <Button icon={<i class="fa-solid fa-cart-plus"></i>}></Button>
                   <Button icon={<i class="fa-regular fa-heart"></i>}></Button>
@@ -199,13 +247,64 @@ function HomePage() {
       );
     });
   }, [newProductList]);
+  const renderNewsSlide = () => {
+    return newsList.data.map((item) => {
+      return (
+        <Col span={8} style={{ paddingLeft: 10, paddingRight: 10 }}>
+          <div
+            style={{
+              width: "100%",
+              overflow: "hidden",
+              borderRadius: 10,
+            }}
+          >
+            <Link
+              to={generatePath(ROUTES.USER.NEWS_DETAIL, {
+                id: `${item.title}.${item.id}`,
+              })}
+            >
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={item.bannerImage}
+                alt=""
+              />
+            </Link>
+          </div>
+          <p
+            style={{
+              marginTop: "1em",
+              fontStyle: "italic",
+              color: "blueviolet",
+            }}
+          >
+            <i style={{ marginRight: 4 }} class="fa-solid fa-user-tie"></i>
+            {item.author}
+          </p>
+          <Link
+            to={generatePath(ROUTES.USER.NEWS_DETAIL, {
+              id: `${item.title}.${item.id}`,
+            })}
+          >
+            <h3>{item.title}</h3>
+          </Link>
+          <p
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: item.quotation,
+            }}
+          ></p>
+        </Col>
+      );
+    });
+  };
 
   return (
     <>
-      <BackTop />
+      <BackTop style={{ right: 0 }} />
       <S.MainWrapper>
         <S.ModalPreview>
           <Modal
+            width="80%"
             style={{ padding: 10 }}
             footer={null}
             cancelButtonProps={{ style: { display: "none" } }}
@@ -214,59 +313,120 @@ function HomePage() {
             onOk={handleOk}
             onCancel={handleCancel}
           >
-            <S.PreviewSwipeWrap
-              style={{ width: 400, height: 400, margin: "auto" }}
-            >
-              <>
-                {!productDetail.data?.images?.length ? null : (
+            <Row width="100%">
+              <Col span={12}>
+                <S.PreviewSwipeWrap
+                  style={{ width: "100%", height: 400, margin: "auto" }}
+                >
                   <>
-                    <Swiper
-                      style={{
-                        "--swiper-navigation-color": "#fff",
-                        "--swiper-pagination-color": "#fff",
-                      }}
-                      loop={true}
-                      spaceBetween={10}
-                      thumbs={{ swiper: thumbsSwiper }}
-                      modules={[FreeMode, Thumbs]}
-                      className="mySwiper2"
-                    >
+                    {!productDetail.data?.images?.length ? null : (
                       <>
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[0].src} />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[1].src} />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[2].src} />
-                        </SwiperSlide>
+                        <Swiper
+                          style={{
+                            "--swiper-navigation-color": "#fff",
+                            "--swiper-pagination-color": "#fff",
+                          }}
+                          loop={true}
+                          spaceBetween={10}
+                          thumbs={{ swiper: thumbsSwiper }}
+                          modules={[FreeMode, Thumbs]}
+                          className="mySwiper2"
+                        >
+                          <>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[0].src} />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[1].src} />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                              <img src={productDetail.data.images[2].src} />
+                            </SwiperSlide>
+                          </>
+                        </Swiper>
+                        <Swiper
+                          onSwiper={setThumbsSwiper}
+                          loop={true}
+                          spaceBetween={10}
+                          slidesPerView={4}
+                          freeMode={true}
+                          watchSlidesProgress={true}
+                          modules={[FreeMode, Navigation, Thumbs]}
+                          className="mySwiper"
+                        >
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[0].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[1].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[2].src} />
+                          </SwiperSlide>
+                        </Swiper>
                       </>
-                    </Swiper>
-                    <Swiper
-                      onSwiper={setThumbsSwiper}
-                      loop={true}
-                      spaceBetween={10}
-                      slidesPerView={4}
-                      freeMode={true}
-                      watchSlidesProgress={true}
-                      modules={[FreeMode, Navigation, Thumbs]}
-                      className="mySwiper"
-                    >
-                      <SwiperSlide>
-                        <img src={productDetail.data.images[0].src} />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img src={productDetail.data.images[1].src} />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img src={productDetail.data.images[2].src} />
-                      </SwiperSlide>
-                    </Swiper>
+                    )}
                   </>
-                )}
-              </>
-            </S.PreviewSwipeWrap>
+                </S.PreviewSwipeWrap>
+              </Col>
+              <Col span={12}>
+                <Card title={`Chi tiết sản phẩm`}>
+                  <h3>{productDetail.data.name}</h3>
+                  <p>{productDetail.data.category?.name}</p>
+                  <Row>
+                    <Col span={4}>
+                      <span>Số lượng:</span>
+                    </Col>
+                    <Col span={20}>
+                      <InputNumber
+                        min={1}
+                        value={productQuantity}
+                        onChange={(value) => setProductQuantity(value)}
+                      />
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col span={4}>
+                      <span>Giá:</span>
+                    </Col>
+                    <Col span={20}>
+                      <p>{productDetail.data.price?.toLocaleString("vi-VN")}</p>
+                    </Col>
+                  </Row>
+
+                  <Row className="sizeProduct">
+                    <Col span={4}>
+                      <span>Size:</span>
+                    </Col>
+                    <Col span={20}>
+                      <Radio.Group
+                        optionType="button"
+                        buttonStyle="solid"
+                        value={optionSize}
+                        onChange={(e) => setOptionSize(e.target.value)}
+                      >
+                        <Radio value={38}>38</Radio>
+                        <Radio value={39}>39</Radio>
+                        <Radio value={40}>40</Radio>
+                        <Radio value={41}>41</Radio>
+                        <Radio value={42}>42</Radio>
+                        <Radio value={43}>43</Radio>
+                      </Radio.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Button
+                      style={{ borderRadius: 16 }}
+                      type="primary"
+                      onClick={() => handleAddToCart()}
+                    >
+                      Thêm vào giỏ hàng
+                    </Button>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
           </Modal>
         </S.ModalPreview>
         <S.CarouselWrapper>
@@ -377,11 +537,13 @@ function HomePage() {
             </Link>
           </div>
         </S.OtherBrandWrapper>
-        <Container>
-          <S.SaleOffWrapper>
-            <h2 className="itemTittle">Sale</h2>
+        <S.SaleOffWrapper>
+          <h2 className="itemTittle saleTitle">Sale</h2>
+          <Container>
             <Row gutter={[16, 16]}>{renderProductListSale}</Row>
-          </S.SaleOffWrapper>
+          </Container>
+        </S.SaleOffWrapper>
+        <Container>
           <Row justify="center">
             <Link to={ROUTES.USER.PRODUCT_LIST} state={{ sale: 30 }}>
               <Button
@@ -393,12 +555,16 @@ function HomePage() {
               </Button>
             </Link>
           </Row>
-          <S.ArrivalWrapper>
-            <h2 className="itemTittle" style={{ color: "#000" }}>
-              sản phẩm mới
-            </h2>
+        </Container>
+        <S.ArrivalWrapper>
+          <h2 className="itemTittle newTitle" style={{ color: "#000" }}>
+            sản phẩm mới
+          </h2>
+          <Container>
             <Row gutter={[16, 16]}>{renderProductListNew}</Row>
-          </S.ArrivalWrapper>
+          </Container>
+        </S.ArrivalWrapper>
+        <Container>
           <Row justify="center">
             <Link to={ROUTES.USER.PRODUCT_LIST} state={{ new: true }}>
               <Button
@@ -435,6 +601,7 @@ function HomePage() {
                 fontSize: 26,
                 textTransform: "uppercase",
                 marginBottom: 30,
+                wordSpacing: 6,
               }}
             >
               Thương hiệu nổi bật
@@ -518,7 +685,7 @@ function HomePage() {
             </Row>
           </Container>
         </S.SignificantBrand>
-        <S.Blog>
+        <S.NewsSwiper>
           <Row justify="center">
             <Col span={24} style={{ textAlign: "center" }}>
               <h2
@@ -526,15 +693,29 @@ function HomePage() {
                   fontWeight: "bold",
                   fontSize: 26,
                   textTransform: "uppercase",
+                  wordSpacing: 6,
                 }}
               >
-                Tin tức mới nhất
+                Tin tức và bài viết mới nhất
               </h2>
               <p>Cập nhật tin tức mới nhất về thời trang và sneaker!</p>
             </Col>
           </Row>
-          <Container></Container>
-        </S.Blog>
+          <Container>
+            <Row style={{ width: "100%" }}>{renderNewsSlide()}</Row>
+          </Container>
+          <Row justify="center">
+            <Link to={ROUTES.USER.NEWS}>
+              <Button
+                style={{ boxShadow: "none" }}
+                icon={<i class="fa-solid fa-forward"></i>}
+                className="moreBtn"
+              >
+                Xem thêm
+              </Button>
+            </Link>
+          </Row>
+        </S.NewsSwiper>
       </S.MainWrapper>
     </>
   );

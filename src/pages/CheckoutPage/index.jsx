@@ -304,13 +304,11 @@ function CheckoutPage() {
                               padding: 10,
                             }}
                           >
-                            <Radio
-                              disabled={totalPrice > 500000}
-                              value="30000"
-                              className="shipOptionRadio"
-                            >
+                            <Radio value="30000" className="shipOptionRadio">
                               <span>GIAO HÀNG</span>
-                              <span>30.000₫</span>
+                              {checkoutForm.getFieldValue("cityCode") && (
+                                <span>30.000₫</span>
+                              )}
                             </Radio>
                           </Col>
                           <Col span={24} style={{ padding: 10 }}>

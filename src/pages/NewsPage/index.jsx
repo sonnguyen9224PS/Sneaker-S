@@ -14,7 +14,14 @@ function NewsPage() {
   const { bestSellList } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getNewsListAction());
+    dispatch(
+      getNewsListAction({
+        params: {
+          page: 1,
+          limit: 10,
+        },
+      })
+    );
     dispatch(
       getBestSellListAction({
         params: {
@@ -148,7 +155,7 @@ function NewsPage() {
           <Breadcrumb.Item>
             <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Tin tức và bài viết</Breadcrumb.Item>
+          <Breadcrumb.Item>Danh mục tin tức</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
           <Col span={6}>

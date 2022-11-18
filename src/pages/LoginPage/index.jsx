@@ -71,7 +71,7 @@ const LoginPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your email!",
+                    message: "Vui lòng nhập Email!",
                   },
                   {
                     type: "email",
@@ -86,7 +86,7 @@ const LoginPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your password!",
+                    message: "Vui lòng nhập mật khẩu!",
                   },
                 ]}
               >

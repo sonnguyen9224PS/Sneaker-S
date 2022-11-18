@@ -4,8 +4,12 @@ export const MainWrapper = styled.div`
   font-family: "Fredoka", sans-serif;
   min-height: calc(100vh - 570px);
   background-color: var(--pastel-purple);
+
   .productItem {
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 16px;
+    overflow: hidden;
     &::before {
       position: absolute;
       content: "SALE";
@@ -18,17 +22,32 @@ export const MainWrapper = styled.div`
       justify-content: center;
       align-items: center;
       background-color: red;
+      z-index: 3;
     }
-    .imageItem {
+    .contentProduct {
+      padding-left: 20px;
+      padding-bottom: 16px;
+    }
+    .imageWrap {
       position: relative;
+      height: 14rem;
       border-bottom: solid 1px #dad3d3;
       overflow: hidden;
-      .actionProduct {
+      background-color: #fff;
+      .imageItem {
         display: flex;
-        margin-top: -20px;
-        padding-bottom: 15px;
         justify-content: center;
         align-items: center;
+        height: 100%;
+        & > img {
+          width: 80%;
+        }
+      }
+      .actionProduct {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -42px;
         visibility: hidden;
         opacity: 0;
         & button {
@@ -36,7 +55,7 @@ export const MainWrapper = styled.div`
           height: 35px;
           width: 40px;
           border-radius: 6px;
-          background: #000;
+          background: #8e8e8f;
           color: #fff;
           &:after {
             content: "";
@@ -67,9 +86,12 @@ export const MainWrapper = styled.div`
     .nameProduct {
       text-transform: uppercase;
       padding-top: 6px;
+      text-align: left;
+      font-weight: bold;
       & > i {
-        margin-right: 4px;
-        color: #0050ff;
+        margin-right: 11px;
+        color: black;
+        font-size: 17px;
       }
     }
     .offProduct {
@@ -85,11 +107,15 @@ export const MainWrapper = styled.div`
     }
     .productDescription {
       display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
+      justify-content: start;
       .priceProduct {
         font-size: 17px;
         font-weight: bold;
+        & > i {
+          margin-right: 11px;
+          color: black;
+          font-size: 17px;
+        }
         .cost {
           text-decoration: line-through;
         }
@@ -104,15 +130,41 @@ export const MainWrapper = styled.div`
       }
     }
     .ratingProduct {
+      margin: 0;
+      text-align: left;
+      & > i {
+        font-size: 16px;
+        color: black;
+        margin-right: 8px;
+      }
       & > span:first-child {
         margin-right: 16px;
       }
     }
+    .soldProduct {
+      margin: 0;
+      display: flex;
+      justify-content: start;
+      & > i {
+        font-size: 17px;
+        color: black;
+        margin-right: 4px;
+      }
+    }
+    .authenProduct {
+      & > i {
+        margin-right: 4px;
+        font-size: 17px;
+        color: blue;
+      }
+    }
     &:hover {
+      background-color: #d7dce0;
+      scale: 1.05;
       .imageItem {
         & > img {
-          scale: 1.5;
-          transition: all 3s;
+          scale: 1.15;
+          transition: all 2.5s;
         }
       }
       .actionProduct {
@@ -122,12 +174,23 @@ export const MainWrapper = styled.div`
     }
   }
   .itemTittle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16rem;
     padding: 10px 0;
     font-size: 26px;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
-    color: red;
+    color: white;
+    word-spacing: 6px;
+    font-size: 4rem;
+  }
+  .saleTitle {
+    background: url(https://imageio.forbes.com/specials-images/imageserve/6217ad1b151e231c69949c9c/0x0.jpg?format=jpg&width=1200);
+    background-size: cover;
+    background-position: center;
   }
   .moreBtn {
     font-size: 16px;
@@ -139,7 +202,6 @@ export const MainWrapper = styled.div`
   }
 `;
 export const CarouselWrapper = styled.div`
-  margin-bottom: 16px;
   .swiper-button-prev,
   .swiper-button-next {
     color: #fff;
@@ -160,7 +222,6 @@ export const CarouselWrapper = styled.div`
   .contentCarousel {
     position: relative;
     width: 100%;
-    height: 450px;
     & > img {
       height: 100%;
       margin: auto;
@@ -226,7 +287,6 @@ export const OtherBrandWrapper = styled.div`
   height: 124px;
   width: 100%;
   padding: 12px 0;
-  margin-bottom: 20px;
   background-color: #f9f9f9;
   .otherContent {
     width: 16.6%;
@@ -396,4 +456,22 @@ export const PreviewSwipeWrap = styled.div`
     object-fit: contain;
   }
 `;
-export const Blog = styled.div``;
+export const NewsSwiper = styled.div`
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .swiper-pagination-horizontal.swiper-pagination-bullets
+    .swiper-pagination-bullet {
+    width: 15px;
+    height: 15px;
+  }
+  .content {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: 75px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+  }
+`;

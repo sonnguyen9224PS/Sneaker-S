@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tabs, Table, Avatar, Row, Col, Button, Space, Modal } from "antd";
+import { Tabs, Table, Input, Row, Col, Button, Space, Modal, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, Link, generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -18,20 +18,23 @@ import * as S from "./styles";
 import {
   getOrderList,
   logoutAction,
-  updateAvatarAction,
   getFavoriteList,
   unFavoriteProductAction,
+  updatePasswordAction,
+  loginAction,
 } from "../../redux/actions";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
+
   const { orderList } = useSelector((state) => state.order);
   const { categoryList } = useSelector((state) => state.category);
   const { favoriteList } = useSelector((state) => state.favorite);
 
   const { state } = useLocation();
+
   const { confirm } = Modal;
 
   useEffect(() => {
@@ -218,6 +221,19 @@ const ProfilePage = () => {
       setFile(file);
     }
   };
+  const handleUpdatePassword = (values) => {
+    dispatch(
+      updatePasswordAction({
+        id: userInfo.data.id,
+        password: values.newPassword,
+        callBack: {
+          gotoLogin: () => {
+            navigate(ROUTES.LOGIN);
+          },
+        },
+      })
+    );
+  };
 
   return (
     <>
@@ -353,7 +369,72 @@ const ProfilePage = () => {
               </span>
             }
             key="4"
-          ></Tabs.TabPane>
+          >
+            <Form
+              name="changePWForm"
+              layout="vertical"
+              style={{
+                width: "50rem",
+                border: "solid 1px darkgrey",
+                borderRadius: 15,
+                padding: 30,
+              }}
+              onFinish={(values) => handleUpdatePassword(values)}
+            >
+              <h2>Thay đổi mật khẩu</h2>
+              <Form.Item
+                name="newPassword"
+                label="Mật khẩu mới"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập mật mới!",
+                  },
+                  {
+                    min: 5,
+                    message: "Mật khẩu phải có ít nhât 6 ký tự",
+                  },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                name="confirmPassword"
+                label="Xác nhận mật khẩu"
+                hasFeedback
+                dependencies={["newPassword"]}
+                rules={[
+                  {
+                    required: true,
+                    message: "",
+                  },
+                  {
+                    min: 5,
+                    message: "Mật khẩu phải có ít nhât 6 ký tự",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("newPassword") === value) {
+                        return Promise.resolve();
+                      }
+
+                      return Promise.reject(
+                        new Error(
+                          "Mật khẩu không trùng khớp, vui lòng xác nhận lại mật khẩu!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                Thay đổi mật khẩu
+              </Button>
+            </Form>
+          </Tabs.TabPane>
           <Tabs.TabPane
             className="tabItem"
             tab={

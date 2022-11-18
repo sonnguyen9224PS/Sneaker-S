@@ -73,7 +73,7 @@ const RegisterPage = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your full name!",
+                        message: "Vui lòng nhập họ tên!",
                       },
                     ]}
                   >
@@ -85,7 +85,7 @@ const RegisterPage = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your email!",
+                        message: "vui lòng nhập email!",
                       },
                       {
                         type: "email",
@@ -100,7 +100,7 @@ const RegisterPage = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your number phone!",
+                        message: "Vui lòng nhập số điện thoại!",
                       },
                     ]}
                   >
@@ -112,7 +112,11 @@ const RegisterPage = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Vui lòng nhập mật khẩu!",
+                      },
+                      {
+                        min: 5,
+                        message: "Mật khẩu phải có ít nhât 6 ký tự",
                       },
                     ]}
                     hasFeedback
@@ -127,7 +131,11 @@ const RegisterPage = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please confirm your password!",
+                        message: "Vui lòng xác nhận lại mật khẩu!",
+                      },
+                      {
+                        min: 5,
+                        message: "Mật khẩu phải có ít nhât 6 ký tự",
                       },
                       ({ getFieldValue }) => ({
                         validator(_, value) {
@@ -137,7 +145,7 @@ const RegisterPage = () => {
 
                           return Promise.reject(
                             new Error(
-                              "The two passwords that you entered do not match!"
+                              "Mật khẩu không trùng khớp, vui lòng xác nhận lại mật khẩu!"
                             )
                           );
                         },

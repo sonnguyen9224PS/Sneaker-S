@@ -81,21 +81,26 @@ function* getUserInfoSaga(action) {
   }
 }
 
-function* updateAvatarSaga(action) {
+function* updatePasswordSaga(action) {
   try {
-    const { avatar, id } = action.payload;
+    const { password, id, callBack } = action.payload;
     const result = yield axios.patch(`http://localhost:4000/users/${id}`, {
-      avatar: avatar,
+      password: password,
     });
     yield put({
-      type: SUCCESS(USER_ACTION.UPDATE_AVATAR),
+      type: SUCCESS(USER_ACTION.UPDATE_PASSWORD),
       payload: {
         data: result.data,
       },
     });
+    yield notification.success({
+      message: "Thay đổi mật khẩu thành công!",
+    });
+    yield localStorage.removeItem("accessToken");
+    yield callBack.gotoLogin();
   } catch (e) {
     yield put({
-      type: FAIL(USER_ACTION.UPDATE_AVATAR),
+      type: FAIL(USER_ACTION.UPDATE_PASSWORD),
       payload: {
         error: e.response?.data,
       },
@@ -107,5 +112,5 @@ export default function* userSaga() {
   yield takeEvery(REQUEST(USER_ACTION.LOGIN), loginSaga);
   yield takeEvery(REQUEST(USER_ACTION.REGISTER), registerSaga);
   yield takeEvery(REQUEST(USER_ACTION.GET_USER_INFO), getUserInfoSaga);
-  yield takeEvery(REQUEST(USER_ACTION.UPDATE_AVATAR), updateAvatarSaga);
+  yield takeEvery(REQUEST(USER_ACTION.UPDATE_PASSWORD), updatePasswordSaga);
 }

@@ -5,10 +5,13 @@ import { NEWS_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 
 function* getNewsListSaga(action) {
   try {
+    const { params } = action.payload;
     const result = yield axios.get("http://localhost:4000/news", {
       params: {
         _sort: "id",
         _order: "desc",
+        ...(params.page && { _page: params.page }),
+        ...(params.limit && { _limit: params.limit }),
       },
     });
     yield put({

@@ -7,6 +7,7 @@ import Icon, {
   HistoryOutlined,
   HeartOutlined,
   LogoutOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
@@ -123,6 +124,24 @@ function Header() {
                               </Menu.Item>
                               <Menu.Item
                                 key={4}
+                                onClick={() => {
+                                  navigate(ROUTES.USER.PROFILE, {
+                                    state: { activeKey: "4" },
+                                  });
+                                }}
+                              >
+                                <Icon
+                                  component={EditOutlined}
+                                  style={{
+                                    display: "inline-block",
+                                    marginRight: 3,
+                                    fontSize: 16,
+                                  }}
+                                />
+                                Thay đổi mật khẩu
+                              </Menu.Item>
+                              <Menu.Item
+                                key={5}
                                 onClick={() =>
                                   dispatch(
                                     logoutAction({
