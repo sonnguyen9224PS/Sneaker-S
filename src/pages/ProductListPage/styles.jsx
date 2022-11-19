@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Breadcrumb, Collapse, Card, Input, Tag } from "antd";
 
 export const Wrapper = styled.div`
   font-family: "Fredoka", sans-serif;
@@ -20,10 +21,21 @@ export const Wrapper = styled.div`
       width: 100%;
     }
   }
+  .leftFilter {
+    .ant-card-body {
+      border: solid 1px purple;
+    }
+    .ant-card-head {
+      border: solid 1px purple;
+    }
+  }
 `;
 export const ProductListWrapper = styled.div`
   .productItem {
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 16px;
+    overflow: hidden;
     &::before {
       position: absolute;
       content: "SALE";
@@ -36,17 +48,32 @@ export const ProductListWrapper = styled.div`
       justify-content: center;
       align-items: center;
       background-color: red;
+      z-index: 3;
     }
-    .imageItem {
+    .contentProduct {
+      padding-left: 20px;
+      padding-bottom: 16px;
+    }
+    .imageWrap {
       position: relative;
+      height: 12rem;
       border-bottom: solid 1px #dad3d3;
       overflow: hidden;
-      .actionProduct {
+      background-color: #fff;
+      .imageItem {
         display: flex;
-        margin-top: -20px;
-        padding-bottom: 15px;
         justify-content: center;
         align-items: center;
+        height: 100%;
+        & > img {
+          width: 80%;
+        }
+      }
+      .actionProduct {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -42px;
         visibility: hidden;
         opacity: 0;
         & button {
@@ -54,7 +81,7 @@ export const ProductListWrapper = styled.div`
           height: 35px;
           width: 40px;
           border-radius: 6px;
-          background: #000;
+          background: #8e8e8f;
           color: #fff;
           &:after {
             content: "";
@@ -84,10 +111,12 @@ export const ProductListWrapper = styled.div`
     }
     .nameProduct {
       text-transform: uppercase;
-      padding-top: 6px;
+      text-align: left;
+      font-weight: bold;
       & > i {
-        margin-right: 4px;
-        color: #0050ff;
+        margin-right: 11px;
+        color: black;
+        font-size: 17px;
       }
     }
     .offProduct {
@@ -103,11 +132,15 @@ export const ProductListWrapper = styled.div`
     }
     .productDescription {
       display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
+      justify-content: start;
       .priceProduct {
         font-size: 17px;
         font-weight: bold;
+        & > i {
+          margin-right: 11px;
+          color: black;
+          font-size: 17px;
+        }
         .cost {
           text-decoration: line-through;
         }
@@ -122,15 +155,42 @@ export const ProductListWrapper = styled.div`
       }
     }
     .ratingProduct {
+      margin: 0;
+      text-align: left;
+      & > i {
+        font-size: 16px;
+        color: black;
+        margin-right: 8px;
+      }
       & > span:first-child {
         margin-right: 16px;
       }
     }
+    .soldProduct {
+      margin: 0;
+      display: flex;
+      justify-content: start;
+      & > i {
+        font-size: 17px;
+        color: black;
+        margin-right: 4px;
+      }
+    }
+    .authenProduct {
+      & > i {
+        margin-right: 4px;
+        font-size: 17px;
+        color: blue;
+      }
+    }
     &:hover {
+      background-color: #b6bfc5;
+      scale: 1.05;
+      transition: all 0.3s;
       .imageItem {
         & > img {
-          scale: 1.5;
-          transition: all 3s;
+          scale: 1.15;
+          transition: all 2.5s;
         }
       }
       .actionProduct {
@@ -141,6 +201,36 @@ export const ProductListWrapper = styled.div`
   }
 `;
 export const ModalPreview = styled.div``;
+export const SBreadcrumb = styled(Breadcrumb)`
+  .ant-breadcrumb {
+    padding: 4px;
+    font-size: 16px;
+  }
+`;
+export const SCardArrival = styled(Card)`
+  .ant-card-body {
+    border-radius: 10px 10px 0 0;
+  }
+`;
+export const SCollapse = styled(Collapse)`
+  .ant-collapse-header-text,
+  .ant-checkbox + span {
+    color: purple;
+  }
+  .ant-collapse-header {
+    font-size: 17px;
+    font-weight: bold;
+  }
+`;
+export const SInputSearch = styled(Input)`
+  &.ant-input-affix-wrapper {
+    border-radius: 20px !important;
+    overflow: hidden;
+  }
+  .ant-input {
+    color: purple;
+  }
+`;
 
 export const PreviewSwipeWrap = styled.div`
   .swiper {

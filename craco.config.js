@@ -11,7 +11,7 @@ module.exports = {
               "@primary-color": "#400D51",
               "@text-color": "#000000",
               "@link-color": "#293341",
-              "@border-color-base": "#cecdcd",
+              "@border-color-base": "purple",
             },
             javascriptEnabled: true,
           },

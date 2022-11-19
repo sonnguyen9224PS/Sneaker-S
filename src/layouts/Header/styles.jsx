@@ -8,7 +8,7 @@ export const HeaderContainerWrapper = styled.header`
   right: 0;
   z-index: 998;
   background: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 export const Container = styled.div`
@@ -23,6 +23,10 @@ export const HeaderLogo = styled.div`
   .logo {
     font-size: 2.2rem;
     font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #30cfd0 0%, #ff0080 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 `;
 export const HeaderRight = styled.div`

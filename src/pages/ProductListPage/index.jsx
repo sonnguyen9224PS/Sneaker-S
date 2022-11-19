@@ -20,7 +20,7 @@ import {
   Modal,
   InputNumber,
   notification,
-  BackTop
+  BackTop,
 } from "antd";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -307,25 +307,21 @@ const ProductListPage = () => {
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
       return (
-        <Col
-          span={6}
-          key={item.id}
-          style={{
-            borderRight: "solid 4px #fff",
-          }}
-        >
+        <Col span={6} key={item.id}>
           <div className="productItem">
-            <div className="imageItem">
+            <div className="imageWrap">
               <Link
                 to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
                   id: `${item.slug}.${item.id}`,
                 })}
               >
-                <img
-                  src={!item.images[0]?.src ? null : item.images[0].src}
-                  width="100%"
-                  alt=""
-                />
+                <div className="imageItem">
+                  <img
+                    src={!item.images[0]?.src ? null : item.images[0].src}
+                    width="100%"
+                    alt=""
+                  />
+                </div>
               </Link>
               <div className="actionProduct">
                 <Tooltip title="Preview">
@@ -350,38 +346,46 @@ const ProductListPage = () => {
                 </Tooltip>
               </div>
             </div>
+            <div className="contentProduct">
+              <div className="offProduct">
+                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+              </div>
+              <div className="nameProduct">
+                <i class="fa-solid fa-award"></i>
+                {item.name}
+              </div>
 
-            <div className="nameProduct">
-              <i class="fa-solid fa-award"></i>
-              {item.name}
-            </div>
-
-            <div className="productDescription">
-              <span className="priceProduct">
-                <i
-                  class="fa-solid fa-money-bill-wheat"
-                  style={{ color: "#00cfff", marginRight: 3 }}
-                ></i>
-                <span className="cost">
-                  {item.price.toLocaleString("vi-VN")}₫
+              <div className="productDescription">
+                <span className="priceProduct">
+                  <i class="fa-regular fa-money-bill-1"></i>
+                  <span className="cost">
+                    {item.price.toLocaleString("vi-VN")}₫
+                  </span>
+                  <span className="salePrice">
+                    {(item.price * ((100 - item.sale) / 100)).toLocaleString(
+                      "vi-VN"
+                    )}
+                    ₫
+                  </span>
                 </span>
-                <span className="salePrice">
-                  {(item.price * ((100 - item.sale) / 100)).toLocaleString(
-                    "vi-VN"
-                  )}
-                  ₫
-                </span>
-              </span>
+              </div>
+              <p className="ratingProduct">
+                <span>Đánh giá:</span>
+                <Rate
+                  value={!item.reviews[0]?.rate ? null : item.reviews[0].rate}
+                  disabled
+                  style={{ fontSize: 12 }}
+                />
+              </p>
+              <p className="soldProduct">
+                <i class="fa-solid fa-hand-holding-dollar"></i>Đã bán:{" "}
+                {item.sold}{" "}
+              </p>
+              <div className="authenProduct">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Authenticity Guarantee</span>
+              </div>
             </div>
-            <p className="ratingProduct">
-              <span>Đánh giá:</span>
-              <Rate
-                value={!item.reviews[0]?.rate ? null : item.reviews[0].rate}
-                disabled
-                style={{ fontSize: 12 }}
-              />
-            </p>
-            <p>Đã bán: {item.sold} </p>
           </div>
         </Col>
       );
@@ -406,6 +410,7 @@ const ProductListPage = () => {
       if (!categoryData) return null;
       return (
         <Tag
+          color="#87d068"
           closable
           onClose={() => handleClearCategoryFilter(itemFilter)}
           key={itemFilter}
@@ -418,8 +423,8 @@ const ProductListPage = () => {
 
   const renderFilterKeyword = useMemo(() => {
     return (
-      <Tag closable onClose={() => handleClearKeyWordFilter()}>
-        {filterParams.keyword}
+      <Tag color="#2db7f5" closable onClose={() => handleClearKeyWordFilter()}>
+        #{filterParams.keyword}
       </Tag>
     );
   }, [filterParams.keyword]);
@@ -615,48 +620,52 @@ const ProductListPage = () => {
             </Row>
           </Modal>
         </S.ModalPreview>
-        <Row>
-          <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
+        <Row style={{ borderBottom: "solid 1px #d8cece", marginBottom: 20 }}>
+          <S.SBreadcrumb
+            separator=">"
+            style={{ paddingTop: 16, paddingBottom: 16 }}
+          >
             <Breadcrumb.Item>
               <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
             </Breadcrumb.Item>
-          </Breadcrumb>
+          </S.SBreadcrumb>
         </Row>
         <Row>
-          <h4 style={{ fontWeight: "bold" }}>
+          <h4
+            style={{
+              fontWeight: "bold",
+              fontSize: 18,
+              color: "purple",
+              paddingLeft: 12,
+            }}
+          >
             <span style={{ marginRight: 4 }}>
-              <i class="fa-regular fa-rectangle-list"></i>
+              <i class="fa-solid fa-filter"></i>
             </span>
             LỌC SẢN PHẨM THEO:
           </h4>
         </Row>
         <Row gutter={[16, 16]}>
           {/* left main */}
-          <Col span={6}>
-            <Card size="small">
-              <h4>
-                <i class="fa-brands fa-shopify"></i>New Arrivals
+          <Col span={6} className="leftFilter">
+            <S.SCardArrival size="small">
+              <h4 style={{ fontSize: 18, color: "purple" }}>
+                <i style={{ marginRight: 4 }} class="fa-brands fa-shopify"></i>
+                New Arrivals
               </h4>
               <Checkbox
                 onChange={(e) => handleFilter("new", e.target.checked)}
                 checked={filterParams.new}
+                style={{ color: "purple" }}
               >
                 Sản phẩm mới
               </Checkbox>
-            </Card>
-            <Collapse>
-              <Panel
-                header={
-                  <span>
-                    <i class="fa-solid fa-filter"></i>
-                    {"Brand"}
-                  </span>
-                }
-                key="1"
-              >
+            </S.SCardArrival>
+            <S.SCollapse>
+              <Panel header="Brand" key="1">
                 <Checkbox.Group
                   onChange={(value) => handleFilter("categoryId", value)}
                   value={filterParams.categoryId}
@@ -664,15 +673,7 @@ const ProductListPage = () => {
                   <Row>{renderCategoryOption}</Row>
                 </Checkbox.Group>
               </Panel>
-              <Panel
-                header={
-                  <span>
-                    <i class="fa-solid fa-ticket"></i>
-                    {"Sale all"}
-                  </span>
-                }
-                key="2"
-              >
+              <Panel header="Sale all" key="2">
                 <Radio.Group
                   onChange={(e) => handleFilter("sale", e.target.value)}
                   value={filterParams.sale}
@@ -690,7 +691,7 @@ const ProductListPage = () => {
                   </Row>
                 </Radio.Group>
               </Panel>
-            </Collapse>
+            </S.SCollapse>
             <Card size="small" title="Tìm kiếm theo giá">
               <Slider
                 range
@@ -725,7 +726,8 @@ const ProductListPage = () => {
           <Col span={18}>
             <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
               <Col span={18}>
-                <Input
+                <S.SInputSearch
+                  placeholder="Search.."
                   name="filterKeyword"
                   allowClear
                   value={filterParams.keyword}
@@ -744,7 +746,9 @@ const ProductListPage = () => {
               </Col>
             </Row>
             {/* tags */}
-            <Space style={{ marginBottom: 16 }}>
+            <Space
+              style={{ marginBottom: 16, display: "flex", flexWrap: "wrap" }}
+            >
               {renderFilterCategory}
               {filterParams.keyword && renderFilterKeyword}
               {filterParams.sale && renderFilterSale}

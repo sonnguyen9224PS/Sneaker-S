@@ -49,6 +49,7 @@ function HomePage() {
   };
 
   const { saleProductList } = useSelector((state) => state.product);
+
   const { newProductList } = useSelector((state) => state.product);
   const { productDetail } = useSelector((state) => state.product);
   const { newsList } = useSelector((state) => state.news);
@@ -179,19 +180,6 @@ function HomePage() {
                   </span>
                 </span>
               </div>
-              <p className="ratingProduct">
-                <i class="fa-regular fa-star-half-stroke"></i>
-                <span>Đánh giá:</span>
-                <Rate
-                  value={!item.reviews[0]?.rate ? 0 : item.reviews[0].rate}
-                  disabled
-                  style={{ fontSize: 12 }}
-                />
-              </p>
-              <p className="soldProduct">
-                <i class="fa-solid fa-hand-holding-dollar"></i>Đã bán:{" "}
-                {item.sold}{" "}
-              </p>
               <div className="authenProduct">
                 <i class="fa-solid fa-circle-check"></i>
                 <span>Authenticity Guarantee</span>
@@ -207,42 +195,67 @@ function HomePage() {
     return newProductList.data.map((item) => {
       return (
         <Col span={6} key={item.id}>
-          <Link
-            to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
-              id: `${item.slug}.${item.id}`,
-            })}
-          >
-            <div size="small" className="productItem">
-              <div className="imageWrap">
+          <div className="productItem">
+            <div className="imageWrap">
+              <Link
+                to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                  id: `${item.slug}.${item.id}`,
+                })}
+              >
                 <div className="imageItem">
                   <img
-                    src={!item.images[0]?.src ? null : item.images[0].src}
+                    src={!item?.images[0]?.src ? null : item.images[0].src}
+                    width="100%"
                     alt=""
                   />
                 </div>
-                <div className="actionProduct">
-                  <Button icon={<i class="fa-solid fa-cart-plus"></i>}></Button>
-                  <Button icon={<i class="fa-regular fa-heart"></i>}></Button>
-                </div>
+              </Link>
+              <div className="actionProduct">
+                <Tooltip title="Preview">
+                  <Button
+                    icon={<i class="fa-solid fa-eye"></i>}
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      handlePreviewImage(item.id);
+                    }}
+                  ></Button>
+                </Tooltip>
+                <Tooltip title="Thêm vào giỏ hàng">
+                  <Link
+                    to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                      id: `${item.slug}.${item.id}`,
+                    })}
+                  >
+                    <Button
+                      icon={<i class="fa-solid fa-cart-plus"></i>}
+                    ></Button>
+                  </Link>
+                </Tooltip>
               </div>
-              <div className="nameProduct">{item.name}</div>
+            </div>
+            <div className="contentProduct">
+              <div className="offProduct">
+                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+              </div>
+              <div className="nameProduct">
+                <i class="fa-solid fa-award"></i>
+                {item.name}
+              </div>
+
               <div className="productDescription">
                 <span className="priceProduct">
-                  <i
-                    class="fa-solid fa-money-bill-wheat"
-                    style={{ color: "#00cfff", marginRight: 3 }}
-                  ></i>
-                  <span className="afterPrice">
+                  <i class="fa-regular fa-money-bill-1"></i>
+                  <span className="cost">
                     {item.price.toLocaleString("vi-VN")}₫
                   </span>
                 </span>
               </div>
-              <p className="ratingProduct">
-                <span>Rating</span>
-                <span>Đã bán: {item.sold} </span>
-              </p>
+              <div className="authenProduct">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Authenticity Guarantee</span>
+              </div>
             </div>
-          </Link>
+          </div>
         </Col>
       );
     });
@@ -252,6 +265,7 @@ function HomePage() {
       return (
         <Col span={8} style={{ paddingLeft: 10, paddingRight: 10 }}>
           <div
+            className="newsImage"
             style={{
               width: "100%",
               overflow: "hidden",
@@ -303,7 +317,7 @@ function HomePage() {
       <BackTop style={{ right: 0 }} />
       <S.MainWrapper>
         <S.ModalPreview>
-          <Modal
+          <S.SModal
             width="80%"
             style={{ padding: 10 }}
             footer={null}
@@ -370,52 +384,40 @@ function HomePage() {
                 </S.PreviewSwipeWrap>
               </Col>
               <Col span={12}>
-                <Card title={`Chi tiết sản phẩm`}>
+                <Card className="cardPreview" title={`Chi tiết sản phẩm`}>
+                  <div>Tên sản phẩm:</div>
                   <h3>{productDetail.data.name}</h3>
-                  <p>{productDetail.data.category?.name}</p>
-                  <Row>
-                    <Col span={4}>
-                      <span>Số lượng:</span>
-                    </Col>
-                    <Col span={20}>
-                      <InputNumber
-                        min={1}
-                        value={productQuantity}
-                        onChange={(value) => setProductQuantity(value)}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col span={4}>
-                      <span>Giá:</span>
-                    </Col>
-                    <Col span={20}>
-                      <p>{productDetail.data.price?.toLocaleString("vi-VN")}</p>
-                    </Col>
-                  </Row>
-
-                  <Row className="sizeProduct">
-                    <Col span={4}>
-                      <span>Size:</span>
-                    </Col>
-                    <Col span={20}>
-                      <Radio.Group
-                        optionType="button"
-                        buttonStyle="solid"
-                        value={optionSize}
-                        onChange={(e) => setOptionSize(e.target.value)}
-                      >
-                        <Radio value={38}>38</Radio>
-                        <Radio value={39}>39</Radio>
-                        <Radio value={40}>40</Radio>
-                        <Radio value={41}>41</Radio>
-                        <Radio value={42}>42</Radio>
-                        <Radio value={43}>43</Radio>
-                      </Radio.Group>
-                    </Col>
-                  </Row>
-                  <Row>
+                  <div>Brand:</div>
+                  <h3>{productDetail.data.category?.name}</h3>
+                  <div>Số lượng:</div>
+                  <div>
+                    <InputNumber
+                      min={1}
+                      value={productQuantity}
+                      onChange={(value) => setProductQuantity(value)}
+                    />
+                  </div>
+                  <div>Giá:</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    {productDetail.data.price?.toLocaleString("vi-VN")}₫
+                  </div>
+                  <div>Size:</div>
+                  <div span={20}>
+                    <Radio.Group
+                      optionType="button"
+                      buttonStyle="solid"
+                      value={optionSize}
+                      onChange={(e) => setOptionSize(e.target.value)}
+                    >
+                      <Radio value={38}>38</Radio>
+                      <Radio value={39}>39</Radio>
+                      <Radio value={40}>40</Radio>
+                      <Radio value={41}>41</Radio>
+                      <Radio value={42}>42</Radio>
+                      <Radio value={43}>43</Radio>
+                    </Radio.Group>
+                  </div>
+                  <div>
                     <Button
                       style={{ borderRadius: 16 }}
                       type="primary"
@@ -423,11 +425,11 @@ function HomePage() {
                     >
                       Thêm vào giỏ hàng
                     </Button>
-                  </Row>
+                  </div>
                 </Card>
               </Col>
             </Row>
-          </Modal>
+          </S.SModal>
         </S.ModalPreview>
         <S.CarouselWrapper>
           <Swiper
@@ -538,7 +540,12 @@ function HomePage() {
           </div>
         </S.OtherBrandWrapper>
         <S.SaleOffWrapper>
-          <h2 className="itemTittle saleTitle">Sale</h2>
+          <h2 className="itemTitle saleTitle">
+            <span style={{ "--i": 1 }}>S</span>
+            <span style={{ "--i": 2 }}>a</span>
+            <span style={{ "--i": 3 }}>l</span>
+            <span style={{ "--i": 4 }}>e</span>
+          </h2>
           <Container>
             <Row gutter={[16, 16]}>{renderProductListSale}</Row>
           </Container>
@@ -546,20 +553,17 @@ function HomePage() {
         <Container>
           <Row justify="center">
             <Link to={ROUTES.USER.PRODUCT_LIST} state={{ sale: 30 }}>
-              <Button
-                style={{ boxShadow: "none" }}
-                icon={<i class="fa-solid fa-forward"></i>}
-                className="moreBtn"
-              >
+              <Button className="moreBtn">
                 Xem thêm
+                <i class="fa-solid fa-angles-right iconBtn"></i>
               </Button>
             </Link>
           </Row>
         </Container>
         <S.ArrivalWrapper>
-          <h2 className="itemTittle newTitle" style={{ color: "#000" }}>
-            sản phẩm mới
-          </h2>
+          <div className="itemTitle newTitle">
+            <h2>New Arrival</h2>
+          </div>
           <Container>
             <Row gutter={[16, 16]}>{renderProductListNew}</Row>
           </Container>
@@ -567,12 +571,9 @@ function HomePage() {
         <Container>
           <Row justify="center">
             <Link to={ROUTES.USER.PRODUCT_LIST} state={{ new: true }}>
-              <Button
-                style={{ boxShadow: "none" }}
-                icon={<i class="fa-solid fa-forward"></i>}
-                className="moreBtn"
-              >
+              <Button className="moreBtn">
                 Xem thêm
+                <i class="fa-solid fa-angles-right iconBtn"></i>
               </Button>
             </Link>
           </Row>
@@ -604,7 +605,7 @@ function HomePage() {
                 wordSpacing: 6,
               }}
             >
-              Thương hiệu nổi bật
+              <Link to={ROUTES.USER.PRODUCT_LIST}>Thương hiệu nổi bật</Link>
             </h2>
           </Row>
           <Container>
@@ -696,9 +697,11 @@ function HomePage() {
                   wordSpacing: 6,
                 }}
               >
-                Tin tức và bài viết mới nhất
+                <Link to={ROUTES.USER.NEWS}>Tin tức và bài viết mới nhất</Link>
               </h2>
-              <p>Cập nhật tin tức mới nhất về thời trang và sneaker!</p>
+              <p style={{ fontSize: 17 }}>
+                Cập nhật tin tức mới nhất về thời trang và sneaker!
+              </p>
             </Col>
           </Row>
           <Container>
@@ -706,12 +709,9 @@ function HomePage() {
           </Container>
           <Row justify="center">
             <Link to={ROUTES.USER.NEWS}>
-              <Button
-                style={{ boxShadow: "none" }}
-                icon={<i class="fa-solid fa-forward"></i>}
-                className="moreBtn"
-              >
+              <Button className="moreBtn">
                 Xem thêm
+                <i class="fa-solid fa-angles-right iconBtn"></i>
               </Button>
             </Link>
           </Row>

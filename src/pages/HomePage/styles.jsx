@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Modal } from "antd";
 
 export const MainWrapper = styled.div`
   font-family: "Fredoka", sans-serif;
@@ -30,7 +31,7 @@ export const MainWrapper = styled.div`
     }
     .imageWrap {
       position: relative;
-      height: 14rem;
+      height: 12rem;
       border-bottom: solid 1px #dad3d3;
       overflow: hidden;
       background-color: #fff;
@@ -85,7 +86,6 @@ export const MainWrapper = styled.div`
     }
     .nameProduct {
       text-transform: uppercase;
-      padding-top: 6px;
       text-align: left;
       font-weight: bold;
       & > i {
@@ -159,8 +159,9 @@ export const MainWrapper = styled.div`
       }
     }
     &:hover {
-      background-color: #d7dce0;
+      background-color: #b6bfc5;
       scale: 1.05;
+      transition: all 0.3s;
       .imageItem {
         & > img {
           scale: 1.15;
@@ -173,12 +174,14 @@ export const MainWrapper = styled.div`
       }
     }
   }
-  .itemTittle {
+  .itemTitle {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 16rem;
     padding: 10px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 0 4px black;
     font-size: 26px;
     font-weight: bold;
     text-transform: uppercase;
@@ -191,17 +194,121 @@ export const MainWrapper = styled.div`
     background: url(https://imageio.forbes.com/specials-images/imageserve/6217ad1b151e231c69949c9c/0x0.jpg?format=jpg&width=1200);
     background-size: cover;
     background-position: center;
+    & h2 {
+      position: relative;
+    }
+    & span {
+      position: relative;
+      display: inline-block;
+      color: #fff;
+      letter-spacing: 25.2px;
+      font-size: 5rem;
+      text-transform: uppercase;
+      -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      animation: waviy 1s infinite;
+      animation-delay: calc(0.1s * var(--i));
+    }
+    @keyframes waviy {
+      0%,
+      40%,
+      100% {
+        transform: translateY(0);
+      }
+      20% {
+        transform: translateY(-20px);
+      }
+    }
+  }
+  .newTitle {
+    background-image: url(https://images.pexels.com/photos/2300334/pexels-photo-2300334.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    background-size: cover;
+    background-position: center;
+    & > h2 {
+      font-weight: bold;
+      color: chartreuse;
+      text-shadow: 0 0 9px black;
+      letter-spacing: 8.2px;
+      animation: text-flicker 4s linear infinite;
+    }
+    @keyframes text-flicker {
+      0% {
+        opacity: 0.1;
+      }
+
+      2% {
+        opacity: 1;
+      }
+
+      8% {
+        opacity: 0.1;
+      }
+
+      9% {
+        opacity: 1;
+      }
+
+      12% {
+        opacity: 0.1;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      25% {
+        opacity: 0.3;
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      70% {
+        opacity: 0.7;
+      }
+
+      72% {
+        opacity: 0.2;
+      }
+
+      77% {
+        opacity: 0.9;
+      }
+
+      100% {
+        opacity: 0.9;
+      }
+    }
   }
   .moreBtn {
-    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     margin-bottom: 20px;
+    padding: 22px 44px;
+    border: none;
     border-radius: 20px;
+    font-size: 16px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     &:hover {
-      font-weight: bold;
+      .iconBtn {
+        right: 21px;
+        transition: all 0.3s;
+      }
     }
+  }
+  .iconBtn {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
   }
 `;
 export const CarouselWrapper = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   .swiper-button-prev,
   .swiper-button-next {
     color: #fff;
@@ -306,10 +413,10 @@ export const OtherBrandWrapper = styled.div`
 `;
 
 export const SaleOffWrapper = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 35px;
 `;
 export const ArrivalWrapper = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 35px;
   .productItem {
     &:before {
       content: "NEW";
@@ -365,6 +472,7 @@ export const BannerCollection = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 `;
 export const SignificantBrand = styled.div`
@@ -384,6 +492,79 @@ export const SignificantBrand = styled.div`
   }
 `;
 export const ModalPreview = styled.div``;
+export const SModal = styled(Modal)`
+  .ant-modal-body {
+    .ant-col-12:first-child {
+      border: solid 1px #ebe1e1;
+      border-color: purple;
+      border-radius: 20px 0 0 20px;
+      overflow: hidden;
+      .swiper-slide {
+        padding: 0 10px;
+      }
+      .mySwiper .swiper-slide {
+        border: solid 1px purple;
+      }
+    }
+    .ant-col-12:nth-child(2) {
+      .ant-card-bordered {
+        border-color: purple;
+        border-radius: 0 0 20px;
+      }
+      .ant-card-head {
+        border-color: purple;
+      }
+      .ant-card-head-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 18px;
+        text-align: center;
+      }
+      .ant-card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .ant-input-number {
+        border-radius: 20px;
+        border-color: purple;
+        overflow: hidden;
+        .ant-input-number-handler-wrap {
+          margin-right: 12px;
+        }
+      }
+      .ant-radio-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+        .ant-radio-button-wrapper {
+          border: solid 1px purple;
+          border-radius: 50%;
+          margin-bottom: 3px;
+          &:not(:last-child) {
+            margin-right: 4px;
+          }
+        }
+        .ant-radio-button-wrapper::before {
+          display: none;
+        }
+      }
+    }
+  }
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+  .ant-modal-close {
+    background: url(https://www.citypng.com/public/uploads/preview/png-red-round-close-x-icon-31631915146jpppmdzihs.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    color: red;
+    font-weight: bold;
+  }
+`;
 
 export const PreviewSwipeWrap = styled.div`
   .swiper {
@@ -473,5 +654,10 @@ export const NewsSwiper = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+  }
+  .newsImage {
+    &:hover {
+      opacity: 0.8;
+    }
   }
 `;
