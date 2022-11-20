@@ -25,7 +25,6 @@ function CartPage() {
   const { confirm } = Modal;
   const dispatch = useDispatch();
   const { cartList } = useSelector((state) => state.checkOut);
-  console.log("🚀 ~ file: index.jsx ~ line 28 ~ CartPage ~ cartList", cartList);
   const { userInfo } = useSelector((state) => state.user);
 
   const handleChangeQuantity = (id, value) => {
@@ -150,7 +149,7 @@ function CartPage() {
       },
     },
   ];
-
+  document.title = "Giỏ hàng";
   return (
     <>
       <Container>

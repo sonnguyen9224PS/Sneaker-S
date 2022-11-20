@@ -56,6 +56,7 @@ export const MainWrapper = styled.div`
           height: 35px;
           width: 40px;
           border-radius: 6px;
+          border: none;
           background: #8e8e8f;
           color: #fff;
           &:after {
@@ -624,10 +625,16 @@ export const PreviewSwipeWrap = styled.div`
   .mySwiper .swiper-slide {
     width: 25%;
     height: 100%;
+    border: solid 1px purple;
+    border-radius: 10px;
+    opacity: 0.6;
+    overflow: hidden;
   }
 
   .mySwiper .swiper-slide-thumb-active {
     opacity: 1;
+    border-width: 3px;
+    overflow: hidden;
   }
 
   .swiper-slide img {

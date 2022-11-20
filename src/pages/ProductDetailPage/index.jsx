@@ -15,6 +15,7 @@ import {
   Space,
   BackTop,
 } from "antd";
+import _ from "lodash";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useParams, Link, generatePath } from "react-router-dom";
 
@@ -27,7 +28,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { FreeMode, Thumbs } from "swiper";
+import { FreeMode, Thumbs, Navigation } from "swiper";
 import {
   getProductDetailAction,
   addToCartAction,
@@ -38,7 +39,7 @@ import {
   postReviewAction,
   getReviewListAction,
 } from "../../redux/actions";
-import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
+import { Container } from "../../layouts/Header/styles";
 
 const ProductDetailPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -57,6 +58,10 @@ const ProductDetailPage = () => {
   const { productList } = useSelector((state) => state.product);
   const { userInfo } = useSelector((state) => state.user);
   const { reviewList } = useSelector((state) => state.review);
+
+  const rateArr = reviewList.data.map((item) => item.rate);
+  const rateAverage = _.meanBy(rateArr);
+
   const openNotification = () => {
     notification.open({
       message: "Thêm sản phẩm vào giỏ hàng thành công.",
@@ -186,47 +191,80 @@ const ProductDetailPage = () => {
     });
   }, [reviewList.data]);
 
+  document.title = "Thông tin sản phẩm";
   return (
     <>
       <BackTop />
-
-      <S.DetailWrapper>
-        <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
-          <Breadcrumb.Item>
-            <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link
-              to={ROUTES.USER.PRODUCT_LIST}
-              state={{ categoryId: [productDetail.data.category?.id] }}
+      <S.DetailWrapper style={{ backgroundColor: "#f3f3f3" }}>
+        <Container>
+          <Row style={{ borderBottom: "solid 1px #d8cece" }}>
+            <Breadcrumb
+              separator=">"
+              style={{ paddingTop: 16, paddingBottom: 16 }}
             >
-              {productDetail.data.category?.name}
-            </Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>{editedNameProduct}</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row>
-          <Col span="12">
-            <Row style={{ flexDirection: "column" }}>
-              <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
-                {/* carousel */}
-                <S.PreviewSwipeWrap
-                  style={{ width: 400, height: 400, margin: "auto" }}
+              <Breadcrumb.Item>
+                <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link
+                  to={ROUTES.USER.PRODUCT_LIST}
+                  state={{ categoryId: [productDetail.data.category?.id] }}
                 >
-                  <>
-                    {!productDetail.data?.images?.length ? null : (
-                      <>
-                        <Swiper
-                          loop={true}
-                          spaceBetween={10}
-                          thumbs={{ swiper: thumbsSwiper }}
-                          modules={[FreeMode, Thumbs]}
-                          className="mySwiper2"
-                        >
-                          <>
+                  {productDetail.data.category?.name}
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>{editedNameProduct}</Breadcrumb.Item>
+            </Breadcrumb>
+          </Row>
+          <Row>
+            <Col span="12" style={{ backgroundColor: "#fff" }}>
+              <Row style={{ flexDirection: "column" }}>
+                <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
+                  {/* carousel */}
+                  <S.PreviewSwipeWrap
+                    style={{
+                      width: "100%",
+                      height: 450,
+                      margin: "auto",
+                    }}
+                  >
+                    <>
+                      {!productDetail.data?.images?.length ? null : (
+                        <>
+                          <Swiper
+                            loop={true}
+                            navigation={true}
+                            spaceBetween={10}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            modules={[FreeMode, Thumbs, Navigation]}
+                            className="mySwiper2"
+                          >
+                            <>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[0].src} />
+                              </SwiperSlide>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[1].src} />
+                              </SwiperSlide>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[2].src} />
+                              </SwiperSlide>
+                            </>
+                          </Swiper>
+                          <Swiper
+                            style={{ padding: "0 6px" }}
+                            onSwiper={setThumbsSwiper}
+                            loop={true}
+                            spaceBetween={10}
+                            slidesPerView={3}
+                            freeMode={true}
+                            watchSlidesProgress={true}
+                            modules={[FreeMode, Thumbs]}
+                            className="mySwiper"
+                          >
                             <SwiperSlide>
                               <img src={productDetail.data.images[0].src} />
                             </SwiperSlide>
@@ -236,102 +274,91 @@ const ProductDetailPage = () => {
                             <SwiperSlide>
                               <img src={productDetail.data.images[2].src} />
                             </SwiperSlide>
-                          </>
-                        </Swiper>
-                        <Swiper
-                          onSwiper={setThumbsSwiper}
-                          loop={true}
-                          spaceBetween={10}
-                          slidesPerView={4}
-                          freeMode={true}
-                          watchSlidesProgress={true}
-                          modules={[FreeMode, Thumbs]}
-                          className="mySwiper"
-                        >
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[0].src} />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[1].src} />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[2].src} />
-                          </SwiperSlide>
-                        </Swiper>
-                      </>
-                    )}
-                  </>
-                </S.PreviewSwipeWrap>
-              </Col>
-
-              <Col span="12" style={{ maxWidth: "100%" }}>
-                <Card size="small" bordered={false} title="Đánh giá sản phẩm">
-                  {userInfo.data.id && !isReviewed && (
-                    <Form
-                      name="reviewForm"
-                      form={reviewForm}
-                      layout="vertical"
-                      onFinish={(values) => {
-                        handlePostReview(values);
-                        reviewForm.resetFields();
+                          </Swiper>
+                        </>
+                      )}
+                    </>
+                  </S.PreviewSwipeWrap>
+                </Col>
+              </Row>
+            </Col>
+            <Col span="12">
+              <Card className="detailCard">
+                <h3 className="detailTtl">{productDetail.data.name}</h3>
+                <div className="iconTtlRight">
+                  <i class="fa-solid fa-star-half-stroke"></i>
+                  Đánh giá:
+                </div>
+                <Rate allowHalf value={rateAverage} />
+                <div>
+                  (Có {reviewList.data.length || 0} khách hàng đã đánh giá sản
+                  phẩm)
+                </div>
+                <Row>
+                  <Col span={12}>
+                    <div className="iconTtlRight">
+                      <i class="fa-solid fa-heart-circle-plus"></i>
+                      Yêu thích:
+                    </div>
+                    <Button
+                      style={{
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
                       }}
+                      size="large"
+                      danger={isLike}
+                      icon={isLike ? <HeartFilled /> : <HeartOutlined />}
+                      onClick={() => handleToggleFavorite()}
                     >
-                      <Form.Item label="Rate" name="rate">
-                        <Rate />
-                      </Form.Item>
-                      <Form.Item label="Comment" name="comment">
-                        <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
-                      </Form.Item>
-                      <Button htmlType="submit" block>
-                        Đăng
-                      </Button>
-                    </Form>
-                  )}
-                  {renderReviewList}
-                </Card>
-              </Col>
-            </Row>
-          </Col>
-          <Col span="12">
-            <Card title={`Chi tiết sản phẩm`}>
-              <h3>{productDetail.data.name}</h3>
-              <Button
-                style={{ border: "none", outline: "none", boxShadow: "none" }}
-                size="large"
-                danger={isLike}
-                icon={isLike ? <HeartFilled /> : <HeartOutlined />}
-                onClick={() => handleToggleFavorite()}
-              >
-                Like({productDetail.data?.favorites?.length || 0})
-              </Button>
-              <p>{productDetail.data.category?.name}</p>
-              <Row>
-                <Col span={4}>
-                  <span>Số lượng:</span>
-                </Col>
-                <Col span={20}>
-                  <InputNumber
-                    min={1}
-                    value={productQuantity}
-                    onChange={(value) => setProductQuantity(value)}
-                  />
-                </Col>
-              </Row>
+                      Like
+                    </Button>
+                    <div className="iconTtlRight">
+                      <i class="fa-regular fa-thumbs-up"></i>
+                      Lượt thích: {productDetail.data?.favorites?.length || 0}
+                    </div>
+                    <div style={{ fontSize: 17 }}>Số lượng:</div>
+                    <div>
+                      <InputNumber
+                        min={1}
+                        value={productQuantity}
+                        onChange={(value) => setProductQuantity(value)}
+                      />
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <div className="iconTtlRight">
+                      <i class="fa-regular fa-registered"></i>
+                      Thương hiệu:
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ marginLeft: 10, fontSize: 17 }}>
+                        {productDetail.data.category?.name}
+                      </div>
+                      <div style={{ width: 60, height: 40, paddingLeft: 10 }}>
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "contain",
+                          }}
+                          src={productDetail.data.category?.logo}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="iconTtlRight">
+                      <i class="fa-solid fa-money-bill-1-wave"></i>
+                      Giá:
+                    </div>
+                    <div>
+                      {productDetail.data.price?.toLocaleString("vi-VN")}₫
+                    </div>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col span={4}>
-                  <span>Giá:</span>
-                </Col>
-                <Col span={20}>
-                  <p>{productDetail.data.price?.toLocaleString("vi-VN")}</p>
-                </Col>
-              </Row>
-
-              <Row className="sizeProduct">
-                <Col span={4}>
-                  <span>Size:</span>
-                </Col>
-                <Col span={20}>
+                <div>Size:</div>
+                <div>
                   <Radio.Group
                     optionType="button"
                     buttonStyle="solid"
@@ -345,26 +372,79 @@ const ProductDetailPage = () => {
                     <Radio value={42}>42</Radio>
                     <Radio value={43}>43</Radio>
                   </Radio.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Button
-                  style={{ borderRadius: 16 }}
-                  type="primary"
-                  onClick={() => handleAddToCart()}
-                >
-                  Thêm vào giỏ hàng
-                </Button>
-              </Row>
+                </div>
+                <div>
+                  <Button
+                    style={{ borderRadius: 16 }}
+                    type="primary"
+                    onClick={() => handleAddToCart()}
+                  >
+                    Thêm vào giỏ hàng
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </Button>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12" style={{ maxWidth: "100%" }}>
+              <Card size="small" bordered={false} title="Đánh giá sản phẩm">
+                {userInfo.data.id && !isReviewed && (
+                  <Form
+                    name="reviewForm"
+                    form={reviewForm}
+                    layout="vertical"
+                    onFinish={(values) => {
+                      handlePostReview(values);
+                      reviewForm.resetFields();
+                    }}
+                  >
+                    <Form.Item label="Rate" name="rate">
+                      <Rate allowHalf />
+                    </Form.Item>
+                    <Form.Item label="Comment" name="comment">
+                      <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
+                    </Form.Item>
+                    <Button htmlType="submit" block>
+                      Đăng
+                    </Button>
+                  </Form>
+                )}
+                {renderReviewList}
+              </Card>
+            </Col>
+            <Col span={12}>
               <Collapse>
-                <Panel header="Thông tin sản phẩm" key="1">
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ color: "#ea4b67", marginRight: 3 }}
+                        class="fa-solid fa-circle-info"
+                      ></i>
+                      Thông tin sản phẩm
+                    </span>
+                  }
+                  key="1"
+                >
                   <div
                     dangerouslySetInnerHTML={{
                       __html: productDetail.data?.content,
                     }}
                   />
                 </Panel>
-                <Panel header="Đổi trả miễn phí" key="2">
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ color: "#ea4b67", marginRight: 3 }}
+                        class="fa-solid fa-hand-holding-hand"
+                      ></i>
+                      Đổi trả miễn phí"
+                    </span>
+                  }
+                  key="2"
+                >
                   <p>
                     Thật khó chịu nếu như bạn mua một đôi giày hiệu về nhưng lại
                     không vừa size hoặc chỉ đơn giản là thay đổi ý thích của bản
@@ -437,7 +517,18 @@ const ProductDetailPage = () => {
                     </p>
                   </p>
                 </Panel>
-                <Panel header="Giao hàng nhanh chóng" key="3">
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ color: "#ea4b67", marginRight: 3 }}
+                        class="fa-solid fa-box-open"
+                      ></i>
+                      Giao hàng nhanh chóng
+                    </span>
+                  }
+                  key="3"
+                >
                   <p>
                     Giao hàng nhanh, chính xác và đúng hẹn cho các đơn hàng luôn
                     là tiêu chí hàng đầu mà Sneaker-S đặt ra. Khách hàng có thể
@@ -512,14 +603,15 @@ const ProductDetailPage = () => {
                   </p>
                 </Panel>
               </Collapse>
-            </Card>
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]} style={{ justifyContent: "center" }}>
-          <h3>Sản phẩm tương tự</h3>
-          {renderProductList}
-        </Row>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} style={{ justifyContent: "center" }}>
+            <Col span={24}>
+              <h3>Sản phẩm tương tự</h3>
+            </Col>
+            <Col span={24}>{renderProductList}</Col>
+          </Row>
+        </Container>
       </S.DetailWrapper>
     </>
   );

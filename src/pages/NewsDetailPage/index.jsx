@@ -112,6 +112,7 @@ function NewsDetailPage() {
     });
   };
 
+  document.title = "Bài viết";
   return (
     <>
       <BackTop />

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const DetailWrapper = styled.div`
   font-family: "Fredoka", sans-serif;
+  padding: 0 16px 16px;
 
   min-height: calc(100vh - 205px);
   .ant-row {
@@ -23,11 +24,26 @@ export const DetailWrapper = styled.div`
       }
     }
   }
+  .detailCard {
+    .detailTtl {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 24px;
+    }
+    .iconTtlRight {
+      font-size: 17px;
+      & i {
+        color: #5fc1c1;
+        margin-right: 4px;
+        font-size: 14px;
+      }
+    }
+  }
 `;
 export const PreviewSwipeWrap = styled.div`
   .swiper {
     width: 100%;
-    height: auto;
+    height: 100%;
   }
   .swiper-slide {
     text-align: center;
@@ -82,16 +98,26 @@ export const PreviewSwipeWrap = styled.div`
   .mySwiper .swiper-slide {
     width: 25%;
     height: 100%;
+    border: solid 1px purple;
+    border-radius: 10px;
+    opacity: 0.6;
+    overflow: hidden;
   }
 
   .mySwiper .swiper-slide-thumb-active {
     opacity: 1;
+    border-width: 3px;
+    overflow: hidden;
   }
 
   .swiper-slide img {
     display: block;
-    width: 100%;
+    width: 80%;
     height: 100%;
     object-fit: contain;
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: purple;
   }
 `;

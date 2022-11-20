@@ -5,6 +5,7 @@ import { ROUTES } from "../../constants/routes";
 
 import { Container } from "../../layouts/Header/styles";
 import * as S from "./styles";
+import { dblClick } from "@testing-library/user-event/dist/click";
 
 function Success() {
   setTimeout(() => {
@@ -15,6 +16,7 @@ function Success() {
       } else localStorage.removeItem("firstLoad");
     }
   }, 1000);
+  document.title = "Success";
   return (
     <Container>
       <S.SuccessWrapper>

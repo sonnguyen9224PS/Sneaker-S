@@ -147,6 +147,7 @@ function NewsPage() {
     });
   };
 
+  document.title = "Tin tức và bài viết";
   return (
     <>
       <BackTop />

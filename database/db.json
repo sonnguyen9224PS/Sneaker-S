@@ -436,59 +436,73 @@
   "categories": [
     {
       "id": 1,
-      "name": "Nike"
+      "name": "Nike",
+      "logo": "https://static.nike.com/a/images/f_jpg,q_auto:eco/61b4738b-e1e1-4786-8f6c-26aa0008e80b/swoosh-logo-black.png"
     },
     {
       "id": 2,
-      "name": "Vans"
+      "name": "Vans",
+      "logo": "https://drake.vn/image/catalog/H%C3%ACnh%20content/logo-vans/vans-logo_2.jpg"
     },
     {
       "id": 3,
-      "name": "New Balance"
+      "name": "New Balance",
+      "logo": "https://png.vector.me/files/images/1/2/129072/new_balance_logo.jpg"
     },
     {
       "id": 4,
-      "name": "Adidas"
+      "name": "Adidas",
+      "logo": "https://blogger.googleusercontent.com/img/a/AVvXsEgu9Ewbgh4ej2z3gB_cQ8Ajf3Vvh2qzNvxMYBOkC70IdBK5Xt3drFjDz1j67Q3rhhBrx9WaASxDhdlzLGMETxTsoGFE9i4aBOJQq-I1Jn9DWREVc4-7fEJepgcWsFl4hRv-TPIsewP9rmMcjEEFB3THpj1w8wb5HqcOyl0s7e0dXEOrb34pxuVaxkP-OQ=s600"
     },
     {
       "id": 5,
-      "name": "Reebook"
+      "name": "Reebook",
+      "logo": "https://png.pngitem.com/pimgs/s/190-1900473_download-reebok-logo-png-photos-for-designing-project.png"
     },
     {
       "id": 6,
-      "name": "Asics"
+      "name": "Asics",
+      "logo": "https://www.asics.com/on/demandware.static/Sites-asics-us-Site/-/default/dw66b1d1ec/images/og-ASICS.jpg"
     },
     {
       "id": 7,
-      "name": "MLB"
+      "name": "MLB",
+      "logo": "https://media.proprofs.com/images/QM/user_images/2503852/New%20Project%20(66)(277).jpg"
     },
     {
       "id": 8,
-      "name": "Air Jordan"
+      "name": "Air Jordan",
+      "logo": "https://i.pinimg.com/originals/98/e5/a4/98e5a4811e32177795897d60231a016f.jpg"
     },
     {
       "id": 9,
-      "name": "Fila"
+      "name": "Fila",
+      "logo": "https://logos-world.net/wp-content/uploads/2020/10/Fila-Logo.jpg"
     },
     {
       "id": 10,
-      "name": "Under Armour"
+      "name": "Under Armour",
+      "logo": "https://p.kindpng.com/picc/s/644-6446539_png-transparent-logo-under-armour-vector-png-download.png"
     },
     {
       "id": 11,
-      "name": "BAPE"
+      "name": "BAPE",
+      "logo": "https://i.pinimg.com/736x/5a/9a/67/5a9a671f1b65d0b13c8a671c54cfe202.jpg"
     },
     {
       "id": 12,
-      "name": "Off-white"
+      "name": "Off-white",
+      "logo": "https://tripler.vn/wp-content/uploads/2019/08/off-white-la-gi.jpg"
     },
     {
       "id": 13,
-      "name": "Balenciaga"
+      "name": "Balenciaga",
+      "logo": "https://i.pinimg.com/originals/81/6a/dc/816adc875959202114a14701cd78b434.jpg"
     },
     {
       "id": 14,
-      "name": "Lacoste"
+      "name": "Lacoste",
+      "logo": "https://inkythuatso.com/uploads/images/2021/12/logo-lacoste-inkythuatso-22-13-35-14.jpg"
     }
   ],
   "favorites": [
@@ -527,6 +541,24 @@
       "createdAt": 1668568450667,
       "updatedAt": 1668568450668,
       "id": 3
+    },
+    {
+      "rate": 3,
+      "comment": "tạm được",
+      "userId": 3,
+      "productId": 1,
+      "createdAt": 1668946106027,
+      "updatedAt": 1668946106027,
+      "id": 4
+    },
+    {
+      "rate": 4,
+      "comment": "ok phết :))",
+      "userId": 3,
+      "productId": 4,
+      "createdAt": 1668958490547,
+      "updatedAt": 1668958490548,
+      "id": 5
     }
   ],
   "news": [

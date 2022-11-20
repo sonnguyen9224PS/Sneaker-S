@@ -235,6 +235,7 @@ const ProfilePage = () => {
     );
   };
 
+  document.title = "Thông tin cá nhân";
   return (
     <>
       <S.Profile>

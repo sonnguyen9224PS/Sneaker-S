@@ -41,6 +41,7 @@ const LoginPage = () => {
     }
   }, [loginData.error]);
 
+  document.title = "Đăng nhập";
   return (
     <S.MainWrapper>
       <div

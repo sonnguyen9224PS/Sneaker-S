@@ -22,7 +22,7 @@ import {
   notification,
   BackTop,
 } from "antd";
-
+import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getProductListAction,
@@ -47,6 +47,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import { ROUTES } from "../../constants/routes";
+import { Container } from "../../layouts/Header/styles";
 const { Panel } = Collapse;
 const ProductListPage = () => {
   const [productQuantity, setProductQuantity] = useState(1);
@@ -73,11 +74,19 @@ const ProductListPage = () => {
 
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 77 ~ ProductListPage ~ productList",
+    productList
+  );
 
   const { productDetail } = useSelector((state) => state.product);
 
   const { bestSellList } = useSelector((state) => state.product);
   const { categoryList } = useSelector((state) => state.category);
+  const { reviewList } = useSelector((state) => state.review);
+
+  const rateArr = reviewList.data.map((item) => item.rate);
+  const rateAverage = _.meanBy(rateArr);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOk = () => {
@@ -306,6 +315,8 @@ const ProductListPage = () => {
   // render
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
+      const rateArr = item.reviews.map((itemRate) => itemRate.rate);
+      const rateAverage = _.meanBy(rateArr);
       return (
         <Col span={6} key={item.id}>
           <div className="productItem">
@@ -347,9 +358,13 @@ const ProductListPage = () => {
               </div>
             </div>
             <div className="contentProduct">
-              <div className="offProduct">
-                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
-              </div>
+              {item.sale > 0 ? (
+                <div className="offProduct">
+                  <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+                </div>
+              ) : (
+                <div style={{ height: 30 }}></div>
+              )}
               <div className="nameProduct">
                 <i class="fa-solid fa-award"></i>
                 {item.name}
@@ -372,7 +387,8 @@ const ProductListPage = () => {
               <p className="ratingProduct">
                 <span>Đánh giá:</span>
                 <Rate
-                  value={!item.reviews[0]?.rate ? null : item.reviews[0].rate}
+                  allowHalf
+                  value={rateAverage}
                   disabled
                   style={{ fontSize: 12 }}
                 />
@@ -396,7 +412,19 @@ const ProductListPage = () => {
     return categoryList.data.map((item) => {
       return (
         <Col span={24} key={item.id}>
-          <Checkbox value={item.id}>{item.name}</Checkbox>
+          <Checkbox value={item.id}>
+            <span display="inline-block">{item.name}</span>
+            <div
+              style={{
+                marginLeft: 3,
+                display: "inline-block",
+                width: 60,
+                height: 40,
+              }}
+            >
+              <img width="100%" height="100%" src={item.logo} alt="" />
+            </div>
+          </Checkbox>
         </Col>
       );
     });
@@ -439,16 +467,16 @@ const ProductListPage = () => {
   const renderOptionSort = () => {
     return (
       <>
-        <Select.Option value="priceUp">
+        <Select.Option value="priceUp" style={{ color: "purple" }}>
           <i class="fa-solid fa-arrow-up-short-wide"></i>Giá thấp đến cao
         </Select.Option>
-        <Select.Option value="priceDown">
+        <Select.Option value="priceDown" style={{ color: "purple" }}>
           <i class="fa-solid fa-arrow-up-wide-short"></i>Giá cao đến thấp
         </Select.Option>
-        <Select.Option value="nameProductUp">
+        <Select.Option value="nameProductUp" style={{ color: "purple" }}>
           <i class="fa-solid fa-arrow-down-a-z"></i>A → Z
         </Select.Option>
-        <Select.Option value="nameProductDown">
+        <Select.Option value="nameProductDown" style={{ color: "purple" }}>
           <i class="fa-solid fa-arrow-up-z-a"></i>Z → A
         </Select.Option>
       </>
@@ -489,41 +517,64 @@ const ProductListPage = () => {
     });
   };
 
+  document.title = "Danh sách sản phẩm";
   return (
     <>
       <BackTop />
-      <S.Wrapper>
-        <S.ModalPreview>
-          <Modal
-            width="80%"
-            style={{ padding: 10 }}
-            footer={null}
-            cancelButtonProps={{ style: { display: "none" } }}
-            okButtonProps={{ style: { display: "none" } }}
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-          >
-            <Row width="100%">
-              <Col span={12}>
-                <S.PreviewSwipeWrap
-                  style={{ width: "100%", height: 400, margin: "auto" }}
-                >
-                  <>
-                    {!productDetail.data?.images?.length ? null : (
-                      <>
-                        <Swiper
-                          style={{
-                            "--swiper-navigation-color": "#fff",
-                            "--swiper-pagination-color": "#fff",
-                          }}
-                          loop={true}
-                          spaceBetween={10}
-                          thumbs={{ swiper: thumbsSwiper }}
-                          modules={[FreeMode, Thumbs]}
-                          className="mySwiper2"
-                        >
-                          <>
+      <Container>
+        <S.Wrapper>
+          <S.ModalPreview>
+            <S.SModal
+              width="80%"
+              style={{ padding: 10 }}
+              footer={null}
+              cancelButtonProps={{ style: { display: "none" } }}
+              okButtonProps={{ style: { display: "none" } }}
+              open={isModalOpen}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <Row className="detailProduct" width="100%">
+                <Col span={12}>
+                  <S.PreviewSwipeWrap
+                    style={{ width: "100%", height: 400, margin: "auto" }}
+                  >
+                    <>
+                      {!productDetail.data?.images?.length ? null : (
+                        <>
+                          <Swiper
+                            style={{
+                              "--swiper-navigation-color": "#fff",
+                              "--swiper-pagination-color": "#fff",
+                            }}
+                            loop={true}
+                            spaceBetween={10}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            modules={[FreeMode, Thumbs]}
+                            className="mySwiper2"
+                          >
+                            <>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[0].src} />
+                              </SwiperSlide>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[1].src} />
+                              </SwiperSlide>
+                              <SwiperSlide>
+                                <img src={productDetail.data.images[2].src} />
+                              </SwiperSlide>
+                            </>
+                          </Swiper>
+                          <Swiper
+                            onSwiper={setThumbsSwiper}
+                            loop={true}
+                            spaceBetween={10}
+                            slidesPerView={4}
+                            freeMode={true}
+                            watchSlidesProgress={true}
+                            modules={[FreeMode, Navigation, Thumbs]}
+                            className="mySwiper"
+                          >
                             <SwiperSlide>
                               <img src={productDetail.data.images[0].src} />
                             </SwiperSlide>
@@ -533,64 +584,32 @@ const ProductListPage = () => {
                             <SwiperSlide>
                               <img src={productDetail.data.images[2].src} />
                             </SwiperSlide>
-                          </>
-                        </Swiper>
-                        <Swiper
-                          onSwiper={setThumbsSwiper}
-                          loop={true}
-                          spaceBetween={10}
-                          slidesPerView={4}
-                          freeMode={true}
-                          watchSlidesProgress={true}
-                          modules={[FreeMode, Navigation, Thumbs]}
-                          className="mySwiper"
-                        >
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[0].src} />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[1].src} />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <img src={productDetail.data.images[2].src} />
-                          </SwiperSlide>
-                        </Swiper>
-                      </>
-                    )}
-                  </>
-                </S.PreviewSwipeWrap>
-              </Col>
-              <Col span={12}>
-                <Card title={`Chi tiết sản phẩm`}>
-                  <h3>{productDetail.data.name}</h3>
-                  <p>{productDetail.data.category?.name}</p>
-                  <Row>
-                    <Col span={4}>
-                      <span>Số lượng:</span>
-                    </Col>
-                    <Col span={20}>
+                          </Swiper>
+                        </>
+                      )}
+                    </>
+                  </S.PreviewSwipeWrap>
+                </Col>
+                <Col span={12}>
+                  <Card className="cardPreview" title={`Chi tiết sản phẩm`}>
+                    <div>Tên sản phẩm:</div>
+                    <h3>{productDetail.data.name}</h3>
+                    <div>Brand:</div>
+                    <h3>{productDetail.data.category?.name}</h3>
+                    <div>Số lượng:</div>
+                    <div>
                       <InputNumber
                         min={1}
                         value={productQuantity}
                         onChange={(value) => setProductQuantity(value)}
                       />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col span={4}>
-                      <span>Giá:</span>
-                    </Col>
-                    <Col span={20}>
-                      <p>{productDetail.data.price?.toLocaleString("vi-VN")}</p>
-                    </Col>
-                  </Row>
-
-                  <Row className="sizeProduct">
-                    <Col span={4}>
-                      <span>Size:</span>
-                    </Col>
-                    <Col span={20}>
+                    </div>
+                    <div>Giá:</div>
+                    <div style={{ fontWeight: "bold" }}>
+                      {productDetail.data.price?.toLocaleString("vi-VN")}₫
+                    </div>
+                    <div>Size:</div>
+                    <div span={20}>
                       <Radio.Group
                         optionType="button"
                         buttonStyle="solid"
@@ -604,174 +623,247 @@ const ProductListPage = () => {
                         <Radio value={42}>42</Radio>
                         <Radio value={43}>43</Radio>
                       </Radio.Group>
-                    </Col>
-                  </Row>
-                  <Row>
+                    </div>
+                    <div>
+                      <Button
+                        style={{ borderRadius: 16 }}
+                        type="primary"
+                        onClick={() => handleAddToCart()}
+                      >
+                        Thêm vào giỏ hàng
+                      </Button>
+                    </div>
+                  </Card>
+                </Col>
+              </Row>
+            </S.SModal>
+          </S.ModalPreview>
+          <Row style={{ borderBottom: "solid 1px #d8cece", marginBottom: 20 }}>
+            <S.SBreadcrumb
+              separator=">"
+              style={{
+                paddingTop: 16,
+                paddingBottom: 16,
+              }}
+            >
+              <Breadcrumb.Item>
+                <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Danh sách sản phẩm</Breadcrumb.Item>
+            </S.SBreadcrumb>
+          </Row>
+          <Row>
+            <h4
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+                color: "purple",
+              }}
+            >
+              <span style={{ marginRight: 4 }}>
+                <i class="fa-solid fa-filter"></i>
+              </span>
+              LỌC SẢN PHẨM THEO:
+            </h4>
+          </Row>
+          <Row gutter={[16, 16]}>
+            {/* left main */}
+            <Col span={6} className="leftFilter">
+              <S.SCardArrival size="small">
+                <h4
+                  style={{
+                    fontSize: 18,
+                  }}
+                >
+                  <i
+                    style={{ marginRight: 4 }}
+                    class="fa-solid fa-bolt-lightning"
+                  ></i>
+                  New Arrivals
+                </h4>
+                <Checkbox
+                  onChange={(e) => handleFilter("new", e.target.checked)}
+                  checked={filterParams.new}
+                >
+                  Sản phẩm mới
+                </Checkbox>
+              </S.SCardArrival>
+              <S.SCollapse>
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ marginRight: 2 }}
+                        class="fa-regular fa-registered"
+                      ></i>
+                      Brand
+                    </span>
+                  }
+                  key="1"
+                >
+                  <Checkbox.Group
+                    onChange={(value) => handleFilter("categoryId", value)}
+                    value={filterParams.categoryId}
+                  >
+                    <Row>{renderCategoryOption}</Row>
+                  </Checkbox.Group>
+                </Panel>
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ marginRight: 2 }}
+                        class="fa-solid fa-gift"
+                      ></i>
+                      Sale all
+                    </span>
+                  }
+                  key="2"
+                >
+                  <Radio.Group
+                    onChange={(e) => handleFilter("sale", e.target.value)}
+                    value={filterParams.sale}
+                  >
+                    <Row>
+                      <Col span={24}>
+                        <Radio className="radioItem" value={30}>
+                          <i
+                            style={{ marginRight: 3 }}
+                            class="fa-solid fa-arrow-trend-down"
+                          ></i>
+                          30%
+                        </Radio>
+                      </Col>
+                      <Col span={24}>
+                        <Radio className="radioItem" value={50}>
+                          <i
+                            style={{ marginRight: 3 }}
+                            class="fa-solid fa-arrow-trend-down"
+                          ></i>
+                          50%
+                        </Radio>
+                      </Col>
+                      <Col span={24}>
+                        <Radio className="radioItem" value={70}>
+                          <i
+                            style={{ marginRight: 3 }}
+                            class="fa-solid fa-arrow-trend-down"
+                          ></i>
+                          70%
+                        </Radio>
+                      </Col>
+                    </Row>
+                  </Radio.Group>
+                </Panel>
+              </S.SCollapse>
+              <S.SCollapse>
+                <Panel
+                  header={
+                    <span>
+                      <i
+                        style={{ marginLeft: 3 }}
+                        class="fa-solid fa-arrows-left-right"
+                      ></i>
+                      Tìm kiếm theo giá
+                    </span>
+                  }
+                  key={1}
+                >
+                  <Slider
+                    range
+                    marks={{
+                      0: "0",
+                      5000000: "5 triệu",
+                      10000000: "10 triệu",
+                      15000000: "15 triệu",
+                    }}
+                    tooltip={{ formatter }}
+                    min={PRICE_MIN}
+                    max={PRICE_MAX}
+                    step={PRICE_STEP}
+                    defaultValue={[PRICE_MIN_DEFAULT, PRICE_MAX_DEFAULT]}
+                    onChange={(value) => handleSliderPrice(value)}
+                  />
+                </Panel>
+              </S.SCollapse>
+              <Card size="small">
+                <h3
+                  style={{
+                    fontSize: 18,
+                  }}
+                >
+                  <i
+                    style={{ marginRight: 4 }}
+                    class="fa-brands fa-shopify"
+                  ></i>
+                  Sản phẩm bán chạy
+                </h3>
+                {renderBestSellProduct()}
+              </Card>
+              <Card size="small" className="bannerLeft">
+                <Link
+                  to={ROUTES.USER.PRODUCT_LIST}
+                  state={{ categoryId: [14] }}
+                >
+                  <img
+                    src="https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F02%2Flacoste-match-break-sneakers-spring-summer-collection-price-where-to-buy-1.jpg?q=75&w=800&cbr=1&fit=max"
+                    alt=""
+                  />
+                </Link>
+              </Card>
+            </Col>
+            {/* right main */}
+            <Col span={18}>
+              <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+                <Col span={18}>
+                  <S.SInputSearch
+                    placeholder="Search.."
+                    name="filterKeyword"
+                    allowClear
+                    value={filterParams.keyword}
+                    onChange={(e) => handleFilter("keyword", e.target.value)}
+                  />
+                </Col>
+                <Col span={6}>
+                  <Select
+                    name="selectSort"
+                    placeholder="Sắp xếp theo giá"
+                    style={{ width: "100%" }}
+                    onChange={(value) => handleSortPrice(value)}
+                  >
+                    {renderOptionSort()}
+                  </Select>
+                </Col>
+              </Row>
+              {/* tags */}
+              <Space
+                style={{ marginBottom: 16, display: "flex", flexWrap: "wrap" }}
+              >
+                {renderFilterCategory}
+                {filterParams.keyword && renderFilterKeyword}
+                {filterParams.sale && renderFilterSale}
+              </Space>
+              {/* product list */}
+              <Spin spinning={productList.loading} tip="Loading...">
+                <S.ProductListWrapper>
+                  <Row gutter={[16, 16]}>{renderProductList}</Row>
+                </S.ProductListWrapper>
+                {productList.data.length !== productList.meta.total && (
+                  <Row justify="center">
                     <Button
-                      style={{ borderRadius: 16 }}
-                      type="primary"
-                      onClick={() => handleAddToCart()}
+                      className="moreBtn"
+                      onClick={() => handleShowMore()}
                     >
-                      Thêm vào giỏ hàng
+                      Xem thêm
+                      <i class="fa-solid fa-angles-right iconBtn"></i>
                     </Button>
                   </Row>
-                </Card>
-              </Col>
-            </Row>
-          </Modal>
-        </S.ModalPreview>
-        <Row style={{ borderBottom: "solid 1px #d8cece", marginBottom: 20 }}>
-          <S.SBreadcrumb
-            separator=">"
-            style={{ paddingTop: 16, paddingBottom: 16 }}
-          >
-            <Breadcrumb.Item>
-              <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to={ROUTES.USER.PRODUCT_LIST}>Collection</Link>
-            </Breadcrumb.Item>
-          </S.SBreadcrumb>
-        </Row>
-        <Row>
-          <h4
-            style={{
-              fontWeight: "bold",
-              fontSize: 18,
-              color: "purple",
-              paddingLeft: 12,
-            }}
-          >
-            <span style={{ marginRight: 4 }}>
-              <i class="fa-solid fa-filter"></i>
-            </span>
-            LỌC SẢN PHẨM THEO:
-          </h4>
-        </Row>
-        <Row gutter={[16, 16]}>
-          {/* left main */}
-          <Col span={6} className="leftFilter">
-            <S.SCardArrival size="small">
-              <h4 style={{ fontSize: 18, color: "purple" }}>
-                <i style={{ marginRight: 4 }} class="fa-brands fa-shopify"></i>
-                New Arrivals
-              </h4>
-              <Checkbox
-                onChange={(e) => handleFilter("new", e.target.checked)}
-                checked={filterParams.new}
-                style={{ color: "purple" }}
-              >
-                Sản phẩm mới
-              </Checkbox>
-            </S.SCardArrival>
-            <S.SCollapse>
-              <Panel header="Brand" key="1">
-                <Checkbox.Group
-                  onChange={(value) => handleFilter("categoryId", value)}
-                  value={filterParams.categoryId}
-                >
-                  <Row>{renderCategoryOption}</Row>
-                </Checkbox.Group>
-              </Panel>
-              <Panel header="Sale all" key="2">
-                <Radio.Group
-                  onChange={(e) => handleFilter("sale", e.target.value)}
-                  value={filterParams.sale}
-                >
-                  <Row>
-                    <Col span={24}>
-                      <Radio value={30}>30%</Radio>
-                    </Col>
-                    <Col span={24}>
-                      <Radio value={50}>50%</Radio>
-                    </Col>
-                    <Col span={24}>
-                      <Radio value={70}>70%</Radio>
-                    </Col>
-                  </Row>
-                </Radio.Group>
-              </Panel>
-            </S.SCollapse>
-            <Card size="small" title="Tìm kiếm theo giá">
-              <Slider
-                range
-                marks={{
-                  0: "0",
-                  5000000: "5 triệu",
-                  10000000: "10 triệu",
-                  15000000: "15 triệu",
-                }}
-                tooltip={{ formatter }}
-                min={PRICE_MIN}
-                max={PRICE_MAX}
-                step={PRICE_STEP}
-                defaultValue={[PRICE_MIN_DEFAULT, PRICE_MAX_DEFAULT]}
-                onChange={(value) => handleSliderPrice(value)}
-              />
-            </Card>
-            <Card size="small">
-              <h3>Sản phẩm Bán chạy</h3>
-              {renderBestSellProduct()}
-            </Card>
-            <Card size="small" className="bannerLeft">
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [14] }}>
-                <img
-                  src="https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F02%2Flacoste-match-break-sneakers-spring-summer-collection-price-where-to-buy-1.jpg?q=75&w=800&cbr=1&fit=max"
-                  alt=""
-                />
-              </Link>
-            </Card>
-          </Col>
-          {/* right main */}
-          <Col span={18}>
-            <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-              <Col span={18}>
-                <S.SInputSearch
-                  placeholder="Search.."
-                  name="filterKeyword"
-                  allowClear
-                  value={filterParams.keyword}
-                  onChange={(e) => handleFilter("keyword", e.target.value)}
-                />
-              </Col>
-              <Col span={6}>
-                <Select
-                  name="selectSort"
-                  placeholder="Sắp xếp theo giá"
-                  style={{ width: "100%" }}
-                  onChange={(value) => handleSortPrice(value)}
-                >
-                  {renderOptionSort()}
-                </Select>
-              </Col>
-            </Row>
-            {/* tags */}
-            <Space
-              style={{ marginBottom: 16, display: "flex", flexWrap: "wrap" }}
-            >
-              {renderFilterCategory}
-              {filterParams.keyword && renderFilterKeyword}
-              {filterParams.sale && renderFilterSale}
-            </Space>
-            {/* product list */}
-            <Spin spinning={productList.loading} tip="Loading...">
-              <S.ProductListWrapper>
-                <Row gutter={[16, 16]}>{renderProductList}</Row>
-              </S.ProductListWrapper>
-              {productList.data.length !== productList.meta.total && (
-                <Row justify="center">
-                  <Button
-                    style={{ marginTop: 16 }}
-                    onClick={() => handleShowMore()}
-                  >
-                    Show more
-                  </Button>
-                </Row>
-              )}
-            </Spin>
-          </Col>
-        </Row>
-      </S.Wrapper>
+                )}
+              </Spin>
+            </Col>
+          </Row>
+        </S.Wrapper>
+      </Container>
     </>
   );
 };

@@ -311,7 +311,7 @@ function HomePage() {
       );
     });
   };
-
+  document.title = "Trang chủ";
   return (
     <>
       <BackTop style={{ right: 0 }} />
@@ -328,7 +328,7 @@ function HomePage() {
             onCancel={handleCancel}
           >
             <Row width="100%">
-              <Col span={12}>
+              <Col span={12} style={{ padding: "0 2px" }}>
                 <S.PreviewSwipeWrap
                   style={{ width: "100%", height: 400, margin: "auto" }}
                 >
@@ -362,7 +362,7 @@ function HomePage() {
                           onSwiper={setThumbsSwiper}
                           loop={true}
                           spaceBetween={10}
-                          slidesPerView={4}
+                          slidesPerView={3}
                           freeMode={true}
                           watchSlidesProgress={true}
                           modules={[FreeMode, Navigation, Thumbs]}

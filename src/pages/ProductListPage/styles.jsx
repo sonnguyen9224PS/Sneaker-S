@@ -1,21 +1,10 @@
 import styled from "styled-components";
-import { Breadcrumb, Collapse, Card, Input, Tag } from "antd";
+import { Breadcrumb, Collapse, Card, Input, Modal, Select } from "antd";
 
 export const Wrapper = styled.div`
   font-family: "Fredoka", sans-serif;
-
   padding: 16px;
   min-height: calc(100vh - 570px);
-  .ant-breadcrumb {
-    & > ol {
-      & > li {
-        &:last-child {
-          cursor: default;
-          pointer-events: none;
-        }
-      }
-    }
-  }
   .bannerLeft {
     img {
       width: 100%;
@@ -29,27 +18,35 @@ export const Wrapper = styled.div`
       border: solid 1px purple;
     }
   }
+  .moreBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 22px 44px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    &:hover {
+      .iconBtn {
+        right: 21px;
+        transition: all 0.3s;
+      }
+    }
+  }
 `;
 export const ProductListWrapper = styled.div`
+  margin-bottom: 30px;
   .productItem {
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 16px;
     overflow: hidden;
-    &::before {
-      position: absolute;
-      content: "SALE";
-      width: 78px;
-      height: 28px;
-      top: 0;
-      right: 0;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: red;
-      z-index: 3;
-    }
+
     .contentProduct {
       padding-left: 20px;
       padding-bottom: 16px;
@@ -81,6 +78,7 @@ export const ProductListWrapper = styled.div`
           height: 35px;
           width: 40px;
           border-radius: 6px;
+          border: none;
           background: #8e8e8f;
           color: #fff;
           &:after {
@@ -116,7 +114,6 @@ export const ProductListWrapper = styled.div`
       & > i {
         margin-right: 11px;
         color: black;
-        font-size: 17px;
       }
     }
     .offProduct {
@@ -134,7 +131,6 @@ export const ProductListWrapper = styled.div`
       display: flex;
       justify-content: start;
       .priceProduct {
-        font-size: 17px;
         font-weight: bold;
         & > i {
           margin-right: 11px;
@@ -201,9 +197,81 @@ export const ProductListWrapper = styled.div`
   }
 `;
 export const ModalPreview = styled.div``;
+export const SModal = styled(Modal)`
+  .ant-modal-body {
+    .ant-col-12:first-child {
+      border: solid 1px #ebe1e1;
+      border-color: purple;
+      border-radius: 20px 0 0 20px;
+      overflow: hidden;
+      .swiper-slide {
+        padding: 0 10px;
+      }
+      .mySwiper .swiper-slide {
+        border: solid 1px purple;
+      }
+    }
+    .ant-col-12:nth-child(2) {
+      .ant-card-bordered {
+        border-color: purple;
+        border-radius: 0 0 20px;
+      }
+      .ant-card-head {
+        border-color: purple;
+      }
+      .ant-card-head-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 18px;
+        text-align: center;
+      }
+      .ant-card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .ant-input-number {
+        border-radius: 20px;
+        border-color: purple;
+        overflow: hidden;
+        .ant-input-number-handler-wrap {
+          margin-right: 12px;
+        }
+      }
+      .ant-radio-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+        .ant-radio-button-wrapper {
+          border: solid 1px purple;
+          border-radius: 50%;
+          margin-bottom: 3px;
+          &:not(:last-child) {
+            margin-right: 4px;
+          }
+        }
+        .ant-radio-button-wrapper::before {
+          display: none;
+        }
+      }
+    }
+  }
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+  .ant-modal-close {
+    background: url(https://www.citypng.com/public/uploads/preview/png-red-round-close-x-icon-31631915146jpppmdzihs.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    color: red;
+    font-weight: bold;
+  }
+`;
 export const SBreadcrumb = styled(Breadcrumb)`
   .ant-breadcrumb {
-    padding: 4px;
     font-size: 16px;
   }
 `;
@@ -211,15 +279,55 @@ export const SCardArrival = styled(Card)`
   .ant-card-body {
     border-radius: 10px 10px 0 0;
   }
+  .ant-checkbox-wrapper {
+    .ant-checkbox-inner {
+      border-color: black;
+    }
+    &:hover {
+      .ant-checkbox-inner {
+        border-color: purple;
+        border-width: 2px;
+      }
+      .ant-checkbox + span {
+        color: purple;
+      }
+    }
+  }
 `;
 export const SCollapse = styled(Collapse)`
+  .ant-collapse-header,
   .ant-collapse-header-text,
-  .ant-checkbox + span {
-    color: purple;
-  }
-  .ant-collapse-header {
+  .ant-collapse-expand-icon {
     font-size: 17px;
-    font-weight: bold;
+    font-weight: 500;
+  }
+  .ant-checkbox-wrapper {
+    width: 100%;
+    .ant-checkbox-inner,
+    .ant-radio-inner {
+      border-color: black;
+    }
+    &:hover {
+      .ant-checkbox-inner,
+      .ant-radio-inner {
+        border-color: purple;
+        border-width: 2px;
+      }
+      .ant-checkbox + span {
+        color: purple;
+      }
+    }
+    .ant-checkbox + span {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .radioItem {
+    &:hover {
+      color: purple;
+    }
   }
 `;
 export const SInputSearch = styled(Input)`

@@ -48,6 +48,7 @@ const RegisterPage = () => {
       })
     );
   };
+  document.title = "Đăng ký";
   return (
     <S.MainWrapper>
       <Row>

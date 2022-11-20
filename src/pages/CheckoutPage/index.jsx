@@ -110,6 +110,7 @@ function CheckoutPage() {
     }
   };
 
+  document.title = "Thông tin thanh toán";
   return (
     <div>
       <Container>
