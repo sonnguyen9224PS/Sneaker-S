@@ -14,6 +14,7 @@ import {
   Input,
   Space,
   BackTop,
+  Tooltip,
 } from "antd";
 import _ from "lodash";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -61,6 +62,14 @@ const ProductDetailPage = () => {
 
   const rateArr = reviewList.data.map((item) => item.rate);
   const rateAverage = _.meanBy(rateArr);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const openNotification = () => {
     notification.open({
@@ -116,6 +125,9 @@ const ProductDetailPage = () => {
       })
     );
   };
+  const handlePreviewImage = (id) => {
+    dispatch(getProductDetailAction({ id: id }));
+  };
   useEffect(() => {
     dispatch(
       getProductDetailAction({
@@ -157,17 +169,91 @@ const ProductDetailPage = () => {
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
       return (
-        <Col key={item.id} span={6}>
-          <Link
-            key={item.id}
-            to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
-              id: `${item.slug}.${item.id}`,
-            })}
-          >
-            <Card size="small" title={item.name}>
-              {item.price.toLocaleString("vi-VN")}
-            </Card>
-          </Link>
+        <Col span={6} key={item.id}>
+          <div className="productItem">
+            <div className="imageWrap">
+              <Link
+                to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                  id: `${item.slug}.${item.id}`,
+                })}
+              >
+                <div className="imageItem">
+                  <img
+                    src={!item.images[0]?.src ? null : item.images[0].src}
+                    width="100%"
+                    alt=""
+                  />
+                </div>
+              </Link>
+              <div className="actionProduct">
+                <Tooltip title="Preview">
+                  <Button
+                    icon={<i class="fa-solid fa-eye"></i>}
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      handlePreviewImage(item.id);
+                    }}
+                  ></Button>
+                </Tooltip>
+                <Tooltip title="Thêm vào giỏ hàng">
+                  <Link
+                    to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
+                      id: `${item.slug}.${item.id}`,
+                    })}
+                  >
+                    <Button
+                      icon={<i class="fa-solid fa-cart-plus"></i>}
+                    ></Button>
+                  </Link>
+                </Tooltip>
+              </div>
+            </div>
+            <div className="contentProduct">
+              {item.sale > 0 ? (
+                <div className="offProduct">
+                  <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
+                </div>
+              ) : (
+                <div style={{ height: 30 }}></div>
+              )}
+              <div className="nameProduct">
+                <i class="fa-solid fa-award"></i>
+                {item.name}
+              </div>
+
+              <div className="productDescription">
+                <span className="priceProduct">
+                  <i class="fa-regular fa-money-bill-1"></i>
+                  <span className="cost">
+                    {item.price.toLocaleString("vi-VN")}₫
+                  </span>
+                  <span className="salePrice">
+                    {(item.price * ((100 - item.sale) / 100)).toLocaleString(
+                      "vi-VN"
+                    )}
+                    ₫
+                  </span>
+                </span>
+              </div>
+              <p className="ratingProduct">
+                <span>Đánh giá:</span>
+                <Rate
+                  allowHalf
+                  value={rateAverage}
+                  disabled
+                  style={{ fontSize: 12 }}
+                />
+              </p>
+              <p className="soldProduct">
+                <i class="fa-solid fa-hand-holding-dollar"></i>Đã bán:{" "}
+                {item.sold}{" "}
+              </p>
+              <div className="authenProduct">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Authenticity Guarantee</span>
+              </div>
+            </div>
+          </div>
         </Col>
       );
     });
@@ -177,7 +263,7 @@ const ProductDetailPage = () => {
     if (!reviewList.data.length) return null;
     return reviewList.data?.map((item) => {
       return (
-        <div>
+        <div className="itemComment">
           <Space>
             <h3>{item.user.fullName}</h3>
             <h4>{moment(item.createdAt).fromNow()}</h4>
@@ -195,6 +281,132 @@ const ProductDetailPage = () => {
   return (
     <>
       <BackTop />
+      <S.ModalPreview>
+        <S.SModal
+          width="80%"
+          style={{ padding: 10 }}
+          footer={null}
+          cancelButtonProps={{ style: { display: "none" } }}
+          okButtonProps={{ style: { display: "none" } }}
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Row className="detailProduct" width="100%">
+            <Col span={12}>
+              <S.PreviewSwipeWrap
+                style={{ width: "100%", height: 400, margin: "auto" }}
+              >
+                <>
+                  {!productDetail.data?.images?.length ? null : (
+                    <>
+                      <Swiper
+                        style={{
+                          "--swiper-navigation-color": "#fff",
+                          "--swiper-pagination-color": "#fff",
+                        }}
+                        loop={true}
+                        spaceBetween={10}
+                        thumbs={{ swiper: thumbsSwiper }}
+                        modules={[FreeMode, Thumbs]}
+                        className="mySwiper2"
+                      >
+                        <>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[0].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[1].src} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={productDetail.data.images[2].src} />
+                          </SwiperSlide>
+                        </>
+                      </Swiper>
+                      <Swiper
+                        onSwiper={setThumbsSwiper}
+                        loop={true}
+                        spaceBetween={10}
+                        slidesPerView={4}
+                        freeMode={true}
+                        watchSlidesProgress={true}
+                        modules={[FreeMode, Navigation, Thumbs]}
+                        className="mySwiper"
+                      >
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[0].src} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[1].src} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <img src={productDetail.data.images[2].src} />
+                        </SwiperSlide>
+                      </Swiper>
+                    </>
+                  )}
+                </>
+              </S.PreviewSwipeWrap>
+            </Col>
+            <Col span={12}>
+              <Card className="cardPreview" title={`Chi tiết sản phẩm`}>
+                <div>Tên sản phẩm:</div>
+                <h3>{productDetail.data.name}</h3>
+                <div>Brand:</div>
+                <h3>{productDetail.data.category?.name}</h3>
+                <div>Số lượng:</div>
+                <div>
+                  <InputNumber
+                    min={1}
+                    value={productQuantity}
+                    onChange={(value) => setProductQuantity(value)}
+                  />
+                </div>
+                <div>Giá:</div>
+                <div style={{ fontWeight: "bold" }}>
+                  {productDetail.data.price?.toLocaleString("vi-VN")}₫
+                </div>
+                <div>Size:</div>
+                <div span={20}>
+                  <Radio.Group
+                    optionType="button"
+                    buttonStyle="solid"
+                    value={optionSize}
+                    onChange={(e) => setOptionSize(e.target.value)}
+                  >
+                    <Radio className="sizeRadio" value={38}>
+                      38
+                    </Radio>
+                    <Radio value={39}>39</Radio>
+                    <Radio value={40}>40</Radio>
+                    <Radio value={41}>41</Radio>
+                    <Radio value={42}>42</Radio>
+                    <Radio value={43}>43</Radio>
+                  </Radio.Group>
+                </div>
+                <div className="buttons">
+                  <button
+                    className="btn-hover color-7"
+                    style={{
+                      borderRadius: 28,
+                      padding: "4px 18px",
+                      height: "2.5rem",
+                      width: "14rem",
+                      overflow: "hidden",
+                      fontSize: 18,
+                    }}
+                    type="primary"
+                    onClick={() => handleAddToCart()}
+                  >
+                    Thêm vào giỏ
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </button>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </S.SModal>
+      </S.ModalPreview>
       <S.DetailWrapper style={{ backgroundColor: "#f3f3f3" }}>
         <Container>
           <Row style={{ borderBottom: "solid 1px #d8cece" }}>
@@ -313,12 +525,15 @@ const ProductDetailPage = () => {
                     >
                       Like
                     </Button>
-                    <div className="iconTtlRight">
+                    <p className="iconTtlRight">
                       <i class="fa-regular fa-thumbs-up"></i>
                       Lượt thích: {productDetail.data?.favorites?.length || 0}
+                    </p>
+                    <div className="iconTtlRight" style={{ fontSize: 17 }}>
+                      <i class="fa-solid fa-calculator"></i>
+                      Số lượng:
                     </div>
-                    <div style={{ fontSize: 17 }}>Số lượng:</div>
-                    <div>
+                    <div className="quantity">
                       <InputNumber
                         min={1}
                         value={productQuantity}
@@ -356,39 +571,60 @@ const ProductDetailPage = () => {
                     </div>
                   </Col>
                 </Row>
-
-                <div>Size:</div>
-                <div>
-                  <Radio.Group
-                    optionType="button"
-                    buttonStyle="solid"
-                    value={optionSize}
-                    onChange={(e) => setOptionSize(e.target.value)}
-                  >
-                    <Radio value={38}>38</Radio>
-                    <Radio value={39}>39</Radio>
-                    <Radio value={40}>40</Radio>
-                    <Radio value={41}>41</Radio>
-                    <Radio value={42}>42</Radio>
-                    <Radio value={43}>43</Radio>
-                  </Radio.Group>
+                <div className="iconTtlRight">
+                  <i class="fa-solid fa-ruler-horizontal"></i>
+                  Size:
                 </div>
-                <div>
-                  <Button
-                    style={{ borderRadius: 16 }}
+                <Radio.Group
+                  className="radioGroup"
+                  optionType="button"
+                  buttonStyle="solid"
+                  value={optionSize}
+                  onChange={(e) => setOptionSize(e.target.value)}
+                >
+                  <Radio value={38}>38</Radio>
+                  <Radio value={39}>39</Radio>
+                  <Radio value={40}>40</Radio>
+                  <Radio value={41}>41</Radio>
+                  <Radio value={42}>42</Radio>
+                  <Radio value={43}>43</Radio>
+                </Radio.Group>
+                <div className="buttons">
+                  <button
+                    className="btn-hover color-7"
+                    style={{
+                      borderRadius: 28,
+                      padding: "4px 18px",
+                      height: "2.5rem",
+                      width: "14rem",
+                      overflow: "hidden",
+                      fontSize: 18,
+                    }}
                     type="primary"
                     onClick={() => handleAddToCart()}
                   >
-                    Thêm vào giỏ hàng
+                    Thêm vào giỏ
                     <i class="fa-solid fa-cart-plus"></i>
-                  </Button>
+                  </button>
                 </div>
               </Card>
             </Col>
           </Row>
-          <Row>
+          <Row style={{ marginBottom: "1rem" }}>
             <Col span="12" style={{ maxWidth: "100%" }}>
-              <Card size="small" bordered={false} title="Đánh giá sản phẩm">
+              <S.CardComment
+                size="small"
+                bordered={false}
+                title={
+                  <span>
+                    <i
+                      style={{ marginRight: 5, color: "green" }}
+                      class="fa-solid fa-comments"
+                    ></i>
+                    Đánh giá sản phẩm
+                  </span>
+                }
+              >
                 {userInfo.data.id && !isReviewed && (
                   <Form
                     name="reviewForm"
@@ -411,13 +647,28 @@ const ProductDetailPage = () => {
                   </Form>
                 )}
                 {renderReviewList}
-              </Card>
+              </S.CardComment>
             </Col>
             <Col span={12}>
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: 18,
+                  textTransform: "uppercase",
+                  border: "solid 3px purple",
+                  borderLeft: "none",
+                  borderRight: "none",
+                  padding: 8,
+                  background: "#fff",
+                  fontWeight: 500,
+                }}
+              >
+                Thông tin chi tiết
+              </div>
               <Collapse>
                 <Panel
                   header={
-                    <span>
+                    <span style={{ fontSize: 17 }}>
                       <i
                         style={{ color: "#ea4b67", marginRight: 3 }}
                         class="fa-solid fa-circle-info"
@@ -427,15 +678,17 @@ const ProductDetailPage = () => {
                   }
                   key="1"
                 >
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: productDetail.data?.content,
-                    }}
-                  />
+                  <p style={{ fontSize: 15 }}>
+                    Mua giày <b>{productDetail.data.name}</b> Low What the Dunk
+                    318403-141 chính hãng 100% có sẵn tại <b>Sneaker-S</b>. Giao
+                    hàng miễn phí trong 1 ngày. Cam kết đền tiền X5 nếu phát
+                    hiện Fake. Đổi trả miễn phí size. FREE vệ sinh giày trọn
+                    đời.
+                  </p>
                 </Panel>
                 <Panel
                   header={
-                    <span>
+                    <span style={{ fontSize: 17 }}>
                       <i
                         style={{ color: "#ea4b67", marginRight: 3 }}
                         class="fa-solid fa-hand-holding-hand"
@@ -445,7 +698,7 @@ const ProductDetailPage = () => {
                   }
                   key="2"
                 >
-                  <p>
+                  <p style={{ fontSize: 15 }}>
                     Thật khó chịu nếu như bạn mua một đôi giày hiệu về nhưng lại
                     không vừa size hoặc chỉ đơn giản là thay đổi ý thích của bản
                     thân và không được đổi trả… Chính vì vậy, Sneaker-S cam kết
@@ -453,7 +706,7 @@ const ProductDetailPage = () => {
                     lòng nhất: quý khách hàng có thể đổi/ trả lại sản phẩm mới
                     mua trong vòng 7 ngày kể từ ngày nhận hàng.
                   </p>
-                  <p>
+                  <p style={{ fontSize: 15 }}>
                     <p>1. Điều kiện đổi trả</p>- Sản phẩm áp dụng: Tất cả sản
                     phẩm được giao dịch trên Sneaker-S, có chương trình khuyến
                     mãi không quá 30%. - Sản phẩm không áp dụng: Đồ lót, đồ bơi,
@@ -519,7 +772,7 @@ const ProductDetailPage = () => {
                 </Panel>
                 <Panel
                   header={
-                    <span>
+                    <span style={{ fontSize: 17 }}>
                       <i
                         style={{ color: "#ea4b67", marginRight: 3 }}
                         class="fa-solid fa-box-open"
@@ -529,14 +782,14 @@ const ProductDetailPage = () => {
                   }
                   key="3"
                 >
-                  <p>
+                  <p style={{ fontSize: 15 }}>
                     Giao hàng nhanh, chính xác và đúng hẹn cho các đơn hàng luôn
                     là tiêu chí hàng đầu mà Sneaker-S đặt ra. Khách hàng có thể
                     an tâm khi đặt niềm tin ở Sneaker-S, các sản phẩm quí khách
                     lựa chọn sẽ luôn đến tay quý khách với trải nghiệm tuyệt vời
                     nhất.
                   </p>
-                  <p>
+                  <p style={{ fontSize: 15 }}>
                     Sneaker-S đang là đối tác lớn với các đơn vị giao hàng nổi
                     tiếng có uy tín như Giao Hàng Tiết Kiệm, Nasco và AhaMove
                   </p>
@@ -605,12 +858,20 @@ const ProductDetailPage = () => {
               </Collapse>
             </Col>
           </Row>
-          <Row gutter={[16, 16]} style={{ justifyContent: "center" }}>
-            <Col span={24}>
-              <h3>Sản phẩm tương tự</h3>
-            </Col>
-            <Col span={24}>{renderProductList}</Col>
-          </Row>
+          <S.ParityProduct>
+            <Row gutter={[16, 16]} style={{ justifyContent: "center" }}>
+              <Col span={24}>
+                <h3>
+                  <i
+                    style={{ color: "#ea4b67", marginRight: 3 }}
+                    class="fa-solid fa-list-check"
+                  ></i>
+                  Sản phẩm tương tự
+                </h3>
+              </Col>
+              <Col span={24}>{renderProductList}</Col>
+            </Row>
+          </S.ParityProduct>
         </Container>
       </S.DetailWrapper>
     </>

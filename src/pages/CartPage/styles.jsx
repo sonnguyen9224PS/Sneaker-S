@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { Table } from "antd";
 
 export const CartTittle = styled.div`
-  padding: 38px 0;
+  padding: 20px 0;
 
   & > h1 {
     margin-bottom: 15px;
@@ -25,18 +26,9 @@ export const CartBody = styled.div`
   }
   .totalMoney {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 20px;
-    .backToshop {
-      height: auto;
-      color: #000;
-      background-color: #f2f2f2;
-      text-transform: uppercase;
-      &:hover {
-        background-color: #000;
-        color: #fff;
-      }
-    }
+
     .totalPay {
       display: flex;
       align-items: center;
@@ -48,11 +40,35 @@ export const CartBody = styled.div`
   .payBtn {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 62px;
     & > button {
       background-color: #000;
       color: #fff;
       text-transform: uppercase;
+    }
+  }
+  .backToshop {
+    height: auto;
+    color: #000;
+    background-color: #f2f2f2;
+    text-transform: uppercase;
+    &:hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+  .payNextBtn {
+    font-size: 17px;
+    height: auto;
+    width: 25rem;
+    i {
+      margin-left: 3px;
+    }
+    &:hover {
+      span,
+      i {
+        scale: 1.02;
+        transition: all 0.3s;
+      }
     }
   }
 `;
@@ -76,5 +92,26 @@ export const CartQuantity = styled.div`
     width: 40%;
     height: 100%;
     margin: 0 4px;
+  }
+`;
+export const TableCus = styled(Table)`
+  .ant-table-tbody > tr > td {
+    &:nth-child(5),
+    &:nth-child(7) {
+      font-weight: bold;
+    }
+  }
+  .ant-table-row {
+    background: #fff !important;
+  }
+  .ant-table-cell {
+    text-align: center;
+  }
+  .ant-btn {
+    border: none;
+    outline: none;
+    color: gray;
+    background: none;
+    box-shadow: none;
   }
 `;

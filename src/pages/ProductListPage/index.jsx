@@ -74,11 +74,6 @@ const ProductListPage = () => {
 
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 77 ~ ProductListPage ~ productList",
-    productList
-  );
-
   const { productDetail } = useSelector((state) => state.product);
 
   const { bestSellList } = useSelector((state) => state.product);
@@ -372,16 +367,17 @@ const ProductListPage = () => {
 
               <div className="productDescription">
                 <span className="priceProduct">
-                  <i class="fa-regular fa-money-bill-1"></i>
-                  <span className="cost">
-                    {item.price.toLocaleString("vi-VN")}₫
-                  </span>
                   <span className="salePrice">
                     {(item.price * ((100 - item.sale) / 100)).toLocaleString(
                       "vi-VN"
                     )}
                     ₫
                   </span>
+                  {item.sale > 0 && (
+                    <span className="cost">
+                      {item.price.toLocaleString("vi-VN")}₫
+                    </span>
+                  )}
                 </span>
               </div>
               <p className="ratingProduct">
@@ -489,7 +485,7 @@ const ProductListPage = () => {
           justify="center"
           style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
         >
-          <Col span={10}>
+          <Col span={10} className="imgItem">
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
                 id: `${item.slug}.${item.id}`,
@@ -508,7 +504,7 @@ const ProductListPage = () => {
                 id: `${item.slug}.${item.id}`,
               })}
             >
-              <h4>{item.name}</h4>
+              <h4 className="ttlItem">{item.name}</h4>
             </Link>
             <h4>{`${item.price.toLocaleString("vi-VN")}₫`}</h4>
           </Col>
@@ -786,7 +782,7 @@ const ProductListPage = () => {
                   />
                 </Panel>
               </S.SCollapse>
-              <Card size="small">
+              <Card size="small" className="bestSellCard">
                 <h3
                   style={{
                     fontSize: 18,

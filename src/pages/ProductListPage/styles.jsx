@@ -17,6 +17,20 @@ export const Wrapper = styled.div`
     .ant-card-head {
       border: solid 1px purple;
     }
+    .bestSellCard {
+      .imgItem {
+        &:hover {
+          & img {
+            opacity: 0.8;
+          }
+        }
+      }
+      .ttlItem {
+        &:hover {
+          color: red;
+        }
+      }
+    }
   }
   .moreBtn {
     display: flex;
@@ -48,8 +62,8 @@ export const ProductListWrapper = styled.div`
     overflow: hidden;
 
     .contentProduct {
-      padding-left: 20px;
-      padding-bottom: 16px;
+      padding-left: 10px;
+      padding-bottom: 10px;
     }
     .imageWrap {
       position: relative;
@@ -139,10 +153,12 @@ export const ProductListWrapper = styled.div`
         }
         .cost {
           text-decoration: line-through;
+          color: gray;
+          font-weight: normal;
+          margin-left: 4px;
         }
         .salePrice {
           margin-left: 5px;
-          color: red;
         }
         .afterPrice {
           margin-left: 5px;

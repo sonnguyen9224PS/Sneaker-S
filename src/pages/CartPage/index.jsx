@@ -9,6 +9,7 @@ import {
   Row,
   Modal,
   Alert,
+  BackTop,
 } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import * as S from "./styles";
@@ -58,13 +59,22 @@ function CartPage() {
 
   const tableColumn = [
     {
-      title: "Ảnh",
+      title: "Ảnh sản phẩm",
       dataIndex: "image",
       width: "8rem",
       key: "image",
       render: (image) => {
         return (
-          <div style={{ width: 60, height: 60 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "#fff",
+              width: 100,
+              height: 100,
+            }}
+          >
             <img
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
               src={image}
@@ -152,8 +162,9 @@ function CartPage() {
   document.title = "Giỏ hàng";
   return (
     <>
+      <BackTop />
       <Container>
-        <Row>
+        <Row style={{ borderBottom: "1px solid rgb(216, 206, 206)" }}>
           <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
             <Breadcrumb.Item>
               <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
@@ -168,21 +179,18 @@ function CartPage() {
         <S.CartTittle>
           <h1>Giỏ hàng của bạn</h1>
           <p>
-            Có <span>{cartList.length}</span> sản phẩm trong giỏ hàng
+            (Có <span>{cartList.length}</span> sản phẩm trong giỏ hàng)
           </p>
         </S.CartTittle>
         <S.CartBody>
-          <Table
+          <S.TableCus
             className="tableCart"
             columns={tableColumn}
             dataSource={cartList}
             rowKey="productId"
             pagination={false}
-          ></Table>
+          ></S.TableCus>
           <div className="totalMoney">
-            <Link to={ROUTES.USER.PRODUCT_LIST}>
-              <Button className="backToshop">Tiếp tục mua hàng</Button>
-            </Link>
             <div className="totalPay">
               <span>Tổng tiền thanh toán</span>
               <Input
@@ -197,9 +205,32 @@ function CartPage() {
             </div>
           </div>
           {userInfo.data?.id ? (
-            <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
-              <Button>Tiến hành thanh toán</Button>
-            </Link>
+            <div
+              style={{
+                marginBottom: 62,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Link to={ROUTES.USER.PRODUCT_LIST}>
+                <Button style={{ borderRadius: 20 }} className="backToshop">
+                  <i
+                    style={{ marginRight: 3, fontSize: 16 }}
+                    class="fa-solid fa-reply-all"
+                  ></i>
+                  Tiếp tục mua hàng
+                </Button>
+              </Link>
+              <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
+                <Button className="payNextBtn">
+                  Tiến hành thanh toán
+                  <i
+                    style={{ fontSize: 16 }}
+                    class="fa-solid fa-circle-arrow-right"
+                  ></i>
+                </Button>
+              </Link>
+            </div>
           ) : (
             <Alert
               message="Bạn cần đăng nhập để thanh toán"

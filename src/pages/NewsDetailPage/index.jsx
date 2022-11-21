@@ -11,6 +11,7 @@ import {
 } from "../../redux/actions";
 import * as S from "./styles";
 import { ROUTES } from "../../constants/routes";
+import { Container } from "../../layouts/Header/styles";
 
 function NewsDetailPage() {
   const { id } = useParams();
@@ -55,7 +56,7 @@ function NewsDetailPage() {
           justify="center"
           style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
         >
-          <Col span={10}>
+          <Col span={10} className="imgItem">
             <Link
               to={generatePath(ROUTES.USER.NEWS_DETAIL, {
                 id: `${item.title}.${item.id}`,
@@ -70,7 +71,7 @@ function NewsDetailPage() {
                 id: `${item.title}.${item.id}`,
               })}
             >
-              <h4>{item.title}</h4>
+              <h4 className="ttlItem">{item.title}</h4>
             </Link>
           </Col>
         </Row>
@@ -84,7 +85,7 @@ function NewsDetailPage() {
           justify="center"
           style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
         >
-          <Col span={10}>
+          <Col span={10} className="imgItem">
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
                 id: `${item.slug}.${item.id}`,
@@ -103,7 +104,7 @@ function NewsDetailPage() {
                 id: `${item.slug}.${item.id}`,
               })}
             >
-              <h4>{item.name}</h4>
+              <h4 className="ttlItem">{item.name}</h4>
             </Link>
             <h4>{`${item.price.toLocaleString("vi-VN")}₫`}</h4>
           </Col>
@@ -116,49 +117,63 @@ function NewsDetailPage() {
   return (
     <>
       <BackTop />
-      <S.NewsWrapper>
-        <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
-          <Breadcrumb.Item>
-            <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to={ROUTES.USER.NEWS}>Danh mục tin tức</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>Tin tức</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row>
-          <Col span={6}>
-            <Card>
-              <h3>Danh mục tin tức</h3>
-              <div>{renderNewsList()}</div>
-            </Card>
-            <Card>
-              <h3>Sản phẩm Bán chạy</h3>
-              <div>{renderBestSellProduct()}</div>
-            </Card>
-          </Col>
-          <Col span={18} style={{ padding: 24 }}>
-            <div>
-              <img
-                style={{ width: "100%" }}
-                src={newsDetail.data.bannerImage}
-                alt=""
-              />
-            </div>
-            <h2>{newsDetail.data.title}</h2>
-            <p>
-              <i style={{ marginRight: 4 }} class="fa-solid fa-user-tie"></i>
-              {newsDetail.data.author}
-            </p>
-            <p
-              className="contentDetail"
-              dangerouslySetInnerHTML={{
-                __html: newsDetail.data.content,
-              }}
-            ></p>
-          </Col>
-        </Row>
-      </S.NewsWrapper>
+      <Container>
+        <S.NewsWrapper>
+          <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
+            <Breadcrumb.Item>
+              <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to={ROUTES.USER.NEWS}>Danh mục tin tức</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Tin tức</Breadcrumb.Item>
+          </Breadcrumb>
+          <Row>
+            <Col span={6}>
+              <Card>
+                <h3>
+                  <i
+                    style={{ marginRight: 3 }}
+                    class="fa-regular fa-newspaper"
+                  ></i>
+                  Danh mục tin tức
+                </h3>
+                <div>{renderNewsList()}</div>
+              </Card>
+              <Card>
+                <h3>
+                  <i
+                    style={{ marginRight: 3 }}
+                    class="fa-brands fa-shopify"
+                  ></i>
+                  Sản phẩm Bán chạy
+                </h3>
+                <div>{renderBestSellProduct()}</div>
+              </Card>
+            </Col>
+            <Col span={18} style={{ padding: 24 }}>
+              <div style={{ marginBottom: 15 }}>
+                <img
+                  style={{ width: "100%" }}
+                  src={newsDetail.data.bannerImage}
+                  alt=""
+                />
+              </div>
+              <h2>{newsDetail.data.title}</h2>
+              <p>
+                <i style={{ marginRight: 4 }} class="fa-solid fa-user-tie"></i>
+                {newsDetail.data.author}
+              </p>
+              <p
+                className="contentDetail"
+                dangerouslySetInnerHTML={{
+                  __html: newsDetail.data.content,
+                }}
+              ></p>
+            </Col>
+          </Row>
+        </S.NewsWrapper>
+      </Container>
     </>
   );
 }

@@ -14,4 +14,16 @@ export const NewsWrapper = styled.div`
     -webkit-box-orient: vertical;
     word-break: keep-all;
   }
+  .imgNews {
+    &:hover {
+      & img {
+        opacity: 0.8;
+      }
+    }
+  }
+  .ttlNews {
+    &:hover {
+      color: red;
+    }
+  }
 `;

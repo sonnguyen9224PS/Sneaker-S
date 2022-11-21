@@ -168,15 +168,14 @@ function HomePage() {
 
               <div className="productDescription">
                 <span className="priceProduct">
-                  <i class="fa-regular fa-money-bill-1"></i>
-                  <span className="cost">
-                    {item.price.toLocaleString("vi-VN")}₫
-                  </span>
                   <span className="salePrice">
                     {(item.price * ((100 - item.sale) / 100)).toLocaleString(
                       "vi-VN"
                     )}
                     ₫
+                  </span>
+                  <span className="cost">
+                    {item.price.toLocaleString("vi-VN")}₫
                   </span>
                 </span>
               </div>
@@ -417,14 +416,23 @@ function HomePage() {
                       <Radio value={43}>43</Radio>
                     </Radio.Group>
                   </div>
-                  <div>
-                    <Button
-                      style={{ borderRadius: 16 }}
+                  <div className="buttons">
+                    <button
+                      className="btn-hover color-7"
+                      style={{
+                        borderRadius: 28,
+                        padding: "4px 18px",
+                        height: "2.5rem",
+                        width: "14rem",
+                        overflow: "hidden",
+                        fontSize: 18,
+                      }}
                       type="primary"
                       onClick={() => handleAddToCart()}
                     >
-                      Thêm vào giỏ hàng
-                    </Button>
+                      Thêm vào giỏ
+                      <i class="fa-solid fa-cart-plus"></i>
+                    </button>
                   </div>
                 </Card>
               </Col>
@@ -540,12 +548,14 @@ function HomePage() {
           </div>
         </S.OtherBrandWrapper>
         <S.SaleOffWrapper>
-          <h2 className="itemTitle saleTitle">
-            <span style={{ "--i": 1 }}>S</span>
-            <span style={{ "--i": 2 }}>a</span>
-            <span style={{ "--i": 3 }}>l</span>
-            <span style={{ "--i": 4 }}>e</span>
-          </h2>
+          <Link to={ROUTES.USER.PRODUCT_LIST} state={{ sale: 30 }}>
+            <h2 className="itemTitle saleTitle">
+              <span style={{ "--i": 1 }}>S</span>
+              <span style={{ "--i": 2 }}>a</span>
+              <span style={{ "--i": 3 }}>l</span>
+              <span style={{ "--i": 4 }}>e</span>
+            </h2>
+          </Link>
           <Container>
             <Row gutter={[16, 16]}>{renderProductListSale}</Row>
           </Container>
@@ -561,9 +571,11 @@ function HomePage() {
           </Row>
         </Container>
         <S.ArrivalWrapper>
-          <div className="itemTitle newTitle">
-            <h2>New Arrival</h2>
-          </div>
+          <Link to={ROUTES.USER.PRODUCT_LIST} state={{ new: true }}>
+            <div className="itemTitle newTitle">
+              <h2>New Arrival</h2>
+            </div>
+          </Link>
           <Container>
             <Row gutter={[16, 16]}>{renderProductListNew}</Row>
           </Container>

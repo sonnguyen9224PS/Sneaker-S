@@ -119,9 +119,12 @@ export const MainWrapper = styled.div`
         }
         .cost {
           text-decoration: line-through;
+          color: gray;
+          font-size: 15px;
+          font-weight: normal;
+          margin-left: 4px;
         }
         .salePrice {
-          margin-left: 5px;
           color: red;
         }
         .afterPrice {
@@ -235,31 +238,24 @@ export const MainWrapper = styled.div`
       0% {
         opacity: 0.1;
       }
-
       2% {
         opacity: 1;
       }
-
       8% {
         opacity: 0.1;
       }
-
       9% {
         opacity: 1;
       }
-
       12% {
         opacity: 0.1;
       }
-
       20% {
         opacity: 1;
       }
-
       25% {
         opacity: 0.3;
       }
-
       30% {
         opacity: 1;
       }
@@ -267,15 +263,12 @@ export const MainWrapper = styled.div`
       70% {
         opacity: 0.7;
       }
-
       72% {
         opacity: 0.2;
       }
-
       77% {
         opacity: 0.9;
       }
-
       100% {
         opacity: 0.9;
       }
@@ -423,6 +416,11 @@ export const ArrivalWrapper = styled.div`
       content: "NEW";
       background-color: deepskyblue;
     }
+    .productDescription .priceProduct .cost {
+      font-weight: bold;
+      text-decoration: none;
+      color: black;
+    }
   }
 `;
 export const BannerCollection = styled.div`
@@ -547,6 +545,9 @@ export const SModal = styled(Modal)`
           &:not(:last-child) {
             margin-right: 4px;
           }
+          &:hover {
+            color: red;
+          }
         }
         .ant-radio-button-wrapper::before {
           display: none;
@@ -564,6 +565,40 @@ export const SModal = styled(Modal)`
     border-radius: 50%;
     color: red;
     font-weight: bold;
+  }
+  .buttons {
+    .btn-hover {
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      background-size: 300% 100%;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+    .btn-hover:hover {
+      background-position: 100% 0;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+    .btn-hover:focus {
+      outline: none;
+    }
+    .btn-hover.color-7 {
+      background-image: linear-gradient(
+        to right,
+        #6253e1,
+        #852d91,
+        #a3a1ff,
+        #f24645
+      );
+      box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+    }
   }
 `;
 

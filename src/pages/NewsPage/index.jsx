@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getNewsListAction, getBestSellListAction } from "../../redux/actions";
 import * as S from "./styles";
 import { ROUTES } from "../../constants/routes";
+import { Container } from "../../layouts/Header/styles";
 
 function NewsPage() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function NewsPage() {
       return (
         <Col span={12}>
           <div
+            className="imgNews"
             style={{
               width: 400,
               height: 250,
@@ -71,7 +73,7 @@ function NewsPage() {
               id: `${item.title}.${item.id}`,
             })}
           >
-            <h3>{item.title}</h3>
+            <h3 className="ttlNews">{item.title}</h3>
           </Link>
           <p
             className="content"
@@ -90,7 +92,7 @@ function NewsPage() {
           justify="center"
           style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
         >
-          <Col span={10}>
+          <Col span={10} className="imgNews">
             <Link
               to={generatePath(ROUTES.USER.NEWS_DETAIL, {
                 id: `${item.title}.${item.id}`,
@@ -105,7 +107,7 @@ function NewsPage() {
                 id: `${item.title}.${item.id}`,
               })}
             >
-              <h4>{item.title}</h4>
+              <h4 className="ttlNews">{item.title}</h4>
             </Link>
           </Col>
         </Row>
@@ -119,7 +121,7 @@ function NewsPage() {
           justify="center"
           style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
         >
-          <Col span={10}>
+          <Col span={10} className="imgNews">
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAIL, {
                 id: `${item.slug}.${item.id}`,
@@ -138,7 +140,7 @@ function NewsPage() {
                 id: `${item.slug}.${item.id}`,
               })}
             >
-              <h4>{item.name}</h4>
+              <h4 className="ttlNews">{item.name}</h4>
             </Link>
             <h4>{`${item.price.toLocaleString("vi-VN")}₫`}</h4>
           </Col>
@@ -151,45 +153,65 @@ function NewsPage() {
   return (
     <>
       <BackTop />
-      <S.NewsWrapper>
-        <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
-          <Breadcrumb.Item>
-            <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>Danh mục tin tức</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row>
-          <Col span={6}>
-            <Card>
-              <h3>Danh mục tin tức và bài viết</h3>
-              <div>{renderNewsList()}</div>
-            </Card>
-            <Card>
-              <h3>Sản phẩm Bán chạy</h3>
-              <div>{renderBestSellProduct()}</div>
-            </Card>
-          </Col>
-          <Col
-            span={18}
-            style={{
-              padding: 24,
-              borderTop: "solid",
-              borderLeft: "solid",
-              borderColor: "#f7f7f7",
-            }}
-          >
-            <h2 style={{ textTransform: "uppercase", fontWeight: "bold" }}>
-              Tin tức và bài viết
-            </h2>
-            <Row>{renderNews()}</Row>
-            <Pagination
-              style={{ display: "flex", justifyContent: "center" }}
-              defaultCurrent={1}
-              total={10}
-            />
-          </Col>
-        </Row>
-      </S.NewsWrapper>
+      <Container>
+        <S.NewsWrapper>
+          <Breadcrumb style={{ paddingTop: 16, paddingBottom: 16 }}>
+            <Breadcrumb.Item>
+              <Link to={ROUTES.USER.HOME}>Trang chủ</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Danh mục tin tức</Breadcrumb.Item>
+          </Breadcrumb>
+          <Row>
+            <Col span={6}>
+              <Card>
+                <h3>
+                  <i
+                    style={{ marginRight: 3 }}
+                    class="fa-regular fa-newspaper"
+                  ></i>
+                  Danh mục tin tức và bài viết
+                </h3>
+                <div>{renderNewsList()}</div>
+              </Card>
+              <Card>
+                <h3>
+                  <i
+                    style={{ marginRight: 3 }}
+                    class="fa-brands fa-shopify"
+                  ></i>
+                  Sản phẩm Bán chạy
+                </h3>
+                <div>{renderBestSellProduct()}</div>
+              </Card>
+            </Col>
+            <Col
+              span={18}
+              style={{
+                padding: 24,
+                borderTop: "solid",
+                borderLeft: "solid",
+                borderColor: "#f7f7f7",
+              }}
+            >
+              <h2
+                style={{
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                  letterSpacing: 2.2,
+                }}
+              >
+                Tin tức và bài viết
+              </h2>
+              <Row>{renderNews()}</Row>
+              <Pagination
+                style={{ display: "flex", justifyContent: "center" }}
+                defaultCurrent={1}
+                total={10}
+              />
+            </Col>
+          </Row>
+        </S.NewsWrapper>
+      </Container>
     </>
   );
 }

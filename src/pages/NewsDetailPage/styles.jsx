@@ -19,4 +19,16 @@ export const NewsWrapper = styled.div`
       width: 100%;
     }
   }
+  .imgItem {
+    &:hover {
+      & img {
+        opacity: 0.8;
+      }
+    }
+  }
+  .ttlItem {
+    &:hover {
+      color: red;
+    }
+  }
 `;

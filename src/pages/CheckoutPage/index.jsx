@@ -505,7 +505,10 @@ function CheckoutPage() {
                       }}
                     >
                       <Link to={ROUTES.USER.CART}>
-                        <span>Quay về giỏ hàng</span>
+                        <span>
+                          <i class="fa-solid fa-circle-chevron-left"></i>
+                          Quay về giỏ hàng
+                        </span>
                       </Link>
 
                       {userInfo.data?.id ? (
