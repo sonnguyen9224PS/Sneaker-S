@@ -10,6 +10,7 @@ import {
   Radio,
   Badge,
   Alert,
+  BackTop,
 } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -113,9 +114,10 @@ function CheckoutPage() {
   document.title = "Thông tin thanh toán";
   return (
     <div>
+      <BackTop />
       <Container>
         <S.CheckOutWrapper>
-          <Form
+          <S.FormCus
             name="checkoutForm"
             layout="vertical"
             form={checkoutForm}
@@ -127,7 +129,11 @@ function CheckoutPage() {
             <Row style={{ width: "100%" }}>
               <Col span={16} className="checkoutLeft">
                 <Row style={{ width: "100%" }}>
-                  <Col span={12} className="infoCheckout">
+                  <Col
+                    span={12}
+                    style={{ paddingRight: 30 }}
+                    className="infoCheckout"
+                  >
                     <div className="infoHead">
                       <h3 className="infoTtl">Thông tin nhận hàng</h3>
                     </div>
@@ -167,24 +173,13 @@ function CheckoutPage() {
                           required: true,
                           message: "Vui lòng nhập số điện thoại!",
                         },
+                        {
+                          pattern: new RegExp(/^[0-9_-]{10}$/),
+                          message: "Vui lòng nhập đúng số điện thoại!",
+                        },
                       ]}
                     >
-                      <Input
-                        addonBefore={
-                          <Form.Item name="prefix" noStyle>
-                            <Select
-                              style={{
-                                width: 70,
-                              }}
-                            >
-                              <Select.Option value="86">+84</Select.Option>
-                              <Select.Option value="87">+82</Select.Option>
-                            </Select>
-                          </Form.Item>
-                        }
-                        placeholder="Số điện thoại"
-                        allowClear
-                      ></Input>
+                      <Input placeholder="Số điện thoại" allowClear></Input>
                     </Form.Item>
                     <Form.Item
                       name="address"
@@ -280,10 +275,17 @@ function CheckoutPage() {
                     </Form.Item>
                     <TextArea placeholder="Ghi chú"></TextArea>
                   </Col>
-                  <Col span={12} className="transportPayment">
-                    <Row style={{ width: "100%" }} className="transport">
+                  <Col
+                    style={{ paddingRight: 30 }}
+                    span={12}
+                    className="transportPayment"
+                  >
+                    <Row
+                      style={{ width: "100%", marginBottom: 20 }}
+                      className="transport"
+                    >
                       <Form.Item
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", marginBottom: 0 }}
                         label="Vận chuyển"
                         name="transport"
                         rules={[
@@ -325,7 +327,7 @@ function CheckoutPage() {
                         </Radio.Group>
                       </Form.Item>
                       {totalPrice > 1000000 && (
-                        <p>Đơn hàng trên 1000 000₫ có thể áp dụng freeship</p>
+                        <i>(Đơn hàng trên 1000 000₫ có thể áp dụng freeship)</i>
                       )}
                     </Row>
                     <Row style={{ width: "100%" }} className="payment">
@@ -380,6 +382,7 @@ function CheckoutPage() {
                                 <Row style={{ width: "100%" }}>
                                   <Col span={8}>
                                     <Radio.Button
+                                      className="radioBank"
                                       value="vietcombank"
                                       style={{
                                         backgroundImage:
@@ -391,6 +394,7 @@ function CheckoutPage() {
                                   </Col>
                                   <Col span={8}>
                                     <Radio.Button
+                                      className="radioBank"
                                       value="vietinbank"
                                       style={{
                                         backgroundImage:
@@ -401,43 +405,99 @@ function CheckoutPage() {
                                     ></Radio.Button>
                                   </Col>
                                   <Col span={8}>
-                                    <Radio.Button value="agribank">
-                                      AgriBank
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://bankcredit.vn/wp-content/uploads/2022/09/hinh-2222-1.jpg",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="agribank"
+                                    ></Radio.Button>
                                   </Col>
                                 </Row>
                                 <Row style={{ width: "100%" }}>
                                   <Col span={8}>
-                                    <Radio.Button value="BIDV">
-                                      BIDV
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://1000logos.net/wp-content/uploads/2020/10/BIDV-Logo-2003.jpg",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="BIDV"
+                                    ></Radio.Button>
                                   </Col>
                                   <Col span={8}>
-                                    <Radio.Button value="VPbank">
-                                      VPBank
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://brademar.com/wp-content/uploads/2022/09/VPBank-Logo-PNG-1.png",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="VPbank"
+                                    ></Radio.Button>
                                   </Col>
                                   <Col span={8}>
-                                    <Radio.Button value="HSBC">
-                                      HSBC
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://www.hsbc.com.vn/etc.clientlibs/dpws/clientlibs-public/clientlib-site/resources/social/logo/Square-1200x1200px.jpg",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="HSBC"
+                                    ></Radio.Button>
                                   </Col>
                                 </Row>
                                 <Row style={{ width: "100%" }}>
                                   <Col span={8}>
-                                    <Radio.Button value="tpbank">
-                                      TPBank
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://tienaoplus.com/wp-content/uploads/2020/02/logo-tpbank.jpg",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="tpbank"
+                                    ></Radio.Button>
                                   </Col>
                                   <Col span={8}>
-                                    <Radio.Button value="sacombank">
-                                      Sacombank
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://inkythuatso.com/uploads/thumbnails/800/2021/09/logo-sacombank-inkythuatso-fn-10-16-42-08.jpg",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="sacombank"
+                                    ></Radio.Button>
                                   </Col>
                                   <Col span={8}>
-                                    <Radio.Button value="oceanbank">
-                                      Ocean Bank
-                                    </Radio.Button>
+                                    <Radio.Button
+                                      className="radioBank"
+                                      style={{
+                                        backgroundImage:
+                                          "url(https://play-lh.googleusercontent.com/q5wqKXhyn4ubmHHWcqyCAcZJU1t6pmSUtzzdc8WSAEJD_ml0mu2l4Rp7XRRKuLjj2KA=w416-h235-rw",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#fff",
+                                      }}
+                                      value="oceanbank"
+                                    ></Radio.Button>
                                   </Col>
                                 </Row>
                               </Radio.Group>
@@ -455,7 +515,14 @@ function CheckoutPage() {
                 </h3>
                 <Row className="cartFinal">
                   {cartList.map((item) => (
-                    <Row style={{ width: "100%", marginBottom: 16 }}>
+                    <Row
+                      style={{
+                        width: "100%",
+                        marginBottom: 16,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <Col span={8}>
                         <div className="cartItemImg">
                           <Badge count={item.quantity}>
@@ -463,12 +530,14 @@ function CheckoutPage() {
                           </Badge>
                         </div>
                       </Col>
-                      <Col span={8}>{item.name}</Col>
+                      <Col style={{ fontWeight: "bold" }} span={8}>
+                        {item.name}
+                      </Col>
                       <Col span={8}>{item.price.toLocaleString("vi-VN")}₫</Col>
                     </Row>
                   ))}
                 </Row>
-                <Row className="moneyTemp">
+                <Row style={{ marginTop: 20 }} className="moneyTemp">
                   <Row
                     style={{ width: "100%", justifyContent: "space-between" }}
                   >
@@ -476,7 +545,12 @@ function CheckoutPage() {
                     <span>{totalPrice.toLocaleString("vi-VN")}₫</span>
                   </Row>
                   <Row
-                    style={{ width: "100%", justifyContent: "space-between" }}
+                    style={{
+                      width: "100%",
+                      justifyContent: "space-between",
+                      paddingBottom: 10,
+                      borderBottom: "solid 1px grey",
+                    }}
                   >
                     <span>Phí vận chuyển</span>
                     <span>{transport}</span>
@@ -488,10 +562,18 @@ function CheckoutPage() {
                       style={{
                         width: "100%",
                         justifyContent: "space-between",
+                        marginTop: 10,
+                        marginBottom: 16,
                       }}
                     >
-                      <span>Tổng cộng</span>
-                      <span>
+                      <span style={{ fontSize: 18 }}>Tổng cộng</span>
+                      <span
+                        style={{
+                          fontSize: 18,
+                          color: "#2a9dcc",
+                          fontWeight: "bold",
+                        }}
+                      >
                         {(
                           parseInt(totalPrice) + parseInt(transport)
                         ).toLocaleString("vi-VN")}
@@ -502,10 +584,15 @@ function CheckoutPage() {
                       style={{
                         width: "100%",
                         justifyContent: "space-between",
+                        alignItems: "center",
                       }}
                     >
                       <Link to={ROUTES.USER.CART}>
-                        <span>
+                        <span
+                          style={{
+                            color: "#2a9dcc",
+                          }}
+                        >
                           <i class="fa-solid fa-circle-chevron-left"></i>
                           Quay về giỏ hàng
                         </span>
@@ -514,6 +601,7 @@ function CheckoutPage() {
                       {userInfo.data?.id ? (
                         <Link to={ROUTES.USER.CHECKOUT} className="payBtn">
                           <Button
+                            className="btnOrder"
                             onClick={() => {
                               checkoutForm.submit();
                             }}
@@ -544,7 +632,7 @@ function CheckoutPage() {
                 </Row>
               </Col>
             </Row>
-          </Form>
+          </S.FormCus>
         </S.CheckOutWrapper>
       </Container>
     </div>

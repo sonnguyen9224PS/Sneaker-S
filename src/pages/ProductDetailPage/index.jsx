@@ -74,7 +74,9 @@ const ProductDetailPage = () => {
   const openNotification = () => {
     notification.open({
       message: "Thêm sản phẩm vào giỏ hàng thành công.",
-      icon: <i class="fa-solid fa-circle-check"></i>,
+      icon: (
+        <i style={{ color: "#82CD47" }} class="fa-solid fa-circle-check"></i>
+      ),
     });
   };
   const isLike = userInfo.data.id
@@ -265,7 +267,10 @@ const ProductDetailPage = () => {
       return (
         <div className="itemComment">
           <Space>
-            <h3>{item.user.fullName}</h3>
+            <h3>
+              <i style={{ marginRight: 3 }} class="fa-regular fa-user"></i>
+              {item.user.fullName}
+            </h3>
             <h4>{moment(item.createdAt).fromNow()}</h4>
           </Space>
           <div>
@@ -529,7 +534,10 @@ const ProductDetailPage = () => {
                       <i class="fa-regular fa-thumbs-up"></i>
                       Lượt thích: {productDetail.data?.favorites?.length || 0}
                     </p>
-                    <div className="iconTtlRight" style={{ fontSize: 17 }}>
+                    <div
+                      className="iconTtlRight"
+                      style={{ fontSize: 17, paddingTop: 20 }}
+                    >
                       <i class="fa-solid fa-calculator"></i>
                       Số lượng:
                     </div>
@@ -566,7 +574,7 @@ const ProductDetailPage = () => {
                       <i class="fa-solid fa-money-bill-1-wave"></i>
                       Giá:
                     </div>
-                    <div>
+                    <div style={{ fontSize: 20, fontWeight: 500 }}>
                       {productDetail.data.price?.toLocaleString("vi-VN")}₫
                     </div>
                   </Col>
@@ -635,11 +643,14 @@ const ProductDetailPage = () => {
                       reviewForm.resetFields();
                     }}
                   >
-                    <Form.Item label="Rate" name="rate">
+                    <Form.Item label="Đánh giá:" name="rate">
                       <Rate allowHalf />
                     </Form.Item>
-                    <Form.Item label="Comment" name="comment">
-                      <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
+                    <Form.Item label="Bình luận" name="comment">
+                      <Input.TextArea
+                        style={{ borderRadius: 10 }}
+                        autoSize={{ maxRows: 6, minRows: 2 }}
+                      />
                     </Form.Item>
                     <Button htmlType="submit" block>
                       Đăng
@@ -658,6 +669,7 @@ const ProductDetailPage = () => {
                   border: "solid 3px purple",
                   borderLeft: "none",
                   borderRight: "none",
+                  borderTop: "none",
                   padding: 8,
                   background: "#fff",
                   fontWeight: 500,
@@ -864,7 +876,7 @@ const ProductDetailPage = () => {
                 <h3>
                   <i
                     style={{ color: "#ea4b67", marginRight: 3 }}
-                    class="fa-solid fa-list-check"
+                    class="fa-solid fa-square-caret-down"
                   ></i>
                   Sản phẩm tương tự
                 </h3>

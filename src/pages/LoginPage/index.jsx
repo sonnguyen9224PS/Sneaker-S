@@ -54,12 +54,25 @@ const LoginPage = () => {
           style={{
             color: "#fff",
             textShadow: `3px 0px 7px rgba(81,67,21,0.8), -3px 0px 7px rgba(81,67,21,0.8), 0px 4px 7px rgba(81,67,21,0.8)`,
+            textAlign: "center",
+            marginTop: 20,
           }}
         >
           ĐĂNG NHẬP TÀI KHOẢN
         </h2>
         <div>
-          <Card title="KHÁCH HÀNG ĐĂNG NHẬP">
+          <Card
+            style={{ borderRadius: 20, boxShadow: "0 0 7px 4px grey" }}
+            title={
+              <span>
+                KHÁCH HÀNG ĐĂNG NHẬP
+                <i
+                  style={{ marginLeft: 3, color: "goldenrod" }}
+                  class="fa-solid fa-lock"
+                ></i>
+              </span>
+            }
+          >
             <Form
               form={loginForm}
               name="loginForm"
@@ -101,14 +114,21 @@ const LoginPage = () => {
                     <Spin tip="Loading...">
                       <Button type="primary" htmlType="submit">
                         Đăng nhập
+                        <i
+                          style={{ marginLeft: 3 }}
+                          class="fa-solid fa-jet-fighter-up"
+                        ></i>
                       </Button>
                     </Spin>
                   ) : (
                     <Button type="primary" htmlType="submit">
                       Đăng nhập
+                      <i
+                        style={{ marginLeft: 3 }}
+                        class="fa-solid fa-jet-fighter-up"
+                      ></i>
                     </Button>
                   )}
-                  <Link to="">Mất mật khẩu</Link>
                 </div>
               </Form.Item>
             </Form>

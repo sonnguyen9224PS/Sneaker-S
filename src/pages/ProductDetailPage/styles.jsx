@@ -189,24 +189,29 @@ export const CardComment = styled(Card)`
     text-align: center;
     font-size: 18px;
     text-transform: uppercase;
-    border-top: solid 3px purple;
     border-bottom: solid 3px purple;
   }
   .itemComment {
+    padding: 1rem 0;
     &:not(:last-child) {
       border-bottom: solid 1px #71adad;
+    }
+  }
+  .ant-btn {
+    &:hover {
+      background-color: #69b0ab;
+      color: #fff;
     }
   }
 `;
 export const ParityProduct = styled.div`
   & h3 {
-    font-size: 18px;
+    font-size: 22px;
     text-align: center;
     text-transform: uppercase;
     background: white;
     padding: 10px;
-    border-top: solid 3px purple;
-    border-bottom: solid 3px purple;
+    border-radius: 30px;
   }
   .productItem {
     position: relative;

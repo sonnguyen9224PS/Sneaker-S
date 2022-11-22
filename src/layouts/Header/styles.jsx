@@ -15,10 +15,15 @@ export const Container = styled.div`
   max-width: 1200px;
   margin: auto;
 `;
+export const HeaderWrapper = styled.div`
+  display: flex;
+  height: 94.6px;
+`;
 export const HeaderLogo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 400px;
   height: 100%;
   .logo {
     font-size: 2.2rem;
@@ -31,11 +36,27 @@ export const HeaderLogo = styled.div`
 `;
 export const HeaderRight = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-end;
   padding-top: 20px;
   padding-right: 20px;
 `;
+export const MenuHamburger = styled.div`
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  display: none;
+  button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  @media only screen and (max-width: 1106px) {
+    display: flex;
+  }
+`;
+
 export const HeaderRightTop = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -177,5 +198,8 @@ export const HeaderRightDown = styled.div`
     }
     .dropSale {
     }
+  }
+  @media only screen and (max-width: 1106px) {
+    display: none;
   }
 `;

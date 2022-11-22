@@ -21,7 +21,9 @@ function* loginSaga(action) {
     }
     yield notification.success({
       message: "Đăng nhập thành công!",
-      placement: "topRight",
+      icon: (
+        <i style={{ color: "goldenrod" }} class="fa-solid fa-lock-open"></i>
+      ),
     });
   } catch (e) {
     yield put({

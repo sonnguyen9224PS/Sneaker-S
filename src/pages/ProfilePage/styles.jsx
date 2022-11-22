@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Table } from "antd";
 
 export const Profile = styled.div`
   font-family: "Fredoka", sans-serif;
@@ -33,5 +34,10 @@ export const Profile = styled.div`
         object-fit: contain;
       }
     }
+  }
+`;
+export const STable = styled(Table)`
+  .ant-table-thead > tr > th {
+    text-align: center;
   }
 `;

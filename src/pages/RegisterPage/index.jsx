@@ -40,6 +40,7 @@ const RegisterPage = () => {
           email: values.email,
           password: values.password,
           role: "user",
+          phone: values.phone,
           avatar: "",
         },
         callback: {
@@ -57,9 +58,16 @@ const RegisterPage = () => {
             style={{
               margin: "auto",
               width: "30rem",
+              marginTop: "1rem",
             }}
           >
-            <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+              ĐĂNG KÝ TÀI KHOẢN
+              <i
+                style={{ marginLeft: 3, color: "goldenrod" }}
+                class="fa-solid fa-key"
+              ></i>
+            </h2>
             <div>
               <Card title="THÔNG TIN CÁ NHÂN">
                 <Form
@@ -103,6 +111,10 @@ const RegisterPage = () => {
                         required: true,
                         message: "Vui lòng nhập số điện thoại!",
                       },
+                      {
+                        pattern: new RegExp(/^[0-9_-]{10}$/),
+                        message: "Vui lòng nhập đúng số điện thoại!",
+                      },
                     ]}
                   >
                     <Input allowClear />
@@ -134,10 +146,6 @@ const RegisterPage = () => {
                         required: true,
                         message: "Vui lòng xác nhận lại mật khẩu!",
                       },
-                      {
-                        min: 5,
-                        message: "Mật khẩu phải có ít nhât 6 ký tự",
-                      },
                       ({ getFieldValue }) => ({
                         validator(_, value) {
                           if (!value || getFieldValue("password") === value) {
@@ -164,16 +172,28 @@ const RegisterPage = () => {
                     >
                       {registerData.loading ? (
                         <Spin tip="Loading...">
-                          <Button type="primary" htmlType="submit">
+                          <Button htmlType="submit">
                             Đăng ký
+                            <i
+                              style={{ marginLeft: 3 }}
+                              class="fa-solid fa-jet-fighter-up"
+                            ></i>
                           </Button>
                         </Spin>
                       ) : (
-                        <Button type="primary" htmlType="submit">
+                        <Button style={{ widh: "10rem" }} htmlType="submit">
                           Đăng ký
+                          <i
+                            style={{ marginLeft: 3 }}
+                            class="fa-solid fa-jet-fighter-up"
+                          ></i>
                         </Button>
                       )}
                       <Button onClick={() => navigate(ROUTES.USER.HOME)}>
+                        <i
+                          style={{ marginRight: 3 }}
+                          class="fa-solid fa-reply"
+                        ></i>
                         Quay lại trang chủ
                       </Button>
                     </Space>

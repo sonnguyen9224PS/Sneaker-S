@@ -25,15 +25,21 @@ function Success() {
             <h2>
               <i class="fa-solid fa-clipboard-check"></i>Đặt hàng thành công.
             </h2>
-            <h2>Xin chân thành cảm ơn quý khách.</h2>
+            <h2>Xin chân thành cảm ơn quý khách!</h2>
           </Col>
         </Row>
         <Row justify="space-between">
-          <Link to={ROUTES.USER.HOME}>
-            <Button>Trang chủ</Button>
-          </Link>
           <Link to={ROUTES.USER.PRODUCT_LIST}>
-            <Button>Tiếp tục mua sắm</Button>
+            <Button>
+              <i style={{ marginRight: 3 }} class="fa-solid fa-circle-left"></i>
+              Tiếp tục mua sắm
+            </Button>
+          </Link>
+          <Link to={ROUTES.USER.PROFILE} state={{ activeKey: "2" }}>
+            <Button>
+              Xem lịch sử đơn hàng
+              <i style={{ marginLeft: 3 }} class="fa-solid fa-circle-right"></i>
+            </Button>
           </Link>
         </Row>
       </S.SuccessWrapper>
