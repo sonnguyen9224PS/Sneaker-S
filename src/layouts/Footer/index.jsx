@@ -81,7 +81,11 @@ function Footer() {
         <S.ShopInfo>
           <Container>
             <Row className="serviceShop">
-              <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
+              <Col
+                xs={{ span: 12 }}
+                md={{ span: 6 }}
+                style={{ paddingTop: 30, paddingBottom: 30 }}
+              >
                 <h4 className="infoTtl">Hỗ trợ khách hàng</h4>
                 <Link>
                   <p>Thông tin liên hệ</p>
@@ -96,7 +100,11 @@ function Footer() {
                   <p>Hỗ trợ và giải đáp thắc mắc</p>
                 </Link>
               </Col>
-              <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
+              <Col
+                xs={{ span: 12 }}
+                md={{ span: 6 }}
+                style={{ paddingTop: 30, paddingBottom: 30 }}
+              >
                 <h4 className="infoTtl">Chính sách</h4>
                 <Link>
                   <p>Chính sách giao hàng</p>
@@ -111,7 +119,11 @@ function Footer() {
                   <p>Chính sách bảo mật người dùng</p>
                 </Link>
               </Col>
-              <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
+              <Col
+                xs={{ span: 12 }}
+                md={{ span: 6 }}
+                style={{ paddingTop: 30, paddingBottom: 30 }}
+              >
                 <h4 className="infoTtl">Dịch vụ</h4>
                 <Link>
                   <p>Dịch vụ ký gửi</p>
@@ -120,7 +132,11 @@ function Footer() {
                   <p>Dịch vụ Spa và sửa giày</p>
                 </Link>
               </Col>
-              <Col span={6} style={{ paddingTop: 30, paddingBottom: 30 }}>
+              <Col
+                xs={{ span: 12 }}
+                md={{ span: 6 }}
+                style={{ paddingTop: 30, paddingBottom: 30 }}
+              >
                 <h4 className="infoTtl">Thông tin</h4>
                 <Link>
                   <p>Về chúng tôi</p>

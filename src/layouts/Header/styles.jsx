@@ -65,8 +65,6 @@ export const HeaderRight = styled.div`
       display: none;
     }
   }
-  @media only screen and (max-width: 768px) {
-  }
 `;
 export const MenuHamburger = styled.div`
   align-items: center;
@@ -259,8 +257,7 @@ export const SDrawer = styled(Drawer)`
     }
   }
   .ant-drawer-content-wrapper {
-    width: 40% !important;
-    text-align: c;
+    width: 60% !important;
   }
   .ant-collapse {
     border: none;

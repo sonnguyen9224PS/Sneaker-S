@@ -80,6 +80,11 @@ export const ShopInfo = styled.footer`
         color: #c83535;
       }
     }
+    @media screen and (max-width: 767px) {
+      .ant-col-xs-12 {
+        text-align: center;
+      }
+    }
   }
 `;
 export const FooterPage = styled.footer`

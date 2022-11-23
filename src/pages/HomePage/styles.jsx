@@ -198,8 +198,9 @@ export const MainWrapper = styled.div`
     background: url(https://imageio.forbes.com/specials-images/imageserve/6217ad1b151e231c69949c9c/0x0.jpg?format=jpg&width=1200);
     background-size: cover;
     background-position: center;
-    & h2 {
-      position: relative;
+    position: relative;
+    @media screen and (max-width: 575px) {
+      height: 8rem;
     }
     & span {
       position: relative;
@@ -211,6 +212,9 @@ export const MainWrapper = styled.div`
       -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
       animation: waviy 1s infinite;
       animation-delay: calc(0.1s * var(--i));
+      @media screen and (max-width: 575px) {
+        font-size: 2rem;
+      }
     }
     @keyframes waviy {
       0%,
@@ -334,8 +338,9 @@ export const CarouselWrapper = styled.div`
     }
   }
   .shoppingDiv {
+    display: flex;
     position: absolute;
-    bottom: 40px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     & > a {
@@ -380,6 +385,20 @@ export const CarouselWrapper = styled.div`
         }
       }
     }
+    @media screen and (max-width: 576px) {
+      a {
+        font-size: 11px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        width: 6rem;
+        display: flex;
+        align-items: center;
+        height: 2.5rem;
+        justify-content: center;
+        text-transform: uppercase;
+        text-align: center;
+      }
+    }
   }
 `;
 export const OtherBrandWrapper = styled.div`
@@ -408,9 +427,15 @@ export const OtherBrandWrapper = styled.div`
 
 export const SaleOffWrapper = styled.div`
   margin-bottom: 35px;
+  .containSale {
+    padding: 0 8px;
+  }
 `;
 export const ArrivalWrapper = styled.div`
   margin-bottom: 35px;
+  .containNew {
+    padding: 0 8px;
+  }
   .productItem {
     &:before {
       content: "NEW";
@@ -436,7 +461,7 @@ export const BannerCollection = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 660px;
+    width: 70%;
     height: 300px;
     padding: 0 9rem;
     text-transform: uppercase;
@@ -454,6 +479,7 @@ export const BannerCollection = styled.div`
       &:nth-child(2) {
         font-size: 18px;
         color: #d51616;
+        text-align: center;
       }
       &:nth-child(3) {
         font-size: 26px;
@@ -685,13 +711,7 @@ export const SModal = styled(Modal)`
     }
   }
 `;
-export const NewsSwiper = styled.div`
-  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
-  .swiper-pagination-horizontal.swiper-pagination-bullets
-    .swiper-pagination-bullet {
-    width: 15px;
-    height: 15px;
-  }
+export const NewsWrapper = styled.div`
   .content {
     max-width: 400px;
     overflow: hidden;

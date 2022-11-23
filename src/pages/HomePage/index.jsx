@@ -118,7 +118,7 @@ function HomePage() {
   const renderProductListSale = useMemo(() => {
     return saleProductList.data.map((item) => {
       return (
-        <Col xs={{ span: 12 }} md={{ span: 6 }} key={item.id}>
+        <Col xs={{ span: 12 }} lg={{ span: 6 }} key={item.id}>
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -193,7 +193,7 @@ function HomePage() {
   const renderProductListNew = useMemo(() => {
     return newProductList.data.map((item) => {
       return (
-        <Col span={6} key={item.id}>
+        <Col xs={{ span: 12 }} lg={{ span: 6 }} key={item.id}>
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -497,58 +497,56 @@ function HomePage() {
             </SwiperSlide>
           </Swiper>
         </S.CarouselWrapper>
-        <Container>
-          <S.OtherBrandWrapper>
-            <div className="otherContent">
-              <a href="">
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_1_medium.jpg?v=18"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="otherContent">
-              <a href="">
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_2_medium.jpg?v=18"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="otherContent">
-              <a href="">
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_3_medium.jpg?v=18"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="otherContent">
-              <a href="">
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_4_medium.jpg?v=18"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="otherContent">
-              <a href="">
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_6_medium.jpg?v=18"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="otherContent">
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [11] }}>
-                <img
-                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_7_medium.jpg?v=18"
-                  alt=""
-                />
-              </Link>
-            </div>
-          </S.OtherBrandWrapper>
-        </Container>
+        <S.OtherBrandWrapper>
+          <div className="otherContent">
+            <a href="">
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_1_medium.jpg?v=18"
+                alt=""
+              />
+            </a>
+          </div>
+          <div className="otherContent">
+            <a href="">
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_2_medium.jpg?v=18"
+                alt=""
+              />
+            </a>
+          </div>
+          <div className="otherContent">
+            <a href="">
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_3_medium.jpg?v=18"
+                alt=""
+              />
+            </a>
+          </div>
+          <div className="otherContent">
+            <a href="">
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_4_medium.jpg?v=18"
+                alt=""
+              />
+            </a>
+          </div>
+          <div className="otherContent">
+            <a href="">
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_6_medium.jpg?v=18"
+                alt=""
+              />
+            </a>
+          </div>
+          <div className="otherContent">
+            <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [11] }}>
+              <img
+                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_7_medium.jpg?v=18"
+                alt=""
+              />
+            </Link>
+          </div>
+        </S.OtherBrandWrapper>
         <S.SaleOffWrapper>
           <Link to={ROUTES.USER.PRODUCT_LIST} state={{ sale: 30 }}>
             <h2 className="itemTitle saleTitle">
@@ -558,7 +556,7 @@ function HomePage() {
               <span style={{ "--i": 4 }}>e</span>
             </h2>
           </Link>
-          <Container>
+          <Container className="containSale">
             <Row gutter={[16, 16]}>{renderProductListSale}</Row>
           </Container>
         </S.SaleOffWrapper>
@@ -578,7 +576,7 @@ function HomePage() {
               <h2>New Arrival</h2>
             </div>
           </Link>
-          <Container>
+          <Container className="containNew">
             <Row gutter={[16, 16]}>{renderProductListNew}</Row>
           </Container>
         </S.ArrivalWrapper>
@@ -623,7 +621,7 @@ function HomePage() {
             </h2>
           </Row>
           <Container>
-            <Row gutter={[16, 16]} justify="space-evenly">
+            <Row justify="space-evenly">
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [1] }}>
                 <Col
                   span={4.8}
@@ -700,7 +698,7 @@ function HomePage() {
             </Row>
           </Container>
         </S.SignificantBrand>
-        <S.NewsSwiper>
+        <S.NewsWrapper>
           <Row justify="center">
             <Col span={24} style={{ textAlign: "center" }}>
               <h2
@@ -729,7 +727,7 @@ function HomePage() {
               </Button>
             </Link>
           </Row>
-        </S.NewsSwiper>
+        </S.NewsWrapper>
       </S.MainWrapper>
     </>
   );
