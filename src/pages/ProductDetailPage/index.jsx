@@ -297,8 +297,8 @@ const ProductDetailPage = () => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <Row className="detailProduct" width="100%">
-            <Col span={12}>
+          <Row width="100%">
+            <Col span={12} style={{ padding: "0 2px" }}>
               <S.PreviewSwipeWrap
                 style={{ width: "100%", height: 400, margin: "auto" }}
               >
@@ -307,13 +307,13 @@ const ProductDetailPage = () => {
                     <>
                       <Swiper
                         style={{
-                          "--swiper-navigation-color": "#fff",
-                          "--swiper-pagination-color": "#fff",
+                          "--swiper-navigation-color": "purple",
                         }}
                         loop={true}
                         spaceBetween={10}
+                        navigation={true}
                         thumbs={{ swiper: thumbsSwiper }}
-                        modules={[FreeMode, Thumbs]}
+                        modules={[FreeMode, Thumbs, Navigation]}
                         className="mySwiper2"
                       >
                         <>
@@ -332,7 +332,7 @@ const ProductDetailPage = () => {
                         onSwiper={setThumbsSwiper}
                         loop={true}
                         spaceBetween={10}
-                        slidesPerView={4}
+                        slidesPerView={3}
                         freeMode={true}
                         watchSlidesProgress={true}
                         modules={[FreeMode, Navigation, Thumbs]}
@@ -379,9 +379,7 @@ const ProductDetailPage = () => {
                     value={optionSize}
                     onChange={(e) => setOptionSize(e.target.value)}
                   >
-                    <Radio className="sizeRadio" value={38}>
-                      38
-                    </Radio>
+                    <Radio value={38}>38</Radio>
                     <Radio value={39}>39</Radio>
                     <Radio value={40}>40</Radio>
                     <Radio value={41}>41</Radio>
@@ -440,21 +438,20 @@ const ProductDetailPage = () => {
             <Col span="12" style={{ backgroundColor: "#fff" }}>
               <Row style={{ flexDirection: "column" }}>
                 <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
-                  {/* carousel */}
+                  {/* carousel detail product */}
                   <S.PreviewSwipeWrap
-                    style={{
-                      width: "100%",
-                      height: 450,
-                      margin: "auto",
-                    }}
+                    style={{ width: "100%", height: 400, margin: "auto" }}
                   >
                     <>
                       {!productDetail.data?.images?.length ? null : (
                         <>
                           <Swiper
+                            style={{
+                              "--swiper-navigation-color": "purple",
+                            }}
                             loop={true}
-                            navigation={true}
                             spaceBetween={10}
+                            navigation={true}
                             thumbs={{ swiper: thumbsSwiper }}
                             modules={[FreeMode, Thumbs, Navigation]}
                             className="mySwiper2"
@@ -472,14 +469,13 @@ const ProductDetailPage = () => {
                             </>
                           </Swiper>
                           <Swiper
-                            style={{ padding: "0 6px" }}
                             onSwiper={setThumbsSwiper}
                             loop={true}
                             spaceBetween={10}
                             slidesPerView={3}
                             freeMode={true}
                             watchSlidesProgress={true}
-                            modules={[FreeMode, Thumbs]}
+                            modules={[FreeMode, Navigation, Thumbs]}
                             className="mySwiper"
                           >
                             <SwiperSlide>

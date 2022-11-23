@@ -61,7 +61,6 @@ const ProductListPage = () => {
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { state } = useLocation();
-  const navigate = useNavigate();
   const formatter = (value) => value.toLocaleString("vi-VN");
   const [filterParams, setFilterParams] = useState({
     categoryId: [],
@@ -309,6 +308,23 @@ const ProductListPage = () => {
 
   // render
   const renderProductList = useMemo(() => {
+    if (productList.data.length <= 0)
+      return (
+        <p
+          style={{
+            width: "100%",
+            textAlign: "center",
+            fontSize: 25,
+            fontWeight: 500,
+          }}
+        >
+          <i
+            style={{ marginRight: 3, color: "#6c9fb7" }}
+            class="fa-solid fa-magnifying-glass"
+          ></i>
+          Không tìm thấy sản phẩm..
+        </p>
+      );
     return productList.data.map((item) => {
       const rateArr = item.reviews.map((itemRate) => itemRate.rate);
       const rateAverage = _.meanBy(rateArr);
@@ -530,8 +546,8 @@ const ProductListPage = () => {
               onOk={handleOk}
               onCancel={handleCancel}
             >
-              <Row className="detailProduct" width="100%">
-                <Col span={12}>
+              <Row width="100%">
+                <Col span={12} style={{ padding: "0 2px" }}>
                   <S.PreviewSwipeWrap
                     style={{ width: "100%", height: 400, margin: "auto" }}
                   >
@@ -565,7 +581,7 @@ const ProductListPage = () => {
                             onSwiper={setThumbsSwiper}
                             loop={true}
                             spaceBetween={10}
-                            slidesPerView={4}
+                            slidesPerView={3}
                             freeMode={true}
                             watchSlidesProgress={true}
                             modules={[FreeMode, Navigation, Thumbs]}
@@ -620,14 +636,23 @@ const ProductListPage = () => {
                         <Radio value={43}>43</Radio>
                       </Radio.Group>
                     </div>
-                    <div>
-                      <Button
-                        style={{ borderRadius: 16 }}
+                    <div className="buttons">
+                      <button
+                        className="btn-hover color-7"
+                        style={{
+                          borderRadius: 28,
+                          padding: "4px 18px",
+                          height: "2.5rem",
+                          width: "14rem",
+                          overflow: "hidden",
+                          fontSize: 18,
+                        }}
                         type="primary"
                         onClick={() => handleAddToCart()}
                       >
-                        Thêm vào giỏ hàng
-                      </Button>
+                        Thêm vào giỏ
+                        <i class="fa-solid fa-cart-plus"></i>
+                      </button>
                     </div>
                   </Card>
                 </Col>

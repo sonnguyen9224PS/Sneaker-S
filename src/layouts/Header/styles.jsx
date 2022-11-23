@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import { Drawer } from "antd";
+
 export const HeaderContainerWrapper = styled.header`
+  font-family: "Fredoka", sans-serif;
   position: sticky;
   font-family: "Fredoka", sans-serif;
   width: 100%;
@@ -18,6 +21,9 @@ export const Container = styled.div`
 export const HeaderWrapper = styled.div`
   display: flex;
   height: 94.6px;
+  @media only screen and (max-width: 1106px) {
+    justify-content: space-evenly;
+  }
 `;
 export const HeaderLogo = styled.div`
   display: flex;
@@ -32,6 +38,13 @@ export const HeaderLogo = styled.div`
     background: linear-gradient(to right, #30cfd0 0%, #ff0080 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    @media only screen and (min-width: 375px) and (max-width: 575px) {
+      font-size: 1.2rem;
+    }
+  }
+  @media only screen and (max-width: 1106px) {
+    order: 2;
+    width: 33.33%;
   }
 `;
 export const HeaderRight = styled.div`
@@ -41,11 +54,24 @@ export const HeaderRight = styled.div`
   align-items: flex-end;
   padding-top: 20px;
   padding-right: 20px;
+  @media only screen and (max-width: 1106px) {
+    order: 1;
+    width: 33.33%;
+    flex: 0;
+    padding: 0;
+    height: 100%;
+    justify-content: center;
+    .userNameLoginAfter {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 export const MenuHamburger = styled.div`
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 35px;
   display: none;
   button {
     background: none;
@@ -54,6 +80,8 @@ export const MenuHamburger = styled.div`
   }
   @media only screen and (max-width: 1106px) {
     display: flex;
+    order: 3;
+    width: 33.33%;
   }
 `;
 
@@ -62,22 +90,30 @@ export const HeaderRightTop = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 16px;
+  @media only screen and (max-width: 1106px) {
+    justify-content: center;
+    align-items: center;
+    width: 13rem;
+  }
   .contact {
     &:hover {
       scale: 1.05;
+    }
+    @media only screen and (max-width: 768px) {
+      display: none;
     }
   }
   .headerRightLogin {
     display: flex;
     align-items: center;
     margin-left: 20px;
-    .btnLogin{
+    .btnLogin {
       margin-right: 4px;
-        &:hover {
-      scale: 1.05;
+      &:hover {
+        scale: 1.05;
       }
     }
-    .userNameLoginAfter{
+    .userNameLoginAfter {
       cursor: default;
       margin-right: 12px;
       &:hover {
@@ -85,15 +121,13 @@ export const HeaderRightTop = styled.div`
       }
     }
   }
-    
-  }
   .cart {
     font-size: 22px;
     &:hover {
       cursor: pointer;
       scale: 1.05;
     }
-   
+  }
 `;
 export const HeaderRightDown = styled.div`
   display: flex;
@@ -201,5 +235,80 @@ export const HeaderRightDown = styled.div`
   }
   @media only screen and (max-width: 1106px) {
     display: none;
+  }
+`;
+export const SDrawer = styled(Drawer)`
+  font-size: 17px;
+  font-weight: bold;
+  text-transform: uppercase;
+  .ant-col {
+    &:not(:nth-child(2)),
+    &:not(:nth-child(3)) {
+      padding-left: 12px;
+    }
+  }
+  .ant-col-24 {
+    &:hover {
+      cursor: pointer;
+      color: purple;
+    }
+  }
+  .homeLink {
+    &:hover {
+      color: purple;
+    }
+  }
+  .ant-drawer-content-wrapper {
+    width: 40% !important;
+    text-align: c;
+  }
+  .ant-collapse {
+    border: none;
+    background: no-repeat;
+    margin-bottom: 12px;
+  }
+
+  .ant-collapse-item {
+    border: none;
+    .ant-collapse-header {
+      padding-bottom: 0;
+    }
+    &:hover {
+      .ant-collapse-header-text {
+        color: purple;
+      }
+    }
+  }
+  .ant-collapse-expand-icon {
+    display: none;
+  }
+  .ant-drawer-header {
+    display: none;
+  }
+  .ant-drawer-body {
+    padding-left: 6px;
+  }
+  ul {
+    padding: 0;
+    li {
+      font-size: 14px;
+      line-height: 21px;
+      padding: 6px;
+      display: block;
+      font-weight: bolder;
+      color: #000;
+      &:hover {
+        cursor: pointer;
+        color: #fff;
+        background-color: #000;
+      }
+    }
+  }
+  .imgMenu {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;

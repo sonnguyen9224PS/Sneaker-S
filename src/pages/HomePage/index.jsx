@@ -118,7 +118,7 @@ function HomePage() {
   const renderProductListSale = useMemo(() => {
     return saleProductList.data.map((item) => {
       return (
-        <Col span={6} key={item.id}>
+        <Col xs={{ span: 12 }} md={{ span: 6 }} key={item.id}>
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -497,56 +497,58 @@ function HomePage() {
             </SwiperSlide>
           </Swiper>
         </S.CarouselWrapper>
-        <S.OtherBrandWrapper>
-          <div className="otherContent">
-            <a href="">
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_1_medium.jpg?v=18"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="otherContent">
-            <a href="">
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_2_medium.jpg?v=18"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="otherContent">
-            <a href="">
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_3_medium.jpg?v=18"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="otherContent">
-            <a href="">
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_4_medium.jpg?v=18"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="otherContent">
-            <a href="">
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_6_medium.jpg?v=18"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="otherContent">
-            <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [11] }}>
-              <img
-                src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_7_medium.jpg?v=18"
-                alt=""
-              />
-            </Link>
-          </div>
-        </S.OtherBrandWrapper>
+        <Container>
+          <S.OtherBrandWrapper>
+            <div className="otherContent">
+              <a href="">
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_1_medium.jpg?v=18"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="otherContent">
+              <a href="">
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_2_medium.jpg?v=18"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="otherContent">
+              <a href="">
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_3_medium.jpg?v=18"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="otherContent">
+              <a href="">
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_4_medium.jpg?v=18"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="otherContent">
+              <a href="">
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_6_medium.jpg?v=18"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="otherContent">
+              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [11] }}>
+                <img
+                  src="https://theme.hstatic.net/200000384421/1000931147/14/home_partner_image_7_medium.jpg?v=18"
+                  alt=""
+                />
+              </Link>
+            </div>
+          </S.OtherBrandWrapper>
+        </Container>
         <S.SaleOffWrapper>
           <Link to={ROUTES.USER.PRODUCT_LIST} state={{ sale: 30 }}>
             <h2 className="itemTitle saleTitle">
