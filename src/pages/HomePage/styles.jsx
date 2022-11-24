@@ -238,6 +238,9 @@ export const MainWrapper = styled.div`
       letter-spacing: 8.2px;
       animation: text-flicker 4s linear infinite;
     }
+    @media screen and (max-width: 575px) {
+      font-size: 3rem;
+    }
     @keyframes text-flicker {
       0% {
         opacity: 0.1;
@@ -455,6 +458,9 @@ export const BannerCollection = styled.div`
   background-size: cover;
   background-image: url(https://htmldemo.net/james/james/img/banner/banner-bg.jpg);
   background-position-x: 45%;
+  @media screen and (max-width: 767px) {
+    background-position-x: 60%;
+  }
   .bannerCollection {
     cursor: pointer;
     display: flex;
@@ -468,6 +474,19 @@ export const BannerCollection = styled.div`
     font-weight: bold;
     background-color: #fff;
     box-shadow: -20px -33px 1px #b7b2b2;
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+      width: 100%;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+      &:nth-child(1) {
+        color: #fff;
+      }
+      &:nth-child(3) {
+        color: #e91e63;
+      }
+    }
     &:hover {
       opacity: 0.8;
     }
@@ -506,7 +525,9 @@ export const SignificantBrand = styled.div`
     width: 210px;
     height: 210px;
     overflow: hidden;
-    & > img {
+    & img {
+      width: 100%;
+      height: 100%;
     }
     &:hover {
       & > img {

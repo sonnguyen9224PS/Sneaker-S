@@ -21,6 +21,7 @@ import {
   InputNumber,
   notification,
   BackTop,
+  Drawer,
 } from "antd";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
@@ -88,6 +89,14 @@ const ProductListPage = () => {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState("left");
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
   };
 
   //categoryId
@@ -329,7 +338,7 @@ const ProductListPage = () => {
       const rateArr = item.reviews.map((itemRate) => itemRate.rate);
       const rateAverage = _.meanBy(rateArr);
       return (
-        <Col span={6} key={item.id}>
+        <Col xs={{ span: 12 }} md={{ span: 6 }} key={item.id}>
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -674,35 +683,44 @@ const ProductListPage = () => {
             </S.SBreadcrumb>
           </Row>
           <Row>
-            <h4
-              style={{
-                fontWeight: "bold",
-                fontSize: 18,
-                color: "purple",
-              }}
-            >
-              <span style={{ marginRight: 4 }}>
-                <i class="fa-solid fa-filter"></i>
-              </span>
-              LỌC SẢN PHẨM THEO:
-            </h4>
+            <Col md={{ span: 0 }} lg={{ span: 24 }}>
+              <h4
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  color: "purple",
+                }}
+              >
+                <span style={{ marginRight: 4 }}>
+                  <i class="fa-solid fa-filter"></i>
+                </span>
+                LỌC SẢN PHẨM THEO:
+              </h4>
+            </Col>
           </Row>
           <Row gutter={[16, 16]}>
             {/* left main */}
-            <Col span={6} className="leftFilter">
+            <Col
+              xs={{ span: 0 }}
+              md={{ span: 0 }}
+              lg={{ span: 6 }}
+              className="leftFilter"
+            >
               <S.SCardArrival size="small">
                 <h4
                   style={{
                     fontSize: 18,
+                    color: "#03a9f4",
                   }}
                 >
                   <i
-                    style={{ marginRight: 4 }}
+                    style={{ marginRight: 4, color: "#03a9f4" }}
                     class="fa-solid fa-bolt-lightning"
                   ></i>
                   New Arrivals
                 </h4>
                 <Checkbox
+                  style={{ color: "#03a9f4", fontWeight: "bold", fontSize: 17 }}
                   onChange={(e) => handleFilter("new", e.target.checked)}
                   checked={filterParams.new}
                 >
@@ -834,9 +852,169 @@ const ProductListPage = () => {
               </Card>
             </Col>
             {/* right main */}
-            <Col span={18}>
-              <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                <Col span={18}>
+            <Col md={{ span: 24 }} lg={{ span: 18 }}>
+              <Row
+                gutter={[16, 16]}
+                style={{ marginBottom: 16, justifyContent: "space-evenly" }}
+              >
+                <Col md={{ span: 6 }} lg={{ span: 0 }}>
+                  <Button className="filterBtn" onClick={showDrawer}>
+                    <i class="fa-solid fa-filter"></i>
+                  </Button>
+                  <S.SDrawer
+                    header={null}
+                    placement="left"
+                    onClose={onClose}
+                    open={open}
+                  >
+                    <S.SCardArrival size="small">
+                      <h4
+                        style={{
+                          fontSize: 18,
+                        }}
+                      >
+                        <i
+                          style={{ marginRight: 4 }}
+                          class="fa-solid fa-bolt-lightning"
+                        ></i>
+                        New Arrivals
+                      </h4>
+                      <Checkbox
+                        onChange={(e) => handleFilter("new", e.target.checked)}
+                        checked={filterParams.new}
+                      >
+                        Sản phẩm mới
+                      </Checkbox>
+                    </S.SCardArrival>
+                    <S.SCollapse>
+                      <Panel
+                        header={
+                          <span>
+                            <i
+                              style={{ marginRight: 2 }}
+                              class="fa-regular fa-registered"
+                            ></i>
+                            Brand
+                          </span>
+                        }
+                        key="1"
+                      >
+                        <Checkbox.Group
+                          onChange={(value) =>
+                            handleFilter("categoryId", value)
+                          }
+                          value={filterParams.categoryId}
+                        >
+                          <Row>{renderCategoryOption}</Row>
+                        </Checkbox.Group>
+                      </Panel>
+                      <Panel
+                        header={
+                          <span>
+                            <i
+                              style={{ marginRight: 2 }}
+                              class="fa-solid fa-gift"
+                            ></i>
+                            Sale all
+                          </span>
+                        }
+                        key="2"
+                      >
+                        <Radio.Group
+                          onChange={(e) => handleFilter("sale", e.target.value)}
+                          value={filterParams.sale}
+                        >
+                          <Row>
+                            <Col span={24}>
+                              <Radio className="radioItem" value={30}>
+                                <i
+                                  style={{ marginRight: 3 }}
+                                  class="fa-solid fa-arrow-trend-down"
+                                ></i>
+                                30%
+                              </Radio>
+                            </Col>
+                            <Col span={24}>
+                              <Radio className="radioItem" value={50}>
+                                <i
+                                  style={{ marginRight: 3 }}
+                                  class="fa-solid fa-arrow-trend-down"
+                                ></i>
+                                50%
+                              </Radio>
+                            </Col>
+                            <Col span={24}>
+                              <Radio className="radioItem" value={70}>
+                                <i
+                                  style={{ marginRight: 3 }}
+                                  class="fa-solid fa-arrow-trend-down"
+                                ></i>
+                                70%
+                              </Radio>
+                            </Col>
+                          </Row>
+                        </Radio.Group>
+                      </Panel>
+                    </S.SCollapse>
+                    <S.SCollapse>
+                      <Panel
+                        header={
+                          <span>
+                            <i
+                              style={{ marginLeft: 3 }}
+                              class="fa-solid fa-arrows-left-right"
+                            ></i>
+                            Tìm kiếm theo giá
+                          </span>
+                        }
+                        key={1}
+                      >
+                        <Slider
+                          range
+                          marks={{
+                            0: "0",
+                            5000000: "5 triệu",
+                            10000000: "10 triệu",
+                            15000000: "15 triệu",
+                          }}
+                          tooltip={{ formatter }}
+                          min={PRICE_MIN}
+                          max={PRICE_MAX}
+                          step={PRICE_STEP}
+                          defaultValue={[PRICE_MIN_DEFAULT, PRICE_MAX_DEFAULT]}
+                          onChange={(value) => handleSliderPrice(value)}
+                        />
+                      </Panel>
+                    </S.SCollapse>
+                    <Card size="small" className="bestSellCard">
+                      <h3
+                        style={{
+                          fontSize: 18,
+                        }}
+                      >
+                        <i
+                          style={{ marginRight: 4 }}
+                          class="fa-brands fa-shopify"
+                        ></i>
+                        Sản phẩm bán chạy
+                      </h3>
+                      {renderBestSellProduct()}
+                    </Card>
+                    <Card size="small" className="bannerLeft">
+                      <Link
+                        to={ROUTES.USER.PRODUCT_LIST}
+                        state={{ categoryId: [14] }}
+                      >
+                        <img
+                          style={{ width: "100%" }}
+                          src="https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F02%2Flacoste-match-break-sneakers-spring-summer-collection-price-where-to-buy-1.jpg?q=75&w=800&cbr=1&fit=max"
+                          alt=""
+                        />
+                      </Link>
+                    </Card>
+                  </S.SDrawer>
+                </Col>
+                <Col md={{ span: 12 }} lg={{ span: 18 }}>
                   <S.SInputSearch
                     placeholder="Search.."
                     name="filterKeyword"
@@ -845,7 +1023,7 @@ const ProductListPage = () => {
                     onChange={(e) => handleFilter("keyword", e.target.value)}
                   />
                 </Col>
-                <Col span={6}>
+                <Col md={{ span: 6 }} lg={{ span: 6 }}>
                   <Select
                     name="selectSort"
                     placeholder="Sắp xếp theo giá"

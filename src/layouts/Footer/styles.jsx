@@ -81,9 +81,12 @@ export const ShopInfo = styled.footer`
       }
     }
     @media screen and (max-width: 767px) {
-      .ant-col-xs-12 {
+      .ant-col {
         text-align: center;
       }
+    }
+    @media screen and (max-width: 576px) {
+      text-align: center;
     }
   }
 `;
@@ -119,6 +122,9 @@ export const SignMail = styled.div`
       width: 500px;
       background: none;
       color: #fff;
+      @media screen and (max-width: 576px) {
+        max-width: 23rem;
+      }
     }
     .signBtn {
       position: absolute;
@@ -130,6 +136,9 @@ export const SignMail = styled.div`
       &:hover {
         color: #50a5a6;
       }
+    }
+    @media screen and (max-width: 576px) {
+      max-width: 23rem;
     }
   }
 `;

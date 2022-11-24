@@ -259,10 +259,14 @@ function HomePage() {
       );
     });
   }, [newProductList]);
-  const renderNewsSlide = () => {
+  const renderNews = () => {
     return newsList.data.map((item) => {
       return (
-        <Col span={8} style={{ paddingLeft: 10, paddingRight: 10 }}>
+        <Col
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          style={{ paddingLeft: 10, paddingRight: 10 }}
+        >
           <div
             className="newsImage"
             style={{
@@ -623,22 +627,18 @@ function HomePage() {
           <Container>
             <Row justify="space-evenly">
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [1] }}>
-                <Col
-                  span={4.8}
-                  style={{ display: "flex", alignItems: "center" }}
-                >
+                <Col style={{ display: "flex", alignItems: "center" }}>
                   <div className="brandItem">
                     <img
                       src="https://theme.hstatic.net/200000384421/1000955298/14/home_brand_image_1.jpg?v=7"
                       alt=""
-                      width={206}
                     />
                   </div>
                 </Col>
               </Link>
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [4] }}>
                 <Col
-                  span={4.8}
+                  className="brandItem"
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <div className="brandItem">
@@ -653,7 +653,7 @@ function HomePage() {
 
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [3] }}>
                 <Col
-                  span={4.8}
+                  className="brandItem"
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <div className="brandItem">
@@ -668,7 +668,7 @@ function HomePage() {
 
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [12] }}>
                 <Col
-                  span={4.8}
+                  className="brandItem"
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <div className="brandItem">
@@ -683,7 +683,7 @@ function HomePage() {
 
               <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [5] }}>
                 <Col
-                  span={4.8}
+                  className="brandItem"
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <div className="brandItem">
@@ -717,7 +717,7 @@ function HomePage() {
             </Col>
           </Row>
           <Container>
-            <Row style={{ width: "100%" }}>{renderNewsSlide()}</Row>
+            <Row style={{ width: "100%" }}>{renderNews()}</Row>
           </Container>
           <Row justify="center">
             <Link to={ROUTES.USER.NEWS}>

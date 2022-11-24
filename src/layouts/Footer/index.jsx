@@ -9,27 +9,33 @@ function Footer() {
     <>
       <S.FooterWrapper>
         <S.SignMail>
-          <Row>
-            <Col span={24}>
-              <h2 className="signTtl">Đăng kí ngay để nhận tin tức</h2>
-              <Form name="signForm" className="formSign">
-                <Form.Item>
-                  <Input
-                    name="signInput"
-                    className="signInput"
-                    placeholder="Nhập email"
-                  />
-                </Form.Item>
-                <Button className="signBtn" htmlType="submit">
-                  <i class="fa-solid fa-paper-plane"></i>
-                </Button>
-              </Form>
-            </Col>
-          </Row>
+          <Container>
+            <Row>
+              <Col span={24}>
+                <h2 className="signTtl">Đăng kí ngay để nhận tin tức</h2>
+                <Form name="signForm" className="formSign">
+                  <Form.Item>
+                    <Input
+                      name="signInput"
+                      className="signInput"
+                      placeholder="Nhập email"
+                    />
+                  </Form.Item>
+                  <Button className="signBtn" htmlType="submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </Button>
+                </Form>
+              </Col>
+            </Row>
+          </Container>
         </S.SignMail>
         <S.ContactFooter>
           <Row className="contactShop">
-            <Col span={12} className="addressShopLeft">
+            <Col
+              xs={{ span: 24 }}
+              md={{ span: 12 }}
+              className="addressShopLeft"
+            >
               <h3>
                 <i class="fa-regular fa-copyright"></i>Sneaker-S
               </h3>
@@ -44,7 +50,11 @@ function Footer() {
                 <i class="fa-solid fa-phone"></i>038 594 1277
               </p>
             </Col>
-            <Col span={12} className="contactShopRight">
+            <Col
+              xs={{ span: 24 }}
+              md={{ span: 12 }}
+              className="contactShopRight"
+            >
               <S.ContainerFooter>
                 <h3>
                   <i class="fa-solid fa-link"></i>
@@ -82,7 +92,8 @@ function Footer() {
           <Container>
             <Row className="serviceShop">
               <Col
-                xs={{ span: 12 }}
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
                 md={{ span: 6 }}
                 style={{ paddingTop: 30, paddingBottom: 30 }}
               >
@@ -101,7 +112,8 @@ function Footer() {
                 </Link>
               </Col>
               <Col
-                xs={{ span: 12 }}
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
                 md={{ span: 6 }}
                 style={{ paddingTop: 30, paddingBottom: 30 }}
               >
@@ -120,7 +132,8 @@ function Footer() {
                 </Link>
               </Col>
               <Col
-                xs={{ span: 12 }}
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
                 md={{ span: 6 }}
                 style={{ paddingTop: 30, paddingBottom: 30 }}
               >
@@ -133,7 +146,8 @@ function Footer() {
                 </Link>
               </Col>
               <Col
-                xs={{ span: 12 }}
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
                 md={{ span: 6 }}
                 style={{ paddingTop: 30, paddingBottom: 30 }}
               >

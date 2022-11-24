@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Breadcrumb, Collapse, Card, Input, Modal, Select } from "antd";
+import { Breadcrumb, Collapse, Card, Input, Modal, Drawer } from "antd";
 
 export const Wrapper = styled.div`
   font-family: "Fredoka", sans-serif;
@@ -413,6 +413,7 @@ export const SBreadcrumb = styled(Breadcrumb)`
   }
 `;
 export const SCardArrival = styled(Card)`
+  border: none;
   .ant-card-body {
     border-radius: 10px 10px 0 0;
   }
@@ -474,5 +475,19 @@ export const SInputSearch = styled(Input)`
   }
   .ant-input {
     color: purple;
+  }
+`;
+export const SDrawer = styled(Drawer)`
+  .ant-drawer-content-wrapper {
+    width: 60% !important;
+  }
+  .ant-collapse-expand-icon {
+    display: none;
+  }
+  .ant-drawer-header {
+    display: none;
+  }
+  .ant-drawer-body {
+    padding-left: 6px;
   }
 `;
