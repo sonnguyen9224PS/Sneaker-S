@@ -435,7 +435,8 @@ function HomePage() {
         </S.ModalPreview>
         <S.CarouselWrapper>
           <Swiper
-            className="customCarousel mySwiper"
+            // className="customCarousel mySwiper"
+            className="mySwiper"
             navigation={true}
             loop={true}
             autoplay={{

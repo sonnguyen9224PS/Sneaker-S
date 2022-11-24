@@ -171,7 +171,13 @@ const ProductDetailPage = () => {
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
       return (
-        <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }} key={item.id}>
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 12 }}
+          md={{ span: 12 }}
+          lg={{ span: 6 }}
+          key={item.id}
+        >
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -885,7 +891,9 @@ const ProductDetailPage = () => {
                   Sản phẩm tương tự
                 </h3>
               </Col>
-              <Col span={24}>{renderProductList}</Col>
+            </Row>
+            <Row style={{ paddingLeft: 8, paddingRight: 8 }} gutter={[16, 16]}>
+              {renderProductList}
             </Row>
           </S.ParityProduct>
         </Container>

@@ -41,7 +41,14 @@
       "price": 16000000,
       "categoryId": 1,
       "slug": "Nike Jordan 1",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 500,
@@ -69,7 +76,14 @@
       "price": 5500000,
       "categoryId": 1,
       "slug": "Giày Nike Kyrie 7",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": "false",
       "sale": 50,
       "sold": 500,
@@ -97,7 +111,14 @@
       "price": 1500000,
       "categoryId": 1,
       "slug": "Nike Dunk Low",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 500,
@@ -125,7 +146,14 @@
       "price": 7000000,
       "categoryId": 1,
       "slug": "Nike Air More Uptempo",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 70,
       "sold": 1000,
@@ -153,7 +181,14 @@
       "price": 1500000,
       "categoryId": 2,
       "slug": "Vans Old Skool Mule",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 50,
       "sold": 1200,
@@ -181,7 +216,14 @@
       "price": 50000,
       "categoryId": 2,
       "slug": "Vans Style 36 Vintage Sport 'Sailor Blue'",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 30,
       "sold": 1000,
@@ -209,7 +251,14 @@
       "price": 3000000,
       "categoryId": 2,
       "slug": "Vans The Simpsons 'Springfield' ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 30,
       "sold": 1500,
@@ -237,7 +286,14 @@
       "price": 2000000,
       "categoryId": 2,
       "slug": "Vans Classic Slip-On 98 DX 'Aloha Navy'",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 1500,
@@ -265,7 +321,14 @@
       "price": 9000000,
       "categoryId": 11,
       "slug": "Asics BAPE x Gel 1090",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 1500,
@@ -293,7 +356,14 @@
       "price": 20000000,
       "categoryId": 11,
       "slug": "Adidas BAPE x Superstar 'Mixed Camo' ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 500,
@@ -321,7 +391,14 @@
       "price": 50034000,
       "categoryId": 11,
       "slug": "Adidas BAPE x Superstar 'White Black' ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": true,
       "sale": 0,
       "sold": 500,
@@ -349,7 +426,14 @@
       "price": 10900000,
       "categoryId": 11,
       "slug": "BAPE Sta Mi #2 M2 'BLA'",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 30,
       "sold": 500,
@@ -377,7 +461,14 @@
       "price": 3200000,
       "categoryId": 14,
       "slug": "Lacoste 2019 SS Sneakers ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 70,
       "sold": 500,
@@ -405,7 +496,14 @@
       "price": 4100000,
       "categoryId": 14,
       "slug": "Lacoste Bayan Ayakkab Graduate ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 70,
       "sold": 500,
@@ -433,7 +531,14 @@
       "price": 5700000,
       "categoryId": 14,
       "slug": "Lacoste Brake RZ0040M51G-1Y5",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 70,
       "sold": 500,
@@ -461,7 +566,14 @@
       "price": 8000000,
       "categoryId": 14,
       "slug": "Lacoste Storm 96 Lo Synthetic and Leather ",
-      "size": [38, 39, 40, 41, 42, 43],
+      "size": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
       "new": false,
       "sale": 70,
       "sold": 500,
@@ -558,20 +670,6 @@
   ],
   "favorites": [
     {
-      "userId": 2,
-      "productId": 1,
-      "createdAt": 1669127812276,
-      "updatedAt": 1669127812277,
-      "id": 1
-    },
-    {
-      "userId": 2,
-      "productId": 2,
-      "createdAt": 1669127862155,
-      "updatedAt": 1669127862155,
-      "id": 2
-    },
-    {
       "userId": 3,
       "productId": 7,
       "createdAt": 1669134286476,
@@ -584,6 +682,13 @@
       "createdAt": 1669134674482,
       "updatedAt": 1669134674482,
       "id": 4
+    },
+    {
+      "userId": 2,
+      "productId": 3,
+      "createdAt": 1669281168958,
+      "updatedAt": 1669281168958,
+      "id": 6
     }
   ],
   "reviews": [
@@ -622,6 +727,15 @@
       "createdAt": 1669134665083,
       "updatedAt": 1669134665083,
       "id": 4
+    },
+    {
+      "rate": 3.5,
+      "comment": "giày tốt",
+      "userId": 2,
+      "productId": 2,
+      "createdAt": 1669280949722,
+      "updatedAt": 1669280949723,
+      "id": 5
     }
   ],
   "news": [
@@ -676,6 +790,24 @@
       "createdAt": 1669127914915,
       "updatedAt": 1669127914915,
       "id": 1
+    },
+    {
+      "email": "son1@gmail.com",
+      "fullName": "nguyen thai son",
+      "phoneNumber": "0387589234",
+      "address": "12 đà nẵng",
+      "cityCode": "Thành phố Đà Nẵng",
+      "districtCode": "Quận Ngũ Hành Sơn",
+      "wardCode": "Phường Hoà Quý",
+      "transport": "0",
+      "method": "atm",
+      "bank": "vietinbank",
+      "userId": 2,
+      "totalPrice": 12200000,
+      "status": "pending",
+      "createdAt": 1669281069111,
+      "updatedAt": 1669281069111,
+      "id": 2
     }
   ],
   "orderProducts": [
@@ -733,6 +865,28 @@
       "createdAt": 1669127915720,
       "updatedAt": 1669127915720,
       "id": 5
+    },
+    {
+      "orderId": 2,
+      "productId": 2,
+      "productName": "Nike Kyrie 7 Roswell Rayguns",
+      "price": 5500000,
+      "quantity": 2,
+      "size": 39,
+      "createdAt": 1669281069375,
+      "updatedAt": 1669281069375,
+      "id": 6
+    },
+    {
+      "orderId": 2,
+      "productId": 1,
+      "productName": "Nike air jordan new",
+      "price": 1200000,
+      "quantity": 1,
+      "size": 42,
+      "createdAt": 1669281069482,
+      "updatedAt": 1669281069482,
+      "id": 7
     }
   ],
   "cities": [
