@@ -13,6 +13,8 @@ function* getProductListSaga(action) {
         _limit: params.limit,
         ...(params.categoryId && { categoryId: params.categoryId }),
         ...(params.keyword && { q: params.keyword }),
+        ...(params.new && { new: params.new }),
+        ...(params.sale && { sale: params.sale }),
         ...(params.order === "priceUp" && {
           _sort: "price",
           _order: "asc",
@@ -100,7 +102,7 @@ function* getNewListSaga(action) {
         _expand: "category",
         _page: params.page,
         _limit: params.limit,
-        ...(params.new && { new: true }),
+        ...(params.new && { new: "true" }),
       },
     });
 

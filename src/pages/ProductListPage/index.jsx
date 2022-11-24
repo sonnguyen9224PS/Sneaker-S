@@ -31,6 +31,7 @@ import {
   getBestSellListAction,
   getProductDetailAction,
   addToCartAction,
+  getNewListAction,
 } from "../../redux/actions";
 import { PRODUCT_LIST_LIMIT } from "../../constants/pagination.js";
 import * as S from "./styles";
@@ -75,6 +76,7 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { productDetail } = useSelector((state) => state.product);
+  const { newProductList } = useSelector((state) => state.product);
 
   const { bestSellList } = useSelector((state) => state.product);
   const { categoryList } = useSelector((state) => state.category);
@@ -146,7 +148,6 @@ const ProductListPage = () => {
         new: state.new,
       });
     }
-    dispatch(getCategoryListAction());
   }, [state]);
 
   //best sell

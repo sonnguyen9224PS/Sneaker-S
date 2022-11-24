@@ -51,6 +51,10 @@ function HomePage() {
   const { saleProductList } = useSelector((state) => state.product);
 
   const { newProductList } = useSelector((state) => state.product);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 54 ~ HomePage ~ newProductList",
+    newProductList
+  );
   const { productDetail } = useSelector((state) => state.product);
   const { newsList } = useSelector((state) => state.news);
 
@@ -83,17 +87,6 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(
-      getNewsListAction({
-        params: {
-          page: 1,
-          limit: 3,
-        },
-      })
-    );
-  }, []);
-
-  useEffect(() => {
-    dispatch(
       getSaleListAction({
         params: {
           page: 1,
@@ -107,7 +100,7 @@ function HomePage() {
         params: {
           page: 1,
           limit: 8,
-          sale: 30,
+          new: true,
         },
       })
     );
@@ -233,9 +226,6 @@ function HomePage() {
               </div>
             </div>
             <div className="contentProduct">
-              <div className="offProduct">
-                <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
-              </div>
               <div className="nameProduct">
                 <i class="fa-solid fa-award"></i>
                 {item.name}
