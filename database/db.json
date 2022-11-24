@@ -32,6 +32,17 @@
       "createdAt": 1669134242529,
       "updatedAt": 1669134242529,
       "id": 3
+    },
+    {
+      "email": "son3@gmail.com",
+      "password": "$2a$10$9/3EcIt/rXnmValsw10CZOC6mO6o7ohjE2i6Ynv/QvGbi/EoWNVAa",
+      "fullName": "son3",
+      "role": "user",
+      "phone": "0892347479",
+      "avatar": "",
+      "createdAt": 1669281814443,
+      "updatedAt": 1669281814443,
+      "id": 4
     }
   ],
   "products": [

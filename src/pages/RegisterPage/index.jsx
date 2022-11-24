@@ -98,6 +98,7 @@ const RegisterPage = () => {
                       },
                       {
                         type: "email",
+                        message: "Không phải là email!",
                       },
                     ]}
                   >
