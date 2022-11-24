@@ -171,7 +171,7 @@ const ProductDetailPage = () => {
   const renderProductList = useMemo(() => {
     return productList.data.map((item) => {
       return (
-        <Col span={6} key={item.id}>
+        <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }} key={item.id}>
           <div className="productItem">
             <div className="imageWrap">
               <Link
@@ -435,7 +435,11 @@ const ProductDetailPage = () => {
             </Breadcrumb>
           </Row>
           <Row>
-            <Col span="12" style={{ backgroundColor: "#fff" }}>
+            <Col
+              xs={{ span: 24 }}
+              md={{ span: 12 }}
+              style={{ backgroundColor: "#fff" }}
+            >
               <Row style={{ flexDirection: "column" }}>
                 <Col span="12" style={{ maxWidth: "100%", minHeight: "20rem" }}>
                   {/* carousel detail product */}
@@ -495,7 +499,7 @@ const ProductDetailPage = () => {
                 </Col>
               </Row>
             </Col>
-            <Col span="12">
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Card className="detailCard">
                 <h3 className="detailTtl">{productDetail.data.name}</h3>
                 <div className="iconTtlRight">
@@ -615,7 +619,11 @@ const ProductDetailPage = () => {
             </Col>
           </Row>
           <Row style={{ marginBottom: "1rem" }}>
-            <Col span="12" style={{ maxWidth: "100%" }}>
+            <Col
+              xs={{ span: 24, order: 2 }}
+              md={{ span: 12 }}
+              style={{ maxWidth: "100%" }}
+            >
               <S.CardComment
                 size="small"
                 bordered={false}
@@ -656,7 +664,7 @@ const ProductDetailPage = () => {
                 {renderReviewList}
               </S.CardComment>
             </Col>
-            <Col span={12}>
+            <Col xs={{ span: 24, order: 1 }} md={{ span: 12 }}>
               <div
                 style={{
                   textAlign: "center",

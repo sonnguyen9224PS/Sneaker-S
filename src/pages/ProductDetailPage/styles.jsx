@@ -232,6 +232,8 @@ export const ParityProduct = styled.div`
       display: flex;
       justify-content: start;
       .priceProduct {
+        display: flex;
+        flex-wrap: wrap;
         font-weight: bold;
         & > i {
           margin-right: 11px;
