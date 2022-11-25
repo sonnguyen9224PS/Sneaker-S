@@ -52,7 +52,7 @@ function* registerSaga(action, callback) {
     });
   } catch (e) {
     notification.error({
-      message: "Login failed!",
+      message: "Đăng ký thất bại!",
     });
     yield put({
       type: FAIL(USER_ACTION.REGISTER),
