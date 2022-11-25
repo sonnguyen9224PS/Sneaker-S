@@ -17,16 +17,8 @@ const RegisterPage = () => {
     if (registerData.error) {
       registerForm.setFields([
         {
-          name: "fullName",
-          errors: [""],
-        },
-        {
           name: "email",
           errors: [registerData.error],
-        },
-        {
-          name: "phone",
-          errors: [""],
         },
       ]);
     }
