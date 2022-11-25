@@ -29,7 +29,7 @@ function* loginSaga(action) {
     yield put({
       type: FAIL(USER_ACTION.LOGIN),
       payload: {
-        error: "Email or password was wrong, please confirm again!",
+        error: "Email hoặc password sai, vui lòng kiểm tra lại!",
       },
     });
   }
@@ -57,7 +57,10 @@ function* registerSaga(action, callback) {
     yield put({
       type: FAIL(USER_ACTION.REGISTER),
       payload: {
-        error: e.response?.data,
+        error:
+          e.response?.data === "Email already exists"
+            ? "Email đã tồn tại!"
+            : e.response?.data,
       },
     });
   }
