@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const NewsWrapper = styled.div`
   font-family: "Fredoka", sans-serif;
+  margin-bottom: 48px;
 
   .content {
     max-width: 400px;

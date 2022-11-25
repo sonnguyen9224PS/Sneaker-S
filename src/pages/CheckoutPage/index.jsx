@@ -126,14 +126,10 @@ function CheckoutPage() {
               handleSubmitPaymentForm(values);
             }}
           >
-            <Row style={{ width: "100%" }}>
-              <Col span={16} className="checkoutLeft">
-                <Row style={{ width: "100%" }}>
-                  <Col
-                    span={12}
-                    style={{ paddingRight: 30 }}
-                    className="infoCheckout"
-                  >
+            <Row gutter={[24, 24]}>
+              <Col lg={16} xs={24} className="checkoutLeft">
+                <Row gutter={[24, 24]}>
+                  <Col md={12} xs={24} className="infoCheckout">
                     <div className="infoHead">
                       <h3 className="infoTtl">Thông tin nhận hàng</h3>
                     </div>
@@ -275,11 +271,7 @@ function CheckoutPage() {
                     </Form.Item>
                     <TextArea placeholder="Ghi chú"></TextArea>
                   </Col>
-                  <Col
-                    style={{ paddingRight: 30 }}
-                    span={12}
-                    className="transportPayment"
-                  >
+                  <Col md={12} xs={24} className="transportPayment">
                     <Row
                       style={{ width: "100%", marginBottom: 20 }}
                       className="transport"
@@ -509,7 +501,7 @@ function CheckoutPage() {
                   </Col>
                 </Row>
               </Col>
-              <Col span={8} className="checkoutRight">
+              <Col lg={8} xs={24} className="checkoutRight">
                 <h3>
                   Đơn hàng (<span>{cartList.length}</span> sản phẩm)
                 </h3>
@@ -533,7 +525,9 @@ function CheckoutPage() {
                       <Col style={{ fontWeight: "bold" }} span={8}>
                         {item.name}
                       </Col>
-                      <Col span={8}>{item.price.toLocaleString("vi-VN")}₫</Col>
+                      <Col span={8} style={{ textAlign: "right" }}>
+                        {item.price.toLocaleString("vi-VN")}₫
+                      </Col>
                     </Row>
                   ))}
                 </Row>
@@ -553,7 +547,7 @@ function CheckoutPage() {
                     }}
                   >
                     <span>Phí vận chuyển</span>
-                    <span>{transport}</span>
+                    <span>{parseInt(transport).toLocaleString("vi-VN")}₫</span>
                   </Row>
                 </Row>
                 <Row className="moneyFinal">
@@ -593,7 +587,10 @@ function CheckoutPage() {
                             color: "#2a9dcc",
                           }}
                         >
-                          <i class="fa-solid fa-circle-chevron-left"></i>
+                          <i
+                            class="fa-solid fa-circle-chevron-left"
+                            style={{ marginRight: 4 }}
+                          ></i>
                           Quay về giỏ hàng
                         </span>
                       </Link>

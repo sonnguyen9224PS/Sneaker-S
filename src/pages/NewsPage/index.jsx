@@ -40,7 +40,7 @@ function NewsPage() {
           <div
             className="imgNews"
             style={{
-              width: 400,
+              width: "100%",
               height: 250,
               overflow: "hidden",
               borderRadius: 10,
@@ -90,7 +90,7 @@ function NewsPage() {
       return (
         <Row
           justify="center"
-          style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
+          style={{ marginBottom: 16, alignItems: "center" }}
         >
           <Col span={10} className="imgNews">
             <Link
@@ -119,7 +119,7 @@ function NewsPage() {
       return (
         <Row
           justify="center"
-          style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
+          style={{ marginBottom: 16, alignItems: "center" }}
         >
           <Col span={10} className="imgNews">
             <Link
@@ -161,9 +161,9 @@ function NewsPage() {
             </Breadcrumb.Item>
             <Breadcrumb.Item>Danh mục tin tức</Breadcrumb.Item>
           </Breadcrumb>
-          <Row>
+          <Row gutter={[24, 24]}>
             <Col span={6}>
-              <Card>
+              <Card size="small" style={{ marginBottom: 24 }}>
                 <h3>
                   <i
                     style={{ marginRight: 3 }}
@@ -173,7 +173,7 @@ function NewsPage() {
                 </h3>
                 <div>{renderNewsList()}</div>
               </Card>
-              <Card>
+              <Card size="small">
                 <h3>
                   <i
                     style={{ marginRight: 3 }}
@@ -184,30 +184,24 @@ function NewsPage() {
                 <div>{renderBestSellProduct()}</div>
               </Card>
             </Col>
-            <Col
-              span={18}
-              style={{
-                padding: 24,
-                borderTop: "solid",
-                borderLeft: "solid",
-                borderColor: "#f7f7f7",
-              }}
-            >
-              <h2
-                style={{
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                  letterSpacing: 2.2,
-                }}
-              >
-                Tin tức và bài viết
-              </h2>
-              <Row>{renderNews()}</Row>
-              <Pagination
-                style={{ display: "flex", justifyContent: "center" }}
-                defaultCurrent={1}
-                total={10}
-              />
+            <Col span={18}>
+              <div>
+                <h2
+                  style={{
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                    letterSpacing: 2.2,
+                  }}
+                >
+                  Tin tức và bài viết
+                </h2>
+                <Row gutter={[24, 24]}>{renderNews()}</Row>
+                <Pagination
+                  style={{ display: "flex", justifyContent: "center" }}
+                  defaultCurrent={1}
+                  total={10}
+                />
+              </div>
             </Col>
           </Row>
         </S.NewsWrapper>

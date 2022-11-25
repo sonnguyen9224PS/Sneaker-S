@@ -45,6 +45,7 @@ const RegisterPage = () => {
   return (
     <S.MainWrapper>
       <Row>
+        <Col span={12} className="rightSignin"></Col>
         <Col span={12}>
           <div
             style={{
@@ -205,7 +206,6 @@ const RegisterPage = () => {
             </p>
           </div>
         </Col>
-        <Col span={12} className="rightSignin"></Col>
       </Row>
     </S.MainWrapper>
   );

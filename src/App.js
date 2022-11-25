@@ -9,6 +9,7 @@ import jwtDecode from "jwt-decode";
 
 import UserLayout from "./layouts/UserLayout/index";
 import LoginLayout from "./layouts/LoginLayout";
+import RegisterLayout from "./layouts/RegisterLayout";
 import AdminLayout from "./layouts/AdminLayout";
 
 import HomePage from "./pages/HomePage";
@@ -62,6 +63,8 @@ function App() {
       </Route>
       <Route element={<LoginLayout />}>
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      </Route>
+      <Route element={<RegisterLayout />}>
         <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       </Route>
       <Route element={<AdminLayout />}>
