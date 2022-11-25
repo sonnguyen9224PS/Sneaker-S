@@ -813,9 +813,8 @@ const ProductListPage = () => {
                     range
                     marks={{
                       0: "0",
-                      5000000: "5 triệu",
                       10000000: "10 triệu",
-                      15000000: "15 triệu",
+                      30000000: "30 triệu",
                     }}
                     tooltip={{ formatter }}
                     min={PRICE_MIN}
