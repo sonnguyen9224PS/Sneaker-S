@@ -51,10 +51,7 @@ function HomePage() {
   const { saleProductList } = useSelector((state) => state.product);
 
   const { newProductList } = useSelector((state) => state.product);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 54 ~ HomePage ~ newProductList",
-    newProductList
-  );
+
   const { productDetail } = useSelector((state) => state.product);
   const { newsList } = useSelector((state) => state.news);
 
@@ -91,7 +88,7 @@ function HomePage() {
         params: {
           page: 1,
           limit: 8,
-          sale: 30,
+          sale: true,
         },
       })
     );
@@ -435,7 +432,6 @@ function HomePage() {
         </S.ModalPreview>
         <S.CarouselWrapper>
           <Swiper
-            // className="customCarousel mySwiper"
             className="mySwiper"
             navigation={true}
             loop={true}

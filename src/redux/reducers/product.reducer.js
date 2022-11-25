@@ -21,13 +21,11 @@ const initialState = {
   },
   saleProductList: {
     data: [],
-    meta: {},
     loading: false,
     error: "",
   },
   newProductList: {
     data: [],
-    meta: {},
     loading: false,
     error: "",
   },
@@ -117,13 +115,12 @@ const productReducer = createReducer(initialState, {
     };
   },
   [SUCCESS(PRODUCT_ACTION.GET_SALE_LIST)]: (state, action) => {
-    const { data, meta } = action.payload;
+    const { data } = action.payload;
     return {
       ...state,
       saleProductList: {
         ...state.saleProductList,
         data: data,
-        meta: meta,
         loading: false,
       },
     };
@@ -150,13 +147,12 @@ const productReducer = createReducer(initialState, {
     };
   },
   [SUCCESS(PRODUCT_ACTION.GET_NEW_LIST)]: (state, action) => {
-    const { data, meta } = action.payload;
+    const { data } = action.payload;
     return {
       ...state,
       newProductList: {
         ...state.newProductList,
         data: data,
-        meta: meta,
         loading: false,
       },
     };

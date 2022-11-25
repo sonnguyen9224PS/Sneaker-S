@@ -76,7 +76,6 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { productDetail } = useSelector((state) => state.product);
-  const { newProductList } = useSelector((state) => state.product);
 
   const { bestSellList } = useSelector((state) => state.product);
   const { categoryList } = useSelector((state) => state.category);

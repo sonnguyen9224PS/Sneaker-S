@@ -77,11 +77,6 @@ function* getSaleListSaga(action) {
       type: SUCCESS(PRODUCT_ACTION.GET_SALE_LIST),
       payload: {
         data: result.data,
-        meta: {
-          total: parseInt(result.headers["x-total-count"]),
-          page: params.page,
-          limit: params.limit,
-        },
       },
     });
   } catch (e) {
@@ -102,7 +97,7 @@ function* getNewListSaga(action) {
         _expand: "category",
         _page: params.page,
         _limit: params.limit,
-        ...(params.new && { new: "true" }),
+        ...(params.new && { new: true }),
       },
     });
 
@@ -110,11 +105,6 @@ function* getNewListSaga(action) {
       type: SUCCESS(PRODUCT_ACTION.GET_NEW_LIST),
       payload: {
         data: result.data,
-        meta: {
-          total: parseInt(result.headers["x-total-count"]),
-          page: params.page,
-          limit: params.limit,
-        },
       },
     });
   } catch (e) {
