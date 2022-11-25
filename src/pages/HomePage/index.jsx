@@ -611,23 +611,26 @@ function HomePage() {
               <Link to={ROUTES.USER.PRODUCT_LIST}>Thương hiệu nổi bật</Link>
             </h2>
           </Row>
-          <Container>
-            <Row justify="space-evenly">
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [1] }}>
-                <Col style={{ display: "flex", alignItems: "center" }}>
+          <Container style={{ padding: "0 12px" }}>
+            <Row justify="center" gutter={[24, 24]}>
+              <Col
+                flex={1}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [1] }}>
                   <div className="brandItem">
                     <img
                       src="https://theme.hstatic.net/200000384421/1000955298/14/home_brand_image_1.jpg?v=7"
                       alt=""
                     />
                   </div>
-                </Col>
-              </Link>
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [4] }}>
-                <Col
-                  className="brandItem"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
+                </Link>
+              </Col>
+              <Col
+                flex={1}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [4] }}>
                   <div className="brandItem">
                     <img
                       src="https://theme.hstatic.net/200000384421/1000955298/14/home_brand_image_2.jpg?v=7"
@@ -635,14 +638,14 @@ function HomePage() {
                       width={206}
                     />
                   </div>
-                </Col>
-              </Link>
+                </Link>
+              </Col>
 
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [3] }}>
-                <Col
-                  className="brandItem"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
+              <Col
+                flex={1}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [3] }}>
                   <div className="brandItem">
                     <img
                       src="https://theme.hstatic.net/200000384421/1000955298/14/home_brand_image_3.jpg?v=7"
@@ -650,13 +653,16 @@ function HomePage() {
                       width={206}
                     />
                   </div>
-                </Col>
-              </Link>
+                </Link>
+              </Col>
 
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [12] }}>
-                <Col
-                  className="brandItem"
-                  style={{ display: "flex", alignItems: "center" }}
+              <Col
+                flex={1}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Link
+                  to={ROUTES.USER.PRODUCT_LIST}
+                  state={{ categoryId: [12] }}
                 >
                   <div className="brandItem">
                     <img
@@ -665,14 +671,14 @@ function HomePage() {
                       width={206}
                     />
                   </div>
-                </Col>
-              </Link>
+                </Link>
+              </Col>
 
-              <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [5] }}>
-                <Col
-                  className="brandItem"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
+              <Col
+                flex={1}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Link to={ROUTES.USER.PRODUCT_LIST} state={{ categoryId: [5] }}>
                   <div className="brandItem">
                     <img
                       src="https://theme.hstatic.net/200000384421/1000955298/14/home_brand_image_5.jpg?v=7"
@@ -680,8 +686,8 @@ function HomePage() {
                       width={206}
                     />
                   </div>
-                </Col>
-              </Link>
+                </Link>
+              </Col>
             </Row>
           </Container>
         </S.SignificantBrand>

@@ -48,6 +48,7 @@ const LoginPage = () => {
         style={{
           margin: "auto",
           width: "30rem",
+          zIndex: 1,
         }}
       >
         <h2
@@ -62,7 +63,7 @@ const LoginPage = () => {
         </h2>
         <div>
           <Card
-            style={{ borderRadius: 20, boxShadow: "0 0 7px 4px grey" }}
+            style={{ borderRadius: 20 }}
             title={
               <span>
                 KHÁCH HÀNG ĐĂNG NHẬP
@@ -89,6 +90,7 @@ const LoginPage = () => {
                   },
                   {
                     type: "email",
+                    message: "Email không hợp lệ!",
                   },
                 ]}
               >
@@ -106,13 +108,13 @@ const LoginPage = () => {
               >
                 <Input.Password allowClear />
               </Form.Item>
-              <Form.Item>
+              <Form.Item noStyle>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   {loginData.loading ? (
                     <Spin tip="Loading...">
-                      <Button type="primary" htmlType="submit">
+                      <Button type="primary" htmlType="submit" block>
                         Đăng nhập
                         <i
                           style={{ marginLeft: 3 }}
@@ -121,7 +123,7 @@ const LoginPage = () => {
                       </Button>
                     </Spin>
                   ) : (
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" block>
                       Đăng nhập
                       <i
                         style={{ marginLeft: 3 }}

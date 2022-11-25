@@ -217,12 +217,10 @@ const ProductDetailPage = () => {
               </div>
             </div>
             <div className="contentProduct">
-              {item.sale > 0 ? (
+              {item.sale > 0 && (
                 <div className="offProduct">
                   <i class="fa-solid fa-bookmark"></i>Off {item.sale} %
                 </div>
-              ) : (
-                <div style={{ height: 30 }}></div>
               )}
               <div className="nameProduct">
                 <i class="fa-solid fa-award"></i>

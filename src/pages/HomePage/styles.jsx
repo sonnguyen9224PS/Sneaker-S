@@ -8,12 +8,12 @@ export const MainWrapper = styled.div`
 
   .productItem {
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
     border-radius: 16px;
+    height: 100%;
     overflow: hidden;
     &::before {
       position: absolute;
-      content: "SALE";
       width: 78px;
       height: 28px;
       top: 0;
@@ -26,8 +26,7 @@ export const MainWrapper = styled.div`
       z-index: 3;
     }
     .contentProduct {
-      padding-left: 20px;
-      padding-bottom: 16px;
+      padding: 12px;
     }
     .imageWrap {
       position: relative;
@@ -96,8 +95,10 @@ export const MainWrapper = styled.div`
       }
     }
     .offProduct {
-      margin: auto;
-      padding: 2px;
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 2px 6px;
       border: dashed 2px white;
       width: fit-content;
       background: #ff3800;
@@ -309,7 +310,7 @@ export const MainWrapper = styled.div`
   }
 `;
 export const CarouselWrapper = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
   .swiper-button-prev,
   .swiper-button-next {
     color: #fff;
@@ -516,7 +517,7 @@ export const BannerCollection = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
   }
 `;
 export const SignificantBrand = styled.div`
@@ -591,7 +592,7 @@ export const PreviewSwipeWrap = styled.div`
   .mySwiper {
     height: 20%;
     box-sizing: border-box;
-    padding: 10px 0;
+    padding: 0 10px;
   }
 
   .mySwiper .swiper-slide {
@@ -671,7 +672,7 @@ export const SModal = styled(Modal)`
         margin-bottom: 6px;
         .ant-radio-button-wrapper {
           border: solid 1px purple;
-          border-radius: 50%;
+          border-radius: 999px;
           margin-bottom: 3px;
           &:not(:last-child) {
             margin-right: 4px;

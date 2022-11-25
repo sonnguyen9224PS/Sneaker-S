@@ -54,7 +54,7 @@ function NewsDetailPage() {
       return (
         <Row
           justify="center"
-          style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
+          style={{ marginBottom: 16, alignItems: "center" }}
         >
           <Col span={10} className="imgItem">
             <Link
@@ -83,7 +83,7 @@ function NewsDetailPage() {
       return (
         <Row
           justify="center"
-          style={{ marginBottom: 10, padding: 10, alignItems: "center" }}
+          style={{ marginBottom: 16, alignItems: "center" }}
         >
           <Col span={10} className="imgItem">
             <Link
@@ -128,9 +128,9 @@ function NewsDetailPage() {
             </Breadcrumb.Item>
             <Breadcrumb.Item>Tin tức</Breadcrumb.Item>
           </Breadcrumb>
-          <Row>
+          <Row gutter={[24, 24]}>
             <Col span={6}>
-              <Card>
+              <Card size="small" style={{ marginBottom: 24 }}>
                 <h3>
                   <i
                     style={{ marginRight: 3 }}
@@ -140,7 +140,7 @@ function NewsDetailPage() {
                 </h3>
                 <div>{renderNewsList()}</div>
               </Card>
-              <Card>
+              <Card size="small">
                 <h3>
                   <i
                     style={{ marginRight: 3 }}
@@ -151,7 +151,7 @@ function NewsDetailPage() {
                 <div>{renderBestSellProduct()}</div>
               </Card>
             </Col>
-            <Col span={18} style={{ padding: 24 }}>
+            <Col span={18}>
               <div style={{ marginBottom: 15 }}>
                 <img
                   style={{ width: "100%" }}

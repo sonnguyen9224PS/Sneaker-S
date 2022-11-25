@@ -3,6 +3,7 @@ import { Table } from "antd";
 
 export const Profile = styled.div`
   font-family: "Fredoka", sans-serif;
+  margin-bottom: 48px;
 
   .avatarRow {
     .avatarCol {

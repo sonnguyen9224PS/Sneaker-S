@@ -11,7 +11,7 @@ export const HeaderContainerWrapper = styled.header`
   right: 0;
   z-index: 998;
   background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 `;
 
 export const Container = styled.div`
@@ -78,6 +78,7 @@ export const MenuHamburger = styled.div`
   }
   @media only screen and (max-width: 1106px) {
     display: flex;
+    justify-content: flex-end;
     order: 3;
     width: 33.33%;
   }
@@ -258,6 +259,7 @@ export const SDrawer = styled(Drawer)`
   }
   .ant-drawer-content-wrapper {
     width: 60% !important;
+    max-width: 400px;
   }
   .ant-collapse {
     border: none;
