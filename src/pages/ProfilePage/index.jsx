@@ -436,9 +436,8 @@ const ProfilePage = () => {
                 layout="vertical"
                 style={{
                   width: "50rem",
-                  border: "solid 1px darkgrey",
-                  borderRadius: 15,
-                  padding: 30,
+                  borderRadius: 10,
+                  padding: "0 24px",
                   marginBottom: 30,
                 }}
                 onFinish={(values) => handleUpdatePassword(values)}
