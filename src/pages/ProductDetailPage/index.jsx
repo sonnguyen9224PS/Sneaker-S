@@ -99,7 +99,7 @@ const ProductDetailPage = () => {
           dispatch(
             unFavoriteProductAction({
               id: favoriteData.id,
-              productId: productDetail.data.id,
+              // productId: productDetail.data.id,
             })
           );
         }

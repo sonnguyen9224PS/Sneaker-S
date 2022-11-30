@@ -132,7 +132,7 @@ const userReducer = createReducer(initialState, {
       },
     };
   },
-
+  // update password
   [REQUEST(USER_ACTION.UPDATE_PASSWORD)]: (state, action) => {
     return {
       ...state,

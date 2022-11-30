@@ -854,6 +854,24 @@
       "createdAt": 1669370354499,
       "updatedAt": 1669370354501,
       "id": 4
+    },
+    {
+      "email": "son1@gmail.com",
+      "fullName": "nguyen thai son",
+      "phoneNumber": "0387589234",
+      "address": "12332 lê duẩn",
+      "cityCode": "Thành phố Hải Phòng",
+      "districtCode": "Quận Dương Kinh",
+      "wardCode": "Phường Hưng Đạo",
+      "transport": "30000",
+      "method": "atm",
+      "bank": "vietcombank",
+      "userId": 2,
+      "totalPrice": 200000,
+      "status": "pending",
+      "createdAt": 1669394701673,
+      "updatedAt": 1669394701673,
+      "id": 5
     }
   ],
   "orderProducts": [
@@ -966,6 +984,17 @@
       "createdAt": 1669370355012,
       "updatedAt": 1669370355013,
       "id": 10
+    },
+    {
+      "orderId": 5,
+      "productId": 8,
+      "productName": "Vans Classic Slip-On 98 DX 'Aloha Navy'",
+      "price": 200000,
+      "quantity": 1,
+      "size": 42,
+      "createdAt": 1669394702428,
+      "updatedAt": 1669394702428,
+      "id": 11
     }
   ],
   "cities": [

@@ -274,7 +274,7 @@ const ProfilePage = () => {
           <Tabs
             tabPosition="left"
             onTabClick={callbackTabClicked}
-            defaultActiveKey={state.activeKey}
+            defaultActiveKey={state.activeKey || 1}
           >
             <Tabs.TabPane
               className="tabItem"
