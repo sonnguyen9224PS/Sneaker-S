@@ -3,7 +3,6 @@ import { Drawer } from "antd";
 
 export const HeaderContainerWrapper = styled.header`
   font-family: "Fredoka", sans-serif;
-  position: sticky;
   font-family: "Fredoka", sans-serif;
   width: 100%;
   top: 0;

@@ -107,6 +107,11 @@ export const DetailWrapper = styled.div`
       box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
     }
   }
+  .imgColLeft {
+    @media screen and (max-width: 767px) {
+      margin-bottom: 100px;
+    }
+  }
 `;
 export const CardComment = styled(Card)`
   .ant-card-head {
@@ -327,12 +332,6 @@ export const PreviewSwipeWrap = styled.div`
     align-items: center;
   }
 
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
   .swiper {
     width: 100%;
     height: 300px;
@@ -345,7 +344,7 @@ export const PreviewSwipeWrap = styled.div`
     padding: 0 10px;
   }
   .mySwiper2 {
-    height: 80%;
+    height: 100%;
     width: 100%;
   }
   .mySwiper {
@@ -368,7 +367,7 @@ export const PreviewSwipeWrap = styled.div`
   }
   .swiper-slide img {
     display: block;
-    width: 80%;
+    width: 100%;
     height: 100%;
     object-fit: contain;
   }

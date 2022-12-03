@@ -321,12 +321,15 @@ const ProductDetailPage = () => {
           <Row width="100%">
             <Col span={12} style={{ padding: "0 2px" }}>
               <S.PreviewSwipeWrap
-                style={{ width: "100%", height: 400, margin: "auto" }}
+                style={{ width: "100%", height: "100%", margin: "auto" }}
               >
                 <>
                   {!productDetail.data?.images?.length ? null : (
                     <>
                       <Swiper
+                        style={{
+                          "--swiper-navigation-color": "purple",
+                        }}
                         loop={true}
                         spaceBetween={10}
                         navigation={true}
@@ -345,28 +348,6 @@ const ProductDetailPage = () => {
                             <img src={productDetail.data.images[2].src} />
                           </SwiperSlide>
                         </>
-                      </Swiper>
-                      <Swiper
-                        onSwiper={setThumbsSwiper}
-                        loop={true}
-                        spaceBetween={10}
-                        slidesPerView={3}
-                        freeMode={true}
-                        watchSlidesProgress={true}
-                        slideToClickedSlide={true}
-                        watchSlidesVisibility={true}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper"
-                      >
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[0].src} />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[1].src} />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <img src={productDetail.data.images[2].src} />
-                        </SwiperSlide>
                       </Swiper>
                     </>
                   )}
@@ -456,6 +437,7 @@ const ProductDetailPage = () => {
           </Row>
           <Row>
             <Col
+              className="imgColLeft"
               xs={{ span: 24 }}
               md={{ span: 12 }}
               style={{ backgroundColor: "#fff" }}
