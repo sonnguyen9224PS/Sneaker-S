@@ -18,7 +18,6 @@ import { ROUTES } from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  getCategoryListAction,
   getSaleListAction,
   getProductDetailAction,
   getNewListAction,
@@ -49,9 +48,7 @@ function HomePage() {
   };
 
   const { saleProductList } = useSelector((state) => state.product);
-
   const { newProductList } = useSelector((state) => state.product);
-
   const { productDetail } = useSelector((state) => state.product);
   const { newsList } = useSelector((state) => state.news);
 
@@ -101,7 +98,14 @@ function HomePage() {
         },
       })
     );
-    dispatch(getCategoryListAction());
+    dispatch(
+      getNewsListAction({
+        params: {
+          page: 1,
+          limit: 3,
+        },
+      })
+    );
   }, []);
 
   // render
@@ -308,7 +312,7 @@ function HomePage() {
       <S.MainWrapper>
         <S.ModalPreview>
           <S.SModal
-            width="80%"
+            width="70%"
             style={{ padding: 10 }}
             footer={null}
             cancelButtonProps={{ style: { display: "none" } }}

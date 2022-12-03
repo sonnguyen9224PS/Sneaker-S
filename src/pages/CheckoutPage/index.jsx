@@ -483,7 +483,7 @@ function CheckoutPage() {
                                       className="radioBank"
                                       style={{
                                         backgroundImage:
-                                          "url(https://play-lh.googleusercontent.com/q5wqKXhyn4ubmHHWcqyCAcZJU1t6pmSUtzzdc8WSAEJD_ml0mu2l4Rp7XRRKuLjj2KA=w416-h235-rw",
+                                          "url( ",
                                         backgroundSize: "cover",
                                         backgroundPosition: "center",
                                         backgroundColor: "#fff",

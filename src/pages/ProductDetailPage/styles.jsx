@@ -27,6 +27,7 @@ export const DetailWrapper = styled.div`
   .detailCard {
     .ant-card-body {
       padding-bottom: 4rem;
+      padding-top: 6px;
     }
     .detailTtl {
       text-transform: uppercase;
@@ -301,6 +302,78 @@ export const ParityProduct = styled.div`
     }
   }
 `;
+
+export const PreviewSwipeWrap = styled.div`
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .swiper {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .swiper-slide {
+    background-size: cover;
+    background-position: center;
+    padding: 0 10px;
+  }
+  .mySwiper2 {
+    height: 80%;
+    width: 100%;
+  }
+  .mySwiper {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+  .mySwiper .swiper-slide {
+    width: 25%;
+    height: 100%;
+    border: solid 1px purple;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0.8;
+  }
+  .mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+    border: solid 3px purple;
+    overflow: hidden;
+  }
+  .swiper-slide img {
+    display: block;
+    width: 80%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
+
 export const SModal = styled(Modal)`
   .ant-modal-body {
     .ant-col-12:first-child {
@@ -308,16 +381,26 @@ export const SModal = styled(Modal)`
       border-color: purple;
       border-radius: 20px 0 0 20px;
       overflow: hidden;
-      .swiper-slide {
+      .mySwiper {
+        height: 20%;
+        box-sizing: border-box;
         padding: 0 10px;
       }
       .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
         border: solid 1px purple;
-      }
-      .mySwiper .swiper-slide-thumb-active {
-        opacity: 1;
-        border-width: 3px;
+        border-radius: 10px;
         overflow: hidden;
+        opacity: 1;
+      }
+      .mySwiper .swiper-slide {
+        &:active,
+        :focus {
+          opacity: 1;
+          border: solid 3px purple;
+          overflow: hidden;
+        }
       }
     }
     .ant-col-12:nth-child(2) {
@@ -414,75 +497,5 @@ export const SModal = styled(Modal)`
       );
       box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
     }
-  }
-`;
-export const PreviewSwipeWrap = styled.div`
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
-
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .swiper {
-    width: 100%;
-    height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .swiper-slide {
-    background-size: cover;
-    background-position: center;
-    padding: 0 10px;
-  }
-  .mySwiper2 {
-    height: 80%;
-    width: 100%;
-  }
-  .mySwiper {
-    height: 20%;
-    box-sizing: border-box;
-    padding: 0 10px;
-  }
-  .mySwiper .swiper-slide {
-    width: 25%;
-    height: 100%;
-    border: solid 1px purple;
-    border-radius: 10px;
-    /* opacity: 0.6; */
-    overflow: hidden;
-  }
-  .mySwiper .swiper-slide-thumb-active {
-    opacity: 1 !important;
-    border: solid 3px purple;
-    overflow: hidden;
-  }
-  .swiper-slide img {
-    display: block;
-    width: 80%;
-    height: 100%;
-    object-fit: contain;
   }
 `;

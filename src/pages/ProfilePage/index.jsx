@@ -25,6 +25,8 @@ import {
 } from "@ant-design/icons";
 
 import moment from "moment";
+import jwtDecode from "jwt-decode";
+
 import * as S from "./styles";
 import {
   getOrderList,
@@ -39,12 +41,13 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
+
   const { orderList } = useSelector((state) => state.order);
   const { categoryList } = useSelector((state) => state.category);
   const { favoriteList } = useSelector((state) => state.favorite);
-
   const { state } = useLocation();
   const { confirm } = Modal;
+  const oldPassword = userInfo.data.password;
 
   useEffect(() => {
     if (userInfo.data.id) {

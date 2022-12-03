@@ -414,7 +414,7 @@ const ProductListPage = () => {
               </p>
               <p className="soldProduct">
                 <i class="fa-solid fa-hand-holding-dollar"></i>Đã bán:{" "}
-                {item.sold}{" "}
+                {item.sold}
               </p>
               <div className="authenProduct">
                 <i class="fa-solid fa-circle-check"></i>
@@ -544,7 +544,7 @@ const ProductListPage = () => {
         <S.Wrapper>
           <S.ModalPreview>
             <S.SModal
-              width="80%"
+              width="70%"
               style={{ padding: 10 }}
               footer={null}
               cancelButtonProps={{ style: { display: "none" } }}

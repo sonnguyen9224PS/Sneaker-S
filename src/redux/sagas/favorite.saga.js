@@ -6,7 +6,7 @@ import { FAVORITE_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 function* favoriteProductSaga(action) {
   try {
     const result = yield axios.post(
-      "http://localhost:4000/favorites",
+      "https://sneaker-s-api-production.up.railway.app/favorites",
       action.payload
     );
     yield put({
@@ -28,7 +28,9 @@ function* favoriteProductSaga(action) {
 function* unFavoriteProductSaga(action) {
   try {
     const { id } = action.payload;
-    yield axios.delete(`http://localhost:4000/favorites/${id}`);
+    yield axios.delete(
+      `https://sneaker-s-api-production.up.railway.app/favorites/${id}`
+    );
     yield put({
       type: SUCCESS(FAVORITE_ACTION.UN_FAVORITE_PRODUCT),
       payload: {
@@ -48,12 +50,15 @@ function* unFavoriteProductSaga(action) {
 function* getFavoriteListSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/favorites`, {
-      params: {
-        userId: id,
-        _expand: "product",
-      },
-    });
+    const result = yield axios.get(
+      `https://sneaker-s-api-production.up.railway.app/favorites`,
+      {
+        params: {
+          userId: id,
+          _expand: "product",
+        },
+      }
+    );
     yield put({
       type: SUCCESS(FAVORITE_ACTION.GET_FAVORITE_LIST),
       payload: {

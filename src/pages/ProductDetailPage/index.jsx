@@ -18,7 +18,7 @@ import {
 } from "antd";
 import _ from "lodash";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { useParams, Link, generatePath } from "react-router-dom";
+import { useParams, Link, generatePath, useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "./styles";
@@ -43,6 +43,7 @@ import {
 import { Container } from "../../layouts/Header/styles";
 
 const ProductDetailPage = () => {
+  const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [reviewForm] = Form.useForm();
   const { Panel } = Collapse;
@@ -99,13 +100,29 @@ const ProductDetailPage = () => {
           dispatch(
             unFavoriteProductAction({
               id: favoriteData.id,
-              // productId: productDetail.data.id,
+              productId: productDetail.data.id,
             })
           );
         }
       } else {
         notification.info({
           message: `Đã thêm vào list Sản phẩm yêu thích.`,
+          description: (
+            <button
+              style={{
+                cursor: "pointer",
+                background: "none",
+                border: "none",
+                outline: "none",
+                textDecoration: "underline",
+              }}
+              onClick={() => {
+                navigate(ROUTES.USER.PROFILE, { state: { activeKey: "3" } });
+              }}
+            >
+              Xem danh sách yêu thích
+            </button>
+          ),
         });
         dispatch(
           favoriteProductAction({
@@ -292,7 +309,7 @@ const ProductDetailPage = () => {
       <BackTop />
       <S.ModalPreview>
         <S.SModal
-          width="80%"
+          width="70%"
           style={{ padding: 10 }}
           footer={null}
           cancelButtonProps={{ style: { display: "none" } }}
@@ -310,14 +327,11 @@ const ProductDetailPage = () => {
                   {!productDetail.data?.images?.length ? null : (
                     <>
                       <Swiper
-                        style={{
-                          "--swiper-navigation-color": "purple",
-                        }}
                         loop={true}
                         spaceBetween={10}
                         navigation={true}
                         thumbs={{ swiper: thumbsSwiper }}
-                        modules={[FreeMode, Thumbs, Navigation]}
+                        modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper2"
                       >
                         <>
@@ -339,6 +353,8 @@ const ProductDetailPage = () => {
                         slidesPerView={3}
                         freeMode={true}
                         watchSlidesProgress={true}
+                        slideToClickedSlide={true}
+                        watchSlidesVisibility={true}
                         modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper"
                       >
@@ -588,6 +604,7 @@ const ProductDetailPage = () => {
                   Size:
                 </div>
                 <Radio.Group
+                  style={{ marginBottom: 8 }}
                   className="radioGroup"
                   optionType="button"
                   buttonStyle="solid"

@@ -6,14 +6,17 @@ import { NEWS_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 function* getNewsListSaga(action) {
   try {
     const { params } = action.payload;
-    const result = yield axios.get("http://localhost:4000/news", {
-      params: {
-        _sort: "id",
-        _order: "desc",
-        ...(params.page && { _page: params.page }),
-        ...(params.limit && { _limit: params.limit }),
-      },
-    });
+    const result = yield axios.get(
+      "https://sneaker-s-api-production.up.railway.app/news",
+      {
+        params: {
+          _sort: "id",
+          _order: "desc",
+          ...(params.page && { _page: params.page }),
+          ...(params.limit && { _limit: params.limit }),
+        },
+      }
+    );
     yield put({
       type: SUCCESS(NEWS_ACTION.GET_NEWS_LIST),
       payload: {
@@ -32,7 +35,9 @@ function* getNewsListSaga(action) {
 function* getNewsDetailSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/news/${id}`);
+    const result = yield axios.get(
+      `https://sneaker-s-api-production.up.railway.app/news/${id}`
+    );
     yield put({
       type: SUCCESS(NEWS_ACTION.GET_NEWS_DETAIL),
       payload: {
