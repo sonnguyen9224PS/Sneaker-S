@@ -96,11 +96,18 @@ function* getUserInfoSaga(action) {
 
 function* updatePasswordSaga(action) {
   try {
-    const { password, id, callBack } = action.payload;
+    const { email, oldPassword, newPassword, id, callBack } = action.payload;
+    const resultLogin = yield axios.post(
+      `https://sneaker-s-api-production.up.railway.app/login`,
+      {
+        email: email,
+        password: oldPassword,
+      }
+    );
     const result = yield axios.patch(
       `https://sneaker-s-api-production.up.railway.app/users/${id}`,
       {
-        password: password,
+        password: newPassword,
       }
     );
     yield put({
@@ -116,9 +123,9 @@ function* updatePasswordSaga(action) {
     yield callBack.gotoLogin();
   } catch (e) {
     yield put({
-      type: FAIL(USER_ACTION.UPDATE_PASSWORD),
+      type: FAIL(USER_ACTION.LOGIN),
       payload: {
-        error: e.response?.data,
+        error: "Password sai, vui lòng kiểm tra lại!",
       },
     });
   }

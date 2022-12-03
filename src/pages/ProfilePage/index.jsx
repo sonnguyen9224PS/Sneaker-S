@@ -25,7 +25,6 @@ import {
 } from "@ant-design/icons";
 
 import moment from "moment";
-import jwtDecode from "jwt-decode";
 
 import * as S from "./styles";
 import {
@@ -45,9 +44,11 @@ const ProfilePage = () => {
   const { orderList } = useSelector((state) => state.order);
   const { categoryList } = useSelector((state) => state.category);
   const { favoriteList } = useSelector((state) => state.favorite);
+  const { loginData } = useSelector((state) => state.user);
+
   const { state } = useLocation();
   const { confirm } = Modal;
-  const oldPassword = userInfo.data.password;
+  const [updatePwForm] = Form.useForm();
 
   useEffect(() => {
     if (userInfo.data.id) {
@@ -55,6 +56,17 @@ const ProfilePage = () => {
       dispatch(getFavoriteList({ id: userInfo.data.id }));
     }
   }, [userInfo.data]);
+
+  useEffect(() => {
+    if (loginData.error) {
+      updatePwForm.setFields([
+        {
+          name: "oldPassword",
+          errors: [loginData.error],
+        },
+      ]);
+    }
+  }, [loginData.error]);
 
   const showDeleteConfirm = (id) => {
     confirm({
@@ -243,7 +255,9 @@ const ProfilePage = () => {
     dispatch(
       updatePasswordAction({
         id: userInfo.data.id,
-        password: values.newPassword,
+        email: userInfo.data.email,
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
         callBack: {
           gotoLogin: () => {
             navigate(ROUTES.LOGIN);
@@ -435,7 +449,8 @@ const ProfilePage = () => {
               key="4"
             >
               <Form
-                name="changePWForm"
+                form={updatePwForm}
+                name="updatePwForm"
                 layout="vertical"
                 style={{
                   width: "50rem",
@@ -446,6 +461,22 @@ const ProfilePage = () => {
                 onFinish={(values) => handleUpdatePassword(values)}
               >
                 <h2>Thay đổi mật khẩu</h2>
+                <Form.Item
+                  name="oldPassword"
+                  label="Mật khẩu cũ"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập mật mới!",
+                    },
+                    {
+                      min: 5,
+                      message: "Mật khẩu phải có ít nhât 6 ký tự",
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
                 <Form.Item
                   name="newPassword"
                   label="Mật khẩu mới"
