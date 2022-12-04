@@ -78,6 +78,22 @@ const ProductDetailPage = () => {
       icon: (
         <i style={{ color: "#82CD47" }} class="fa-solid fa-circle-check"></i>
       ),
+      description: (
+        <button
+          style={{
+            cursor: "pointer",
+            background: "none",
+            border: "none",
+            outline: "none",
+            textDecoration: "underline",
+          }}
+          onClick={() => {
+            navigate(ROUTES.USER.CART);
+          }}
+        >
+          Xem giỏ hàng
+        </button>
+      ),
     });
   };
   const isLike = userInfo.data.id
