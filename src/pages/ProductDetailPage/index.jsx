@@ -586,7 +586,7 @@ const ProductDetailPage = () => {
                   Size:
                 </div>
                 <Radio.Group
-                  style={{ marginBottom: 8 }}
+                  style={{ marginBottom: 30 }}
                   className="radioGroup"
                   optionType="button"
                   buttonStyle="solid"
