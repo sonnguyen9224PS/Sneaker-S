@@ -305,7 +305,6 @@ function HomePage() {
       );
     });
   };
-  document.title = "Trang chủ";
   return (
     <>
       <BackTop style={{ right: 0 }} />
