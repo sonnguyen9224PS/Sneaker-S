@@ -13,13 +13,13 @@
     },
     {
       "email": "son1@gmail.com",
-      "password": "$2a$10$o6/1qMuiMQS3nUdglCwM3eRKCY6RKS.92n5555i6B46cIp0AhPb4C",
+      "password": "$2a$10$UiWxRoH30jvpNKN7/T8kkOD2eEQeF/5KPP0OBvoQ6I3s54LuoaZva",
       "fullName": "nguyen thai son",
       "role": "user",
       "phone": "0876347312",
       "avatar": "",
       "createdAt": 1669126720058,
-      "updatedAt": 1669126720059,
+      "updatedAt": 1674811469324,
       "id": 2
     },
     {
@@ -696,10 +696,10 @@
     },
     {
       "userId": 2,
-      "productId": 3,
-      "createdAt": 1669281168958,
-      "updatedAt": 1669281168958,
-      "id": 6
+      "productId": 7,
+      "createdAt": 1674811385146,
+      "updatedAt": 1674811385146,
+      "id": 7
     }
   ],
   "reviews": [

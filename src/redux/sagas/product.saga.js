@@ -5,41 +5,38 @@ import { REQUEST, SUCCESS, FAIL, PRODUCT_ACTION } from "../../redux/constants";
 function* getProductListSaga(action) {
   try {
     const { params, more } = action.payload;
-    const result = yield axios.get(
-      `https://sneaker-s-api-production.up.railway.app/products`,
-      {
-        params: {
-          _expand: "category",
-          _embed: "reviews",
-          _page: params.page,
-          _limit: params.limit,
-          ...(params.categoryId && { categoryId: params.categoryId }),
-          ...(params.keyword && { q: params.keyword }),
-          ...(params.new && { new: params.new }),
-          ...(params.sale && { sale: params.sale }),
-          ...(params.order === "priceUp" && {
-            _sort: "price",
-            _order: "asc",
-          }),
-          ...(params.order === "priceDown" && {
-            _sort: "price",
-            _order: "desc",
-          }),
-          ...(params.order === "nameProductUp" && {
-            _sort: "name",
-            _order: "asc",
-          }),
-          ...(params.order === "nameProductDown" && {
-            _sort: "name",
-            _order: "desc",
-          }),
-          ...(params.operator && {
-            price_gte: params.operator[0],
-            price_lte: params.operator[1],
-          }),
-        },
-      }
-    );
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _embed: "reviews",
+        _page: params.page,
+        _limit: params.limit,
+        ...(params.categoryId && { categoryId: params.categoryId }),
+        ...(params.keyword && { q: params.keyword }),
+        ...(params.new && { new: params.new }),
+        ...(params.sale && { sale: params.sale }),
+        ...(params.order === "priceUp" && {
+          _sort: "price",
+          _order: "asc",
+        }),
+        ...(params.order === "priceDown" && {
+          _sort: "price",
+          _order: "desc",
+        }),
+        ...(params.order === "nameProductUp" && {
+          _sort: "name",
+          _order: "asc",
+        }),
+        ...(params.order === "nameProductDown" && {
+          _sort: "name",
+          _order: "desc",
+        }),
+        ...(params.operator && {
+          price_gte: params.operator[0],
+          price_lte: params.operator[1],
+        }),
+      },
+    });
 
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_PRODUCT_LIST),
@@ -66,18 +63,15 @@ function* getProductListSaga(action) {
 function* getSaleListSaga(action) {
   try {
     const { params } = action.payload;
-    const result = yield axios.get(
-      `https://sneaker-s-api-production.up.railway.app/products`,
-      {
-        params: {
-          _expand: "category",
-          _embed: "reviews",
-          _page: params.page,
-          _limit: params.limit,
-          ...(params.sale && { sale_gte: 1 }),
-        },
-      }
-    );
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _embed: "reviews",
+        _page: params.page,
+        _limit: params.limit,
+        ...(params.sale && { sale_gte: 1 }),
+      },
+    });
 
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_SALE_LIST),
@@ -98,17 +92,14 @@ function* getSaleListSaga(action) {
 function* getNewListSaga(action) {
   try {
     const { params } = action.payload;
-    const result = yield axios.get(
-      `https://sneaker-s-api-production.up.railway.app/products`,
-      {
-        params: {
-          _expand: "category",
-          _page: params.page,
-          _limit: params.limit,
-          ...(params.new && { new: true }),
-        },
-      }
-    );
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _page: params.page,
+        _limit: params.limit,
+        ...(params.new && { new: true }),
+      },
+    });
 
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_NEW_LIST),
@@ -129,18 +120,15 @@ function* getNewListSaga(action) {
 function* getBestSellListSaga(action) {
   try {
     const { params } = action.payload;
-    const result = yield axios.get(
-      `https://sneaker-s-api-production.up.railway.app/products`,
-      {
-        params: {
-          _expand: "category",
-          _page: params.page,
-          _limit: params.limit,
-          _sort: "sold",
-          _order: "desc",
-        },
-      }
-    );
+    const result = yield axios.get(`http://localhost:4000/products`, {
+      params: {
+        _expand: "category",
+        _page: params.page,
+        _limit: params.limit,
+        _sort: "sold",
+        _order: "desc",
+      },
+    });
 
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_BEST_SELL_LIST),
@@ -162,15 +150,12 @@ function* getBestSellListSaga(action) {
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(
-      `https://sneaker-s-api-production.up.railway.app/products/${id}`,
-      {
-        params: {
-          _expand: "category",
-          _embed: ["favorites", "reviews"],
-        },
-      }
-    );
+    const result = yield axios.get(`http://localhost:4000/products/${id}`, {
+      params: {
+        _expand: "category",
+        _embed: ["favorites", "reviews"],
+      },
+    });
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
       payload: {
