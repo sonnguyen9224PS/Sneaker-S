@@ -6,7 +6,10 @@ import { USER_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 function* loginSaga(action) {
   try {
     const { data, callback } = action.payload;
-    const result = yield axios.post(`http://localhost:4000/login`, data);
+    const result = yield axios.post(
+      `https://good-jade-drill-slip.cyclic.app/login`,
+      data
+    );
     yield localStorage.setItem("accessToken", result.data.accessToken);
     yield put({
       type: SUCCESS(USER_ACTION.LOGIN),
@@ -38,7 +41,10 @@ function* loginSaga(action) {
 function* registerSaga(action, callback) {
   try {
     const { data, callback } = action.payload;
-    const result = yield axios.post(`http://localhost:4000/register`, data);
+    const result = yield axios.post(
+      `https://good-jade-drill-slip.cyclic.app/register`,
+      data
+    );
     yield put({
       type: SUCCESS(USER_ACTION.REGISTER),
       payload: {
@@ -69,7 +75,9 @@ function* registerSaga(action, callback) {
 function* getUserInfoSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/users/${id}`);
+    const result = yield axios.get(
+      `https://good-jade-drill-slip.cyclic.app/users/${id}`
+    );
     yield put({
       type: SUCCESS(USER_ACTION.GET_USER_INFO),
       payload: {
@@ -89,13 +97,19 @@ function* getUserInfoSaga(action) {
 function* updatePasswordSaga(action) {
   try {
     const { email, oldPassword, newPassword, id, callBack } = action.payload;
-    const resultLogin = yield axios.post(`http://localhost:4000/login`, {
-      email: email,
-      password: oldPassword,
-    });
-    const result = yield axios.patch(`http://localhost:4000/users/${id}`, {
-      password: newPassword,
-    });
+    const resultLogin = yield axios.post(
+      `https://good-jade-drill-slip.cyclic.app/login`,
+      {
+        email: email,
+        password: oldPassword,
+      }
+    );
+    const result = yield axios.patch(
+      `https://good-jade-drill-slip.cyclic.app/users/${id}`,
+      {
+        password: newPassword,
+      }
+    );
     yield put({
       type: SUCCESS(USER_ACTION.UPDATE_PASSWORD),
       payload: {

@@ -6,12 +6,18 @@ import { ORDER_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 function* orderProductSaga(action) {
   try {
     const { products, ...orderData } = action.payload;
-    const result = yield axios.post("http://localhost:4000/orders", orderData);
+    const result = yield axios.post(
+      "https://good-jade-drill-slip.cyclic.app/orders",
+      orderData
+    );
     for (let i = 0; i < products.length; i++) {
-      yield axios.post("http://localhost:4000/orderProducts", {
-        orderId: result.data.id,
-        ...products[i],
-      });
+      yield axios.post(
+        "https://good-jade-drill-slip.cyclic.app/orderProducts",
+        {
+          orderId: result.data.id,
+          ...products[i],
+        }
+      );
     }
     yield put({
       type: SUCCESS(ORDER_ACTION.ORDER_PRODUCT),
@@ -32,12 +38,15 @@ function* orderProductSaga(action) {
 function* getOrderListSaga(action) {
   try {
     const { userId } = action.payload;
-    const result = yield axios.get("http://localhost:4000/orders", {
-      params: {
-        userId: userId,
-        _embed: "orderProducts",
-      },
-    });
+    const result = yield axios.get(
+      "https://good-jade-drill-slip.cyclic.app/orders",
+      {
+        params: {
+          userId: userId,
+          _embed: "orderProducts",
+        },
+      }
+    );
     yield put({
       type: SUCCESS(ORDER_ACTION.GET_ORDER_LIST),
       payload: {

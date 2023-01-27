@@ -6,14 +6,17 @@ import { REVIEW_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 function* getReviewListSaga(action) {
   try {
     const { productId } = action.payload;
-    const result = yield axios.get("http://localhost:4000/reviews", {
-      params: {
-        productId: productId,
-        _expand: "user",
-        _sort: "id",
-        _order: "desc",
-      },
-    });
+    const result = yield axios.get(
+      "https://good-jade-drill-slip.cyclic.app/reviews",
+      {
+        params: {
+          productId: productId,
+          _expand: "user",
+          _sort: "id",
+          _order: "desc",
+        },
+      }
+    );
     yield put({
       type: SUCCESS(REVIEW_ACTION.GET_REVIEW_LIST),
       payload: {
@@ -34,7 +37,7 @@ function* postReviewSaga(action) {
   try {
     const { productId } = action.payload;
     const result = yield axios.post(
-      "http://localhost:4000/reviews",
+      "https://good-jade-drill-slip.cyclic.app/reviews",
       action.payload
     );
     yield put({
